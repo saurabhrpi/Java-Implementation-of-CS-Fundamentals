@@ -1,6 +1,6 @@
 public class MyClass {
     public static void main(String args[]) {
-        String s = "saccbe";
+        String s = "acigf";
         String res = findUniqueCharacters(s);
         if(res == null){
             System.out.println("Null or empty string found");
@@ -15,7 +15,7 @@ public class MyClass {
             return null;
         }
         String ss = mergeSort(s);
-        System.out.println(ss);
+        //System.out.println(ss);
         if(ss == "-1"){
             return "-1";
         }
@@ -44,35 +44,25 @@ public class MyClass {
         {
             return "-1";
         }
-        
-        int min = 0;
-        String big = null;
-        if(res1.length() <= res2.length())
-        {
-            min = res1.length();
-            big = res2;
-        }
-        else
-        {
-            min = res2.length();
-            big = res1;
-        }
-        
+    
         int j = 0;
         int i;
+        String finalString = "";
         for (i = 0;i < res2.length(); i++)
         {
-            if(j < res1.length()-1)
+            if(j < res1.length())
             {
-             if(res2.charAt(j) < res1.charAt(i))
+             if(res2.charAt(i) < res1.charAt(j))
              {
-               res1 = res1.substring(0,j) + res2.charAt(i) + res1.substring(j);   
-               j++;
+               //res1 = res1.substring(0,j) + res2.charAt(i) + res1.substring(j);   
+               finalString = finalString + res2.charAt(i) ;
              }
-             else if(res2.charAt(i) > res1.charAt(i))
+             else if(res2.charAt(i) > res1.charAt(j))
              {
-               res1 = res1.substring(0,j+1) + res2.charAt(i) + res1.substring(j+1);   
-               j=j+2;
+               //res1 = res1.substring(0,j+1) + res2.charAt(i) + res1.substring(j+1);   
+               finalString = finalString + res1.charAt(j) ;
+               i--;
+               j++;
              }
              else
              {
@@ -84,13 +74,16 @@ public class MyClass {
                 break;
             }
         }
-        //System.out.println(finString);
-        if(res1.charAt(j-1) > res2.charAt(i-1))
+        //res1 = res1.substring(0,j-1) + res2.charAt(i) + res1.charAt(j-1);
+        if(j < res1.length() && i == res2.length())
         {
-            res1 = res1.substring(0,j-1) + res2.charAt(i) + res1.charAt(j-1);
+            finalString = finalString + res1.substring(j);
         }
-        res1 = res1 + res2.substring(i);
-        return res1;
+        else if( i < res2.length() && j == res1.length())
+        {
+            finalString = finalString + res2.substring(i);
+        }
+        System.out.println(finalString);
+        return finalString;
     }
 }
-
