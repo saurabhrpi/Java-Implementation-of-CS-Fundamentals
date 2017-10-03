@@ -1,17 +1,7 @@
-public class MyClass {
-    public static void main(String args[]) {
-        int arr[] = {13,9,10,1,19};
-        HeapSort s = new HeapSort();
-        s.sort(arr);
-        for(int i=0; i < arr.length; i++)
-        {
-            System.out.println(arr[i]);
-        }
-    }
-}
+package CTCI;
 
-   //HeapSort starts with the assumption that heap is a max heap.
-class HeapSort{
+//HeapSort starts with the assumption that heap is a max heap.
+public class HeapSort{
     public void sort(int arr[]){
         int n = arr.length;
         // first make sure array is in the form of max heap
@@ -59,6 +49,16 @@ class HeapSort{
             
             //make sure everytime the root is swapped the sub tree under swapped child is a max heap too
             heapify(arr,n,largest);
+        }
+    }
+
+    public static void main(String args[]) {
+        int arr[] = {13,9,10,1,19};
+        HeapSort s = new HeapSort();
+        s.sort(arr);
+        for(int i=0; i < arr.length; i++)
+        {
+            System.out.println(arr[i]);
         }
     }
 }
