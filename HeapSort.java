@@ -7,8 +7,8 @@ public class HeapSort{
         // first make sure array is in the form of max heap
         for(int i = n/2 - 1; i >= 0; i--) 
         {
-            // n/2 will always be = index of last level since 
-            // there are exactly 2 trees at each level
+            // n/2 will always be = total number of subtrees 
+            // to be processed
             heapify(arr,n,i);
         }
         
