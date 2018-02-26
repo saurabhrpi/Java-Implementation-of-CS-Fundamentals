@@ -48,6 +48,7 @@ public class HeapSort{
             arr[i] = swap;
             
             //make sure everytime the root is swapped the sub tree under swapped child is a max heap too
+            // as the new swapped father will have to be compared to its new children
             heapify(arr,n,largest);
         }
     }
