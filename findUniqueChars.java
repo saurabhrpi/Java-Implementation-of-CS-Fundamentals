@@ -21,7 +21,7 @@ class findUniqueChars{
         boolean[] char_set = new boolean[128];
         for(int i = 0; i < s.length(); i++)
         {
-            int val = s.charAt(i); //implicit conversion
+            int val = s.charAt(i); //implicit conversion; could have directly used char as index
             System.out.println(val);
             if(char_set[val]){
                 return false;
