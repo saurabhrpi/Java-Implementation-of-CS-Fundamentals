@@ -1,3 +1,5 @@
+// Char array with sufficient space along with the true length of the string is already provided
+
 public class URLify {
     public static void main(String args[]) {
         char [] ch = {'M','r',' ','J','o','h','n',' ','S','m','i','t','h',' ',' ',' ',' ',' ',' ',' '};
