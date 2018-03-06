@@ -1,3 +1,21 @@
+public class PermutationChecker {
+    public boolean check(string s1, string s2)
+    {
+        if(s1.length() != s2.length())
+        {
+            System.out.println("The strings dont match in length.");
+            return false;
+        }
+        //call heapsort
+    }
+    public static void main(String args[]) 
+    {
+        
+    }
+}
+
+
+/*
 public class Permutation{
     public boolean isAperm(String s1, String s2){
         if(s1.length() != s2.length()){
@@ -58,5 +76,5 @@ public class Permutation{
 
 }
 
-
+*/
   
