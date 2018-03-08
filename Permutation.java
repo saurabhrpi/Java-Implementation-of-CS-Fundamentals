@@ -6,7 +6,9 @@ public class PermutationChecker {
             System.out.println("The strings dont match in length.");
             return false;
         }
-        //call heapsort
+        
+	 //call heapsort
+	    
     }
     public static void main(String args[]) 
     {
@@ -14,6 +16,12 @@ public class PermutationChecker {
     }
 }
 
+class HeapSort{
+    public char[] sort(char[] str1, char[] str2)
+    {
+        
+    }
+}
 
 /*
 public class Permutation{
