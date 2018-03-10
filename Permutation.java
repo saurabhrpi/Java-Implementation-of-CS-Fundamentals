@@ -10,14 +10,14 @@ public class PermutationChecker {
 	 //call heapsort
 	    
     }
-    public static void main(String args[]) 
+    public static void main(string args[]) 
     {
         
     }
 }
 
 class HeapSort{
-    public char[] sort(char[] str1, char[] str2)
+    public string sort(string str)
     {
         
     }
