@@ -19,7 +19,10 @@ public class PermutationChecker {
 class HeapSort{
     public string sort(string str)
     {
-        
+     	if(str == null or str.length() == 0)
+        {
+            return "Invalid String";
+        }           
     }
 }
 
