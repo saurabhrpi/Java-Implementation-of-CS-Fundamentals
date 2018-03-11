@@ -17,12 +17,18 @@ public class PermutationChecker {
 }
 
 class HeapSort{
-    public string sort(string str)
+public string sort(string str)
     {
-     	if(str == null or str.length() == 0)
+        if(str == null or str.length() == 0)
         {
             return "Invalid String";
-        }           
+        }
+        char[] ch = str.toCharArray();
+        for(int i = 0; i < ch.length; i++)
+        {
+            heapify(ch, ch[i]);    
+        }
+        
     }
 }
 
