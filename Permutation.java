@@ -24,7 +24,7 @@ public string sort(string str)
             return "Invalid String";
         }
         char[] ch = str.toCharArray();
-        for(int i = 0; i < ch.length; i++)
+        for(int i = n/2 - 1; i >= 0; i--)
         {
             heapify(ch, ch[i]);    
         }
