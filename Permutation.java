@@ -17,19 +17,42 @@ public class PermutationChecker {
 }
 
 class HeapSort{
-public string sort(string str)
+ public string sort(string str)
     {
         if(str == null or str.length() == 0)
         {
             return "Invalid String";
         }
-        char[] ch = str.toCharArray();
+        char[] ch = str.toCharArray();	
         for(int i = n/2 - 1; i >= 0; i--)
         {
-            heapify(ch, ch[i]);    
+            heapify(ch, i);    
         }
         
     }
+ public void heapify(char[] ch, int i) 	
+    {
+	int largest = i;
+	int left = 2*i + 1;
+	int right = 2*i + 2;
+	if(i < ch.length && ch[i] < ch[left])
+	{
+		largest = left;
+	}
+	 
+	if(i < ch.length && ch[largest] < ch[right])
+	{
+		largest = right;
+	}
+	 
+	if(largest != i)
+	{
+		int swap = ch[largest];
+		ch[largest] = ch[i];
+		ch[i] = swap;
+		heapify(ch, largest);
+	}
+    }	
 }
 
 /*
