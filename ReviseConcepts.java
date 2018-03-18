@@ -46,16 +46,30 @@ class HeapSort{
         {
             return "Invalid String";
         }
+        
         char[] ch = str.toCharArray();	
         int n = ch.length;
+        
         for(int i = n/2 - 1; i >= 0; i--)
         {
-            heapify(ch, i);    
+            heapify(ch, n, i);     // first round to get the nth element in the right place
         }
+        
+        // rest of the rounds simply exclude and call heapify again
+        
+        for(int i = n - 1; i >= 0; i--)
+        {
+            int swap = ch[0];
+            ch[0] = ch[i];
+            ch[i] = swap;
+            
+            heapify(ch, i, 0);     // n is used to exclude the last node
+        }
+        
         String ret = new String(ch);
         return ret;
     }
- public void heapify(char[] ch, int i) 	
+ public void heapify(char[] ch, int n, int i) 	
     {
     	int largest = i;
     	int left = 2*i + 1;
@@ -72,10 +86,10 @@ class HeapSort{
     	 
     	if(largest != i)
     	{
-    		char swap = ch[largest];
+    		int swap = ch[largest]; // int ensures to process to both chars and int
     		ch[largest] = ch[i];
     		ch[i] = swap;
-    		heapify(ch, largest);
+    		heapify(ch, n, largest);
     	}
     }	
 }
