@@ -8,7 +8,17 @@ public class PermutationChecker {
         }
         
     	 HeapSort hs = new HeapSort();
-    	 s1 = hs.sort(s1);
+    	 char[] ch = s1.toCharArray();
+    	 
+    	 int[] out = hs.sort();
+    	 ch = new char[out.length];
+    	 for(i=0; i<out.length; i++)
+    	 {
+    	     ch[i] = (char)out[i];
+    	 }
+    	 
+    	 System.out.println("s1 :" + s1);
+    	 /*
     	 s2 = hs.sort(s2);  
     	 
     	 System.out.println("s1 :" + s1);
@@ -21,6 +31,7 @@ public class PermutationChecker {
     	        return false;
     	    }
     	}
+    	*/
     	return true;
     }
     public static void main(String args[]) 
@@ -40,56 +51,55 @@ public class PermutationChecker {
 }
 
 class HeapSort{
- public String sort(String str)
+ public int[] sort(int[] input)
     {
-        if(str == null || str.length() == 0)
+        if(input == null || input.length == 0)
         {
-            return "Invalid String";
+            return "Invalid input";
         }
         
-        char[] ch = str.toCharArray();	
-        int n = ch.length;
+        int n = input.length;
         
         for(int i = n/2 - 1; i >= 0; i--)
         {
-            heapify(ch, n, i);     // first round to get the nth element in the right place
+            heapify(input, n, i);     // first round to get the nth element in the right place
         }
         
         // rest of the rounds simply exclude and call heapify again
         
         for(int i = n - 1; i >= 0; i--)
         {
-            int swap = ch[0];
-            ch[0] = ch[i];
-            ch[i] = swap;
+            int swap = input[0];
+            input[0] = input[i];
+            input[i] = swap;
             
-            heapify(ch, i, 0);     // n is used to exclude the last node
+            heapify(input, i, 0);     // n is used to exclude the last node
         }
         
-        String ret = new String(ch);
-        return ret;
+        //String ret = new String(input);
+        return input;
     }
- public void heapify(char[] ch, int n, int i) 	
+ public void heapify(int[] input, int n, int i) 	
     {
     	int largest = i;
     	int left = 2*i + 1;
     	int right = 2*i + 2;
-    	if(left < ch.length && ch[i] < ch[left])
+    	if(left < input.length && input[i] < input[left])
     	{
     		largest = left;
     	}
     	 
-    	if(right < ch.length && ch[largest] < ch[right])
+    	if(right < input.length && input[largest] < input[right])
     	{
     		largest = right;
     	}
     	 
     	if(largest != i)
     	{
-    		int swap = ch[largest]; // int ensures to process to both chars and int
-    		ch[largest] = ch[i];
-    		ch[i] = swap;
-    		heapify(ch, n, largest);
+    		int swap = input[largest]; // int ensures to process to both chars and int
+    		input[largest] = input[i];
+    		input[i] = swap;
+    		heapify(input, n, largest);
     	}
     }	
 }
