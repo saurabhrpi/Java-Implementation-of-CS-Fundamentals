@@ -10,6 +10,7 @@ public class PermutationChecker {
     	 HeapSort hs = new HeapSort();
     	 char[] ch = s1.toCharArray();
     	 
+        
     	 int[] out = hs.sort();
     	 ch = new char[out.length];
     	 for(i=0; i<out.length; i++)
