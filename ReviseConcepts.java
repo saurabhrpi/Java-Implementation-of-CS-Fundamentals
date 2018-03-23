@@ -62,6 +62,11 @@ public class EditDiffChecker{
     
     public boolean diffChecker(String str1, String str2)
     {
+        if(Math.abs(str1.length() - str2.length()) > 1)
+        {
+            return false;
+        }
+        
         int[] ch = new int[128];
     
         for(int i=0; i < str1.length(); i++)
