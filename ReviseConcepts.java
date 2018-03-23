@@ -1,46 +1,59 @@
 import  java.util.Arrays;
 
-public class PermutationChecker {
-    public boolean check(String s1, String s2)
+public class PalindromeChecker{
+    
+    public boolean isPalindrome(String str)
     {
-        if(s1.length() != s2.length())
+        int[] ch = new int[128]; 
+        str = str.toLowerCase();
+        int n = str.length();
+        for(int i=0; i < n/2; i++)
         {
-            System.out.println("The strings dont match in length.");
-            return false;
+            if(str.charAt(i) != ' ')
+            {
+                ch[str.charAt(i)]++;  
+                System.out.println(str.charAt(i));
+                System.out.println(ch[str.charAt(i)]);
+            }
         }
-         
-         char [] ch = s1.toCharArray();
-    	 Arrays.sort(ch);
-    	 s1 = new String(ch);
-    	 System.out.println("s1 :" + s1);
-    	 
-    	 ch = s2.toCharArray();
-    	 Arrays.sort(ch);
-    	 s2 = new String(ch);
-    	 System.out.println("s2 :" + s2);
-    	 
-    	for(int i=0; i < s1.length(); i++)
-    	{
-    	    if(s1.charAt(i) != s2.charAt(i))
-    	    {
-    	        return false;
-    	    }
-    	}
-    	
-    	return true;
-    }
-    public static void main(String args[]) 
-    {
-        String s1 = "abrakadabrc";
-        String s2 = "dabrakaabra";
-        PermutationChecker pc = new PermutationChecker();
-        if(!pc.check(s1,s2))
+        
+        boolean isMiddle = false;
+        
+        for(int i = n/2; i < n ; i++)
         {
-            System.out.println("The strings are not a permutation of each other.");
+            if(str.charAt(i) != ' ')
+            {
+                ch[str.charAt(i)]--;   
+                System.out.println(str.charAt(i));
+                System.out.println(ch[str.charAt(i)]);
+                if(ch[str.charAt(i)] < 0)
+                {
+                    if(!isMiddle)
+                    {
+                        isMiddle = true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;   
+    }
+    
+    public static void main(String[] args)
+    {
+        String input = "cocoa";
+        PalindromeChecker pc = new PalindromeChecker();
+        if(pc.isPalindrome(input))
+        {
+            System.out.println("It's indeed a palindrome");
         }
         else
         {
-            System.out.println("The strings are indeed a permutation of each other.");
+            System.out.println("It's not at all a palindrome");
         }
     }
+        
 }
