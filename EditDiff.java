@@ -32,7 +32,7 @@ public class EditDiffChecker{
             {
                 System.out.println((char)i);
                 System.out.println(ch[i]);
-                if(missingChars > 2)
+                if(missingChars > 1)
                 {
                     return false;
                 }
