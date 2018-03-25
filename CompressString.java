@@ -1,47 +1,58 @@
-public class CompressString {
-    public void compressIt(StringBuilder sb){
-	    int[] ind = new int[sb.length()];
-	    int j = 0;
-	    ind[j] = 1;
-	    char[] ch = new char[sb.length()];
-	    ch[j] = sb.charAt(j);
-	    for(int i=0; i < sb.length() - 1; i++){
-	        if(sb.charAt(i) == sb.charAt(i+1)){
-	            ind[j]++;        
-	        }
-	        else{
-	            j++;
-	            ind[j] = 1;
-	            ch[j] = sb.charAt(i+1);
-	        }
-	    }
-	    
-	    // Reusing the stringbuilder since recreating it would be even slower.
-	    // https://codereview.stackexchange.com/a/7637
-	    
-	    sb = sb.delete(0,sb.length()); 
-	    
-	    for(int i=0; i < ind.length; i++){
-	        if(ch[i] != '\u0000' && ind[i] > 0){
-	            sb.append(ch[i]);
-	            sb.append(ind[i]);
-	        }
-	    }
-    }    
+public class CompressString{
+    public String compress(String str)
+    {
+        int[] ch = new int[128]; //assuming a sorted string
+        char prev = str.charAt(0);
+        int len = 0;
+        int i;
+        for(i=0; i<str.length(); i++)
+        {
+            ch[str.charAt(i)]++;
+            if(str.charAt(i) != prev)
+            {
+                len = len + Integer.toString(ch[str.charAt(i)]).length() + 1;
+                //System.out.println(len);
+                prev = str.charAt(i);
+            }
+        }
+        
+        len = len + Integer.toString(ch[str.charAt(i-1)]).length() + 1;
+        
+        //System.out.println(len);
+        
+        if(len >= str.length())
+        {
+            return "none";
+        }
+        
+        char[] c = new char[len];
+        int j = 0;
+        for(int k=0; k < ch.length; k++)
+        {
+            if(ch[k] > 0)
+            {
+                c[j] = (char)k;
+                c[j+1] = (char)(ch[k] + '0');
+                //System.out.println(ch[k]);
+                j = j + 2;
+            }
+        }
+        
+        return new String(c);   
+    }
     
-    public static void main(String args[]) {
-        String inp = "aaabbccccaae";
-        StringBuilder sb = new StringBuilder(inp);
-        CompressString c = new CompressString();
-        c.compressIt(sb);
-    	if(sb.length() >= inp.length()){
-    	    System.out.println("Compression was not effective. Here is the original string " + inp);
-    	}
-    	else{
-    	    System.out.println("Compression successful. Here is the new string " + sb);
-    	}
+    public static void main(String[] args)
+    {
+        String input = "aaaabcccddd";
+        CompressString cs = new CompressString();
+        
+        if(cs.compress(input) == "none")
+        {
+            System.out.println("Compressed string is not shorter than the input");
+        }
+        else
+        {
+            System.out.println(cs.compress(input));
+        }
     }
 }
-
- 
- 
