@@ -58,64 +58,61 @@ public class PalindromeChecker{
         
 }
 
-public class EditDiffChecker{
-    
-    public boolean diffChecker(String str1, String str2)
+public class CompressString{
+    public String compress(String str)
     {
-        if(Math.abs(str1.length() - str2.length()) > 1)
+        int[] ch = new int[128]; //assuming a sorted string
+        char prev = str.charAt(0);
+        int len = 0;
+        int i;
+        for(i=0; i<str.length(); i++)
         {
-            return false;
-        }
-        
-        int[] ch = new int[128];
-    
-        for(int i=0; i < str1.length(); i++)
-        {
-            ch[str1.charAt(i)]++;
-            System.out.println(str1.charAt(i));
-            System.out.println(ch[str1.charAt(i)]);
-        }
-        
-        for(int i=0; i < str2.length(); i++)
-        {
-            ch[str2.charAt(i)]--;
-            System.out.println(str2.charAt(i));
-            System.out.println(ch[str2.charAt(i)]);
-        }
-        
-        System.out.println("Checking count diff");
-        
-        int missingChars = 0;
-        for(int i=0; i < ch.length ; i++)
-        {
-            if(ch[i] != 0)
+            ch[str.charAt(i)]++;
+            if(str.charAt(i) != prev)
             {
-                System.out.println((char)i);
-                System.out.println(ch[i]);
-                if(missingChars > 2)
-                {
-                    return false;
-                }
-                missingChars++;   
+                len = len + Integer.toString(ch[str.charAt(i)]).length() + 1;
+                //System.out.println(len);
+                prev = str.charAt(i);
             }
         }
         
-        return true;   
+        len = len + Integer.toString(ch[str.charAt(i-1)]).length() + 1;
+        
+        //System.out.println(len);
+        
+        if(len >= str.length())
+        {
+            return "none";
+        }
+        
+        char[] c = new char[len];
+        int j = 0;
+        for(int k=0; k < ch.length; k++)
+        {
+            if(ch[k] > 0)
+            {
+                c[j] = (char)k;
+                c[j+1] = (char)(ch[k] + '0');
+                //System.out.println(ch[k]);
+                j = j + 2;
+            }
+        }
+        
+        return new String(c);   
     }
     
     public static void main(String[] args)
     {
-        String input1 = "pale";
-        String input2 = "bae";
-        EditDiffChecker e = new EditDiffChecker();
+        String input = "aaaabcccddd";
+        CompressString cs = new CompressString();
         
-        if(e.diffChecker(input1,input2))
+        if(cs.compress(input) == "none")
         {
-            System.out.println("The strings differ by exactly one edit");
+            System.out.println("Compressed string is not shorter than the input");
         }
         else
         {
-            System.out.println("The strings do NOT differ by exactly one edit");
+            System.out.println(cs.compress(input));
         }
     }
 }
