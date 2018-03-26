@@ -1,0 +1,40 @@
+public class ZeroMatrix {
+    public boolean setMatrix(int[][] matrix)
+    {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        boolean[] nullableRow = new boolean[m];
+        boolean[] nullableCol = new boolean[n];
+        for(int i = 0; i < m; i++)
+        {
+            for(int j = 0; j < n; i++)
+            {
+                if(matrix[i][j] == 0)
+                {
+                    nullableRow[i] = true;   
+                    nullableCol[j] = true;   
+                }
+            }
+        }
+        for(i=0 ; i < m ; i++)
+        {
+            if(nullableRow[i])
+            {
+                for(j=0 ; j < n ; j++)
+                {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+        for(j=0 ; j < n ; j++)
+        {
+            if(nullableRow[j])
+            {
+                for(i=0 ; i < m ; i++)
+                {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+    }
+}
