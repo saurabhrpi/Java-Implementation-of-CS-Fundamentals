@@ -31,6 +31,7 @@ public class Node {
         n.appendToTail(18);
         
         n.removeDupes();
+        //n.removeDupesWithoutBuffer();
         
         while(n.next != null)
         {
@@ -64,3 +65,28 @@ public class Node {
 }
 
 // In place Implementation
+
+  public void removeDupesWithoutBuffer()
+    {
+        Node prev = this;
+        Node n = prev.next;
+        Node temp = prev;
+        while(prev.next != null)
+        {
+            while(n != null)
+            {
+                if(prev.data == n.data)
+                {
+                    temp.next = n.next;
+                }
+                else
+                {
+                    temp = n;
+                }
+                n = n.next;
+            }
+            prev = prev.next;
+            n = prev.next;
+            temp = prev;
+        }
+    }
