@@ -1,4 +1,4 @@
-# Implement an algorithm to find the kth to last element of a singly linked list
+// Implement an algorithm to find the kth to last element of a singly linked list
 
 class Node {
     Node next = null;
@@ -22,9 +22,32 @@ class Node {
 }
 
 public class ReturnKthToLast{
-  public Node returnElement(int k)
+  public Node returnElement(int k, Node head)
   {
-  
+      
+    //Node beh = head;
+    Node frnt = head;
+    Node nullN = null;
+    
+    for(int i=0; i < k-1 ; i++)
+    {
+        if(frnt.next != null)
+        {
+            frnt = frnt.next;   
+        }
+        else
+        {
+            return nullN;
+        }
+    }
+    
+    while(frnt.next != null)
+    {
+        head = head.next;
+        frnt = frnt.next;
+    }
+    
+    return head;
   }
   
   public static void main(String[] args)
@@ -35,7 +58,11 @@ public class ReturnKthToLast{
         n.appendToTail(9);
         n.appendToTail(12);
         n.appendToTail(10);
-        n.appendToTail(18);       
+        n.appendToTail(18);  
+        
+        ReturnKthToLast r = new ReturnKthToLast();
+        Node x = r.returnElement(2,n);
+        System.out.println(x.data);
                
     }
 }
