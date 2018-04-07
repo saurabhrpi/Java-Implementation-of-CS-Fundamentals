@@ -50,7 +50,7 @@ public class ReturnKthToLast{
     return head;
   }
   
-  public int returnIndex(int k, Node head)
+  public int printKthIndex(int k, Node head)
   {
       //Using Recursion
       
@@ -59,14 +59,14 @@ public class ReturnKthToLast{
           return 0;
       }
       
-      int indexToLast = returnIndex(k,head.next) + 1;
+      int index = printKthIndex(k,head.next) + 1;
       
-      if(k == indexToLast)
+      if(k == index)
       {
           System.out.println(head.data);
       }
       
-      return indexToLast;
+      return index;
   }
     
   
@@ -84,6 +84,6 @@ public class ReturnKthToLast{
         Node x = r.returnElement(2,n);
         System.out.println(x.data);
         
-        System.out.println(r.returnIndex(2,n));
+        System.out.println(r.printKthIndex(2,n));
     }
 }
