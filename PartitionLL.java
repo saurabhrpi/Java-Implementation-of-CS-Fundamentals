@@ -31,6 +31,7 @@ public class PartitionLL{
         Node small = new Node();
         Node big = new Node();
         Node tail = new Node();
+        //Node h ;
         
         while(head != null)
         {
@@ -44,9 +45,10 @@ public class PartitionLL{
                 else
                 {
                     small.data = head.data;
-                    tail = small;   
+                    tail = small; 
+                    //h = small;
                 }
-                System.out.println("tail " + tail.data);
+               // System.out.println("tail " + tail.data);
             }
             else
             {
@@ -58,7 +60,7 @@ public class PartitionLL{
                 {
                     big.data = head.data;
                 }
-                System.out.println("big "+ big.data);
+                //System.out.println("big "+ big.data);
             }
             
             head = head.next;
@@ -78,13 +80,14 @@ public class PartitionLL{
         n.appendToTail(12);
         n.appendToTail(10);
         n.appendToTail(18);  
+        n.appendToTail(1);  
         
         PartitionLL p = new PartitionLL();
         Node x = p.partition(n, 10);
         
         while(x != null)
         {
-            //System.out.println(x.data);
+            System.out.println(x.data);
             x = x.next;
         }
     }
