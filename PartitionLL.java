@@ -87,7 +87,7 @@ public class PartitionLL{
         
         while(x != null)
         {
-            System.out.println(x.data);
+            System.out.println(x.data); // Print the data to debug  
             x = x.next;
         }
     }
