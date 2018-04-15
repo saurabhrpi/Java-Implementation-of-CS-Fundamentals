@@ -28,9 +28,9 @@ public class PartitionLL{
     
     public Node partition(Node head, int val)
     {
-        Node small = new Node();
-        Node big = new Node();
-        Node tail = new Node();
+        Node small ;
+        Node big ;
+        Node tail ;
         //Node h ;
         
         while(head != null)
