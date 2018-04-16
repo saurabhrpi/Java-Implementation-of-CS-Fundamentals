@@ -28,9 +28,9 @@ public class PartitionLL{
     
     public Node partition(Node head, int val)
     {
-        Node small ;
-        Node big ;
-        Node tail ;
+        Node small = new Node();
+        Node big  = new Node();
+        Node tail  = small;
         //Node h ;
         
         while(head != null)
@@ -68,7 +68,16 @@ public class PartitionLL{
         
         tail.next = big;
         
-        return small;
+        while (head != null)
+        {
+            if(small != null)
+            {
+                head.data = small.data;
+                small = small.next;
+                head = head.next;
+            }
+        }
+        return head;
     }
     
     public static void main(String[] args)
