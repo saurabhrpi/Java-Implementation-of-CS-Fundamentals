@@ -5,7 +5,7 @@ class Node {
     public Node()
     {
         
-    }
+    } 
     
     public Node(int d)
     {
@@ -96,7 +96,7 @@ public class PartitionLL{
         
         while(x != null)
         {
-            System.out.println(x.data); // Print the data to debug  
+            System.out.println(x.data); // Print the data to debug the issue  
             x = x.next;
         }
     }
