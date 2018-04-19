@@ -35,7 +35,7 @@ public class PartitionLL{
         
         while(head != null)
         {
-            if(head.data < val)
+            if(head.data < val) 
             {
                 if(small.next != null)
                 {
