@@ -31,7 +31,7 @@ public class PartitionLL{
         Node small = new Node();
         Node big  = new Node();
         Node tail  = small;
-        //Node h ;
+        
         
         while(head != null)
         {
