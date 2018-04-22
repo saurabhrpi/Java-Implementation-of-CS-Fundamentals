@@ -46,7 +46,7 @@ public class PartitionLL{
                 {
                     small.data = head.data;
                     tail = small; 
-                    //h = small;
+                    
                 }
                // System.out.println("tail " + tail.data);
             }
