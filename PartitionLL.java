@@ -48,7 +48,7 @@ public class PartitionLL{
                     tail = small; 
                     
                 }
-               // System.out.println("tail " + tail.data);
+               
             }
             else
             {
