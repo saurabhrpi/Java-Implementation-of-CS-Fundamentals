@@ -60,7 +60,7 @@ public class PartitionLL{
                 {
                     big.data = head.data;
                 }
-                //System.out.println("big "+ big.data);
+
             }
             
             head = head.next;
