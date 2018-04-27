@@ -96,7 +96,7 @@ public class PartitionLL{
         
         while(x != null)
         {
-            System.out.println(x.data); // Print the data to debug the issue  
+            System.out.println(x.data);  // Print the data to debug the issue  
             x = x.next;
         }
     }
