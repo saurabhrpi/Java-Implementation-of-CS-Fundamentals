@@ -91,8 +91,8 @@ public class PartitionLL{
         n.appendToTail(18);  
         n.appendToTail(1);  
         
-        PartitionLL p = new PartitionLL();
-        Node x = p.partition(n, 10);
+        //PartitionLL p = new PartitionLL();
+        n.partition(10);
         
         while(x != null)
         {
