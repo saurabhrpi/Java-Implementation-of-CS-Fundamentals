@@ -25,6 +25,7 @@ class Node {
     
     public void partition(int val)
     {
+        Node head = this;
         Node small = new Node();
         Node big  = new Node();
         Node tail  = small;
