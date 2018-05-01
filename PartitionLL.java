@@ -22,11 +22,8 @@ class Node {
         }
         n.next = end;
     }
-}
-
-public class PartitionLL{
     
-    public Node partition(Node head, int val)
+    public void partition(int val)
     {
         Node small = new Node();
         Node big  = new Node();
@@ -79,6 +76,9 @@ public class PartitionLL{
         }
         return head;
     }
+}
+
+public class PartitionLL{    
     
     public static void main(String[] args)
     {
