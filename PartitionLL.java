@@ -28,65 +28,17 @@ class Node {
             n = n.next;
         }
         n.next = end;
-    }
-    
-    public void partition(int val)
-    {
-        Node head = this;
-        Node small = new Node();
-        Node big  = new Node();
-        Node tail  = small;
-        
-        
-        while(head != null)
-        {
-            if(head.data < val) 
-            {
-                if(small.next != null)
-                {
-                    small.appendToTail(head.data);   
-                    tail = tail.next;   
-                }
-                else
-                {
-                    small.data = head.data;
-                    tail = small; 
-                    
-                }
-               
-            }
-            else
-            {
-                if(big.next != null)
-                {
-                    big.appendToTail(head.data);   
-                }
-                else
-                {
-                    big.data = head.data;
-                }
-
-            }
-            
-            head = head.next;
-        }
-        
-        tail.next = big;
-        
-        while (head != null)
-        {
-            if(small != null)
-            {
-                head.data = small.data;
-                small = small.next;
-                head = head.next;
-            }
-        }
-        return head;
-    }
+    }   
 }
 
+
 public class PartitionLL{    
+    
+    public void partition(Node head, int val)
+    {
+      
+    }
+    
     
     public static void main(String[] args)
     {
