@@ -36,7 +36,15 @@ public class PartitionLL{
     
     public void partition(Node head, int val)
     {
-      
+      Node beforeStart = null;
+      Node beforeEnd = null;
+      Node afterStart = null;
+      Node afterEnd = null;  
+        
+     /* 
+        Partition the list
+     */  
+        
     }
     
     
