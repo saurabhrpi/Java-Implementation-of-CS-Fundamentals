@@ -34,7 +34,7 @@ class Node {
 
 public class PartitionLL{    
     
-    public void partition(Node head, int val)
+    public void partition(Node node, int val)
     {
       Node beforeStart = null;
       Node beforeEnd = null;
@@ -44,7 +44,49 @@ public class PartitionLL{
      /* 
         Partition the list
      */  
-        
+     while(node != null)
+     {
+         Node next = node.next;
+         node.next = null;
+         if(node.data < x)
+         {
+             /* Insert node into end of before list */
+             if(beforeStart = null)
+             {
+                 beforeStart = node;
+                 beforeEnd = beforeStart;
+             }
+             else
+             {
+                 beforeEnd.next = node;
+                 beforeEnd = node;
+             }
+         }
+         else
+         {
+             /*Insert node into end of the after list*/
+             if(afterStart == null)
+             {
+                 afterStart = node;
+                 afterEnd = afterStart;
+             }
+             else
+             {
+                 afterEnd.next = node;
+                 afterEnd = node;
+             }
+         }
+         node = next;
+      } // end of loop
+      
+      if(beforeStart == Null)
+      {
+          return afterStart;
+      }
+      
+      /*Merge before list and after list*/
+      beforeEnd.next = afterStart;
+      return beforeStart;  
     }
     
     
