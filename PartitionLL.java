@@ -53,13 +53,13 @@ public class PartitionLL{
              /* Insert node into end of before list */
              if(beforeStart = null)
              {
-                 beforeStart = node;
+                 beforeStart = node;  // initialized here only
                  beforeEnd = beforeStart;
              }
              else
              {
-                 beforeEnd.next = node;
-                 beforeEnd = node;
+                 beforeEnd.next = node;  // make the current point to incoming
+                 beforeEnd = node;       // move to the new one
              }
          }
          else
