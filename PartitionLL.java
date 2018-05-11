@@ -110,4 +110,17 @@ public class PartitionLL{
             x = x.next;
         }
     }
+    
+    /* Alternate implementation of partition method */
+    
+    public Node partitionAltImp(Node node, int x)
+    {
+        Node head = node;
+        Node tail = node;
+        
+        while(node != null)
+        {
+            
+        }
+    }
 }
