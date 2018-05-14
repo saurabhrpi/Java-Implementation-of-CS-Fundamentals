@@ -30,7 +30,7 @@ class Node {
         n.next = end;
     }   
 }
-
+ 
 
 public class PartitionLL{    
     
