@@ -129,7 +129,7 @@ public class PartitionLL{
             }
             else
             {
-               /*Insert node at tail*/
+                /*Insert node at tail*/
                 tail.next = node;
                 tail = node;
             }
