@@ -5,7 +5,7 @@ Write a function that adds the two numbers and returns the sum as a linked list.
 */
 import java.util.*;
 
-public class Node {
+class Node {
     Node next = null;
     int data;
 
@@ -24,3 +24,8 @@ public class Node {
         }
         n.next = end;
     }
+}
+
+public class SingleDigitNumbersSum{
+    
+}
