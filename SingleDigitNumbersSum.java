@@ -27,5 +27,15 @@ class Node {
 }
 
 public class SingleDigitNumbersSum{
-    
+    public Node orient(Node head)
+    {
+        if(head != null)
+        {
+            System.out.println("Start the impl");
+        }
+        else
+        {
+                return null;
+        }
+    }
 }
