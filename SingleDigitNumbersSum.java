@@ -3,6 +3,7 @@ Consider a scenario where two numbers can be represented by a linked list, where
 digit. The digits are stored in reverse order, such that the 1 's digit is at the head of the list. 
 Write a function that adds the two numbers and returns the sum as a linked list.
 */
+
 import java.util.*;
 
 class Node {
@@ -27,15 +28,24 @@ class Node {
 }
 
 public class SingleDigitNumbersSum{
-    public Node orient(Node head)
+    public int sum(Node head)
     {
         if(head != null)
         {
-            System.out.println("Start the impl");
+            Node temp = head;
+            int sum = 0;
+            int pow = 0;
+            while(temp != null)
+            {
+                sum = sum + (temp.data)*(10^pow);
+                pow++;
+                temp = temp.next;
+            }
         }
         else
         {
                 return null;
         }
+        return sum;
     }
 }
