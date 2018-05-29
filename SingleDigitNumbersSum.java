@@ -28,24 +28,34 @@ class Node {
 }
 
 public class SingleDigitNumbersSum{
-    public int sum(Node head)
+    public int num(Node head)
     {
+        int num = 0;
         if(head != null)
         {
             Node temp = head;
-            int sum = 0;
             int pow = 0;
             while(temp != null)
             {
-                sum = sum + (temp.data)*(10^pow);
+                num = num + (temp.data)*((int)Math.pow(10,pow));
                 pow++;
                 temp = temp.next;
             }
         }
         else
         {
-                return null;
+                return 0;
         }
-        return sum;
+        return num;
+    }
+    
+    public static void main(String[] args)
+    {
+        Node head = new Node(1);
+        head.appendToTail(5);
+        head.appendToTail(4);
+        
+        SingleDigitNumbersSum s = new SingleDigitNumbersSum();
+        System.out.println(s.num(head));
     }
 }
