@@ -55,7 +55,13 @@ public class SingleDigitNumbersSum{
         head.appendToTail(5);
         head.appendToTail(4);
         
+        Node tail = new Node(7);
+        tail.appendToTail(3);
+        tail.appendToTail(9);
+        
         SingleDigitNumbersSum s = new SingleDigitNumbersSum();
         System.out.println(s.num(head));
+        
+        System.out.println(s.num(tail));
     }
 }
