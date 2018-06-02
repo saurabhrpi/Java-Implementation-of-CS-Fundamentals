@@ -60,8 +60,10 @@ public class SingleDigitNumbersSum{
         tail.appendToTail(9);
         
         SingleDigitNumbersSum s = new SingleDigitNumbersSum();
-        System.out.println(s.num(head));
+        int sum = s.num(head);
         
-        System.out.println(s.num(tail));
+        sum = sum + s.num(tail);
+        
+        System.out.println(sum);    
     }
 }
