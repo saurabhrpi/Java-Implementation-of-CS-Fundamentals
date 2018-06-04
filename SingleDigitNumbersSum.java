@@ -28,6 +28,22 @@ class Node {
 }
 
 public class SingleDigitNumbersSum{
+    
+    public Node handler(Node head, Node tail)
+    {
+        //SingleDigitNumbersSum s = new SingleDigitNumbersSum();
+        int sum = num(head);
+        sum = sum + num(tail);
+        
+        //System.out.println(sum);    
+        return head;
+    }
+    
+    public Node create(int num)
+    {
+        
+    }
+    
     public int num(Node head)
     {
         int num = 0;
@@ -60,10 +76,6 @@ public class SingleDigitNumbersSum{
         tail.appendToTail(9);
         
         SingleDigitNumbersSum s = new SingleDigitNumbersSum();
-        int sum = s.num(head);
         
-        sum = sum + s.num(tail);
-        
-        System.out.println(sum);    
     }
 }
