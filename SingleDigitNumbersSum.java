@@ -35,13 +35,15 @@ public class SingleDigitNumbersSum{
         int sum = num(head);
         sum = sum + num(tail);
         
-        //System.out.println(sum);    
-        return head;
+        //System.out.println(sum);
+        Node newHead = create(sum);
+        return newHead;
     }
     
-    public Node create(int num)
+    public Node create(int sum)
     {
-        
+        Node head = new Node(sum);
+        return head;
     }
     
     public int num(Node head)
@@ -76,6 +78,11 @@ public class SingleDigitNumbersSum{
         tail.appendToTail(9);
         
         SingleDigitNumbersSum s = new SingleDigitNumbersSum();
-        
+        Node x = s.handler(head,tail);
+        while(x != null)
+        {
+            System.out.println(x.data);
+            x = x.next;
+        }
     }
 }
