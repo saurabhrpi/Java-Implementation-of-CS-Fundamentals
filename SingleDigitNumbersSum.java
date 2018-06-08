@@ -77,6 +77,11 @@ public class SingleDigitNumbersSum{
         tail.appendToTail(3);
         tail.appendToTail(9);
         
+        head = new Node(4);  // test case #2
+        head.appendToTail(3);
+        head.appendToTail(2);
+        head.appendToTail(0);
+        
         SingleDigitNumbersSum s = new SingleDigitNumbersSum();
         Node x = s.handler(head,tail);
         while(x != null)
