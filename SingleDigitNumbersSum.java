@@ -4,6 +4,8 @@ digit. The digits are stored in reverse order, such that the 1 's digit is at th
 Write a function that adds the two numbers and returns the sum as a linked list.
 */
 
+/* My implementation */
+
 import java.util.*;
 
 class Node {
@@ -96,3 +98,9 @@ public class SingleDigitNumbersSum{
         }
     }
 }
+
+/*End of my impelementation*/
+
+/*Book's Implementation*/
+
+/*End of Book's Implementation*/
