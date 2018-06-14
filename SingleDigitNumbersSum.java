@@ -103,4 +103,12 @@ public class SingleDigitNumbersSum{
 
 /*Book's Implementation*/
 
+Node addLists(Node l1, Node l2, int carry)
+{
+    if(l1 == null && l2 == null && value == 0)
+    {
+        return null;
+    }
+}
+
 /*End of Book's Implementation*/
