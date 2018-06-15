@@ -123,9 +123,20 @@ Node addLists(Node l1, Node l2, int carry)
         value += l2.data;
     }
     
-    result.data = value%10; // Second digit of the value
+    result.data = value % 10; // Second digit of the value
     
     // Recurse
+    
+    if(l1 != null || l2 != null)
+    {
+        Node more = addLists(
+                        l1 == null ? null : l1.next,
+                        l2 == null ? null : l2.next,
+                        value > 10 ? 1 : 0
+                        );
+        result.setNext(more); // add more as result's next node
+    }
+    return result;
 }
 
 /*End of Book's Implementation*/
