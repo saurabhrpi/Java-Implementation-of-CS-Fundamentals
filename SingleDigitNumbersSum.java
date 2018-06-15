@@ -109,6 +109,23 @@ Node addLists(Node l1, Node l2, int carry)
     {
         return null;
     }
+    
+    Node result = new Node();
+    int value = carry;
+    
+    if(l1 != null)
+    {
+        value += l1.data;
+    }
+   
+    if(l2 != null)
+    {
+        value += l2.data;
+    }
+    
+    result.data = value%10; // Second digit of the value
+    
+    // Recurse
 }
 
 /*End of Book's Implementation*/
