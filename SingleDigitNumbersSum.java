@@ -69,6 +69,15 @@ public class SingleDigitNumbersSum{
         return num;
     }
     
+    // followup
+    public Node forwardSum(Node l1, Node l2)
+    {
+        if(l1 == null && l2 == null)
+        {
+            return null;
+        }
+    }
+    
     public static void main(String[] args)
     {
         Node head = new Node(1);
