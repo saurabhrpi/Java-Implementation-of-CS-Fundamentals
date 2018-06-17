@@ -68,7 +68,6 @@ public class SingleDigitNumbersSum{
         }
         return num;
     }
-    
     // followup
     public Node forwardSum(Node l1, Node l2)
     {
@@ -76,6 +75,17 @@ public class SingleDigitNumbersSum{
         {
             return null;
         }
+        
+        Node result = new Node();
+        
+        // Go to the end of the list
+        Node it = l1;
+        
+        if(it != null)
+        {
+            it = it.next;
+        }
+        
     }
     
     public static void main(String[] args)
