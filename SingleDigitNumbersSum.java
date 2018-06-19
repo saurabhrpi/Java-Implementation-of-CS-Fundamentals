@@ -79,10 +79,14 @@ public class SingleDigitNumbersSum{
         Node result = new Node();
         
         // Go to the end of the list
-        Node it = l1;
+        Node it1 = l1;
+        Node last1;
+        Node it2 = l2;
+        Node last2;
         
-        if(it != null)
+        while(it != null)
         {
+            last = it;
             it = it.next;
         }
         
