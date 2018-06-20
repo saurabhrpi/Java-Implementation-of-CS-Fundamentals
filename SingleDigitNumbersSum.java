@@ -68,28 +68,40 @@ public class SingleDigitNumbersSum{
         }
         return num;
     }
+    
     // followup
-    public Node forwardSum(Node l1, Node l2)
+    public Node forwardSum(Node l1, Node l2) //, int value
     {
-        if(l1 == null && l2 == null)
+        if(l1 == null && l2 == null) // && value == 0
         {
             return null;
         }
         
         Node result = new Node();
         
-        // Go to the end of the list
-        Node it1 = l1;
-        Node last1;
-        Node it2 = l2;
-        Node last2;
-        
-        while(it != null)
+        if(l1 != null || l2 != null)
         {
-            last = it;
-            it = it.next;
+            Node more = addLists(
+                            l1 == null ? null : l1.next,
+                            l2 == null ? null : l2.next
+                            //, value > 10 ? 1 : 0
+                            );
+            result.setNext(more); // add more as result's next node
         }
         
+        int value = 0;
+        
+        if(l1 != null)
+        {
+            value += l1.data;
+        }
+        
+        if(l2 != null)
+        {
+            value += l2.data;
+        }
+        
+        return result;
     }
     
     public static void main(String[] args)
