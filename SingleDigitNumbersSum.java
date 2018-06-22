@@ -68,44 +68,7 @@ public class SingleDigitNumbersSum{
         }
         return num;
     }
-    
-   // followup
-    public Node forwardSum(Node l1, Node l2, int carry) //, int value
-    {
-        if(l1 == null && l2 == null && value == 0) // && value == 0
-        {
-            return null;
-        }
-        
-        Node result = new Node();
-        
-        if(l1 != null || l2 != null)
-        {
-            Node more = addLists(
-                            l1 == null ? null : l1.next,
-                            l2 == null ? null : l2.next
-                            , value > 10 ? 1 : 0
-                            );
-            result.setNext(more); // add more as result's next node
-        }
-        
-        int value = 0;
-        
-        if(l1 != null)
-        {
-            value += l1.data;
-        }
-        
-        if(l2 != null)
-        {
-            value += l2.data;
-        }
-        
-        result.data = value%10;
-        
-        return result;
-    }
-    
+       
     public static void main(String[] args)
     {
         Node head = new Node(1);
@@ -175,5 +138,7 @@ Node addLists(Node l1, Node l2, int carry)
     }
     return result;
 }
+
+// followup
 
 /*End of Book's Implementation*/
