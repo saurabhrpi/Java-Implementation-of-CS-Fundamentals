@@ -141,4 +141,9 @@ Node addLists(Node l1, Node l2, int carry)
 
 // followup
 
+class PartialSum{
+    public Node sum = null;
+    public int carry = 0;
+}
+
 /*End of Book's Implementation*/
