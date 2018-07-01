@@ -152,5 +152,6 @@ int length(Node n){
 Node addLists(Node l1, Node l2)
 {
     int len1 = length(l1);
+    int len2 = length(l2);
 }
 /*End of Book's Implementation*/
