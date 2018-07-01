@@ -146,8 +146,11 @@ class PartialSum{
     public int carry = 0;
 }
 
+int length(Node n){
+}
+
 Node addLists(Node l1, Node l2)
 {
-    
+    int len1 = length(l1);
 }
 /*End of Book's Implementation*/
