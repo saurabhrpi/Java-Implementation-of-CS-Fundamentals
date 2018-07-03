@@ -147,6 +147,17 @@ class PartialSum{
 }
 
 int length(Node n){
+    if(n == null)
+    {
+        return 0;
+    }
+    
+    int i = 0;
+    for(; n != null; i++)
+    {
+        n = n.next;
+    }
+    return i;
 }
 
 Node addLists(Node l1, Node l2)
