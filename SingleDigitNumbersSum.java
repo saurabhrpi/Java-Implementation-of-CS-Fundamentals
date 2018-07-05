@@ -153,6 +153,7 @@ int length(Node n){
     }
     
     int i = 0;
+    
     for(; n != null; i++)
     {
         n = n.next;
@@ -164,5 +165,10 @@ Node addLists(Node l1, Node l2)
 {
     int len1 = length(l1);
     int len2 = length(l2);
+    
+    if(len1 < len2)
+    {
+        l1 = padlist(l1, len2 - len1);
+    }
 }
 /*End of Book's Implementation*/
