@@ -170,5 +170,9 @@ Node addLists(Node l1, Node l2)
     {
         l1 = padlist(l1, len2 - len1);
     }
+    else 
+    {
+        l2 = padlist(l2, len1 - len2);
+    }
 }
 /*End of Book's Implementation*/
