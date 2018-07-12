@@ -174,5 +174,9 @@ Node addLists(Node l1, Node l2)
     {
         l2 = padlist(l2, len1 - len2);
     }
+    
+    /*Add lists*/
+    
+    PartialSum sum = addListHelper(l1,l2);
 }
 /*End of Book's Implementation*/
