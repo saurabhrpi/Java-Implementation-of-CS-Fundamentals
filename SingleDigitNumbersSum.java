@@ -182,6 +182,7 @@ Node addLists(Node l1, Node l2)
 
 PartialSum addListHelper(Node l1, Node l2)
 {
+    /*Helper function to add the values from the two linked lists*/
     
 }
 /*End of Book's Implementation*/
