@@ -1,5 +1,5 @@
 # Java Implementation of Data Structures and Algo Fundamentals
-My implementation of some of the basic coding challenges in Computer Science Fundamentals. 
+My implementation of some of the basic coding challenges in Computer Science Fundamentals in Core Java. 
 
 ## Problems targeted  
 Design algorithms to manipulate  
