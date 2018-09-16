@@ -71,6 +71,7 @@ class LinkedList{
 
 public class RemoveDupes{
     
+    // return type has to be Node and not void as the head itself can change
     public Node remDupInPlace(Node head)
     {
         if(head == null)
