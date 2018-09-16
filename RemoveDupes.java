@@ -71,35 +71,6 @@ class LinkedList{
         }
         return head;
     }
-    
-    Node mergeSort(Node head)
-    {
-        if(head == null)
-        {
-            return null;
-        }
-        
-        if(head.next == null)
-        {
-            return head;
-        }
-        
-        Node next = head;
-        LinkedList ll = new LinkedList();
-        //ll.printLL(head);
-        while(next.next != null)
-        {
-            if(next.d > next.next.d)
-            {
-                head = next.next;
-                next.next.next = next;
-                next.next = null;
-            }
-        }
-        //head = next;
-        ll.printLL(head);
-        return head;
-    }
 }
 
 
