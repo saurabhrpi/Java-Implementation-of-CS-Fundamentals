@@ -43,13 +43,9 @@ class LinkedList{
         }
     }
     
-    Node deleteNode(Node head, Node del)
+    void deleteNode(Node head, Node del)
     {
-        if(head == null)
-        {
-            return null;
-        }
-        else
+        if(head != null)
         {
             if(del == head)
             {
@@ -69,64 +65,56 @@ class LinkedList{
                 }
             }
         }
-        return head;
     }
 }
 
 
 public class RemoveDupes{
     
-    public Node remDupInPlace(Node head)
+    public void remDupInPlace(Node head)
     {
-        if(head==null)
+        if(head != null)
         {
-            return null;
+            Node prev = head;
+            Node next = head;
+            while (prev != null)
+            {
+                next = prev.next;
+                while(next != null)
+                {
+                    if(next.d == prev.d)
+                    {
+                        System.out.println("Dup found is: " + next.d);
+                        LinkedList ll = new LinkedList();
+                        ll.deleteNode(head,next);
+                    }
+                    next = next.next;
+                }
+                prev = prev.next;
+            }
         }
-        
-        Node prev = head;
-        Node next = head;
-        while (prev != null)
+    }
+    
+    public void remDupWithBuffer(Node head)
+    {
+        if(head != null)
         {
-            next = prev.next;
+            Node next = head;
+            
+            HashSet<Integer> h = new HashSet<Integer>();
+            
+            LinkedList ll = new LinkedList();
+            
             while(next != null)
             {
-                if(next.d == prev.d)
+                if(!h.add(next.d))
                 {
                     System.out.println("Dup found is: " + next.d);
-                    LinkedList ll = new LinkedList();
-                    head = ll.deleteNode(head,next);
+                    ll.deleteNode(head,next);
                 }
                 next = next.next;
             }
-            prev = prev.next;
-        }
-        
-        return head;
-    }
-    
-    public Node remDupWithBuffer(Node head)
-    {
-        if(head==null)
-        {
-            return null;
-        }
-        
-        Node next = head;
-        
-        HashSet<Integer> h = new HashSet<Integer>();
-        
-        LinkedList ll = new LinkedList();
-        
-        while(next != null)
-        {
-            if(!h.add(next.d))
-            {
-                System.out.println("Dup found is: " + next.d);
-                ll.deleteNode(head,next);
-            }
-            next = next.next;
-        }
-        return head;
+        }    
     }
     
     public static void main(String args[]) {
@@ -139,24 +127,16 @@ public class RemoveDupes{
         
         head.appendToTail(new Node(28));
         head.appendToTail(new Node(23));
-        head.appendToTail(new Node(12));
-        head.appendToTail(new Node(32));
+        head.appendToTail(new Node(10));
+        head.appendToTail(new Node(76));
         head.appendToTail(new Node(10));
         head.appendToTail(new Node(11));
         head.appendToTail(new Node(76));
         
-        Node n = rd.remDupInPlace(head);
-        //Node n = rd.remDupWithBuffer(head);
+        rd.remDupInPlace(head);
+        //rd.remDupWithBuffer(head);
         
         //head = ll.mergeSort(head);
-        
-        if(n == null)
-        {
-            System.out.println("Please enter a non null list");
-        }
-        else
-        {
             ll.printLL(head);
-        }
     }
 }
