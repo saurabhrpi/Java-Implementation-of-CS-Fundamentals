@@ -43,7 +43,7 @@ class LinkedList{
         }
     }
     
-    void deleteNode(Node head, Node del)
+    Node deleteNode(Node head, Node del)
     {
         if(head != null)
         {
