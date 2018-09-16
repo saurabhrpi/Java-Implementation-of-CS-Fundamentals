@@ -71,10 +71,17 @@ class LinkedList{
 
 public class RemoveDupes{
     
-    public void remDupInPlace(Node head)
+    public Node remDupInPlace(Node head)
     {
-        if(head != null)
+        if(head == null)
         {
+            return null;
+        }
+        
+        if(head.next == null)
+        {
+            return head;
+        }
             Node prev = head;
             Node next = head;
             while (prev != null)
@@ -92,29 +99,37 @@ public class RemoveDupes{
                 }
                 prev = prev.next;
             }
-        }
+        return head;
     }
     
-    public void remDupWithBuffer(Node head)
+    public Node remDupWithBuffer(Node head)
     {
-        if(head != null)
+        if(head == null)
         {
-            Node next = head;
+            return null;
+        }
+        
+        if(head.next == null)
+        {
+            return head;
+        }
             
-            HashSet<Integer> h = new HashSet<Integer>();
-            
-            LinkedList ll = new LinkedList();
-            
-            while(next != null)
+        Node next = head;
+
+        HashSet<Integer> h = new HashSet<Integer>();
+
+        LinkedList ll = new LinkedList();
+
+        while(next != null)
+        {
+            if(!h.add(next.d))
             {
-                if(!h.add(next.d))
-                {
-                    System.out.println("Dup found is: " + next.d);
-                    ll.deleteNode(head,next);
-                }
-                next = next.next;
+                System.out.println("Dup found is: " + next.d);
+                ll.deleteNode(head,next);
             }
-        }    
+            next = next.next;
+        }
+        return head;   
     }
     
     public static void main(String args[]) {
@@ -133,8 +148,8 @@ public class RemoveDupes{
         head.appendToTail(new Node(11));
         head.appendToTail(new Node(76));
         
-        rd.remDupInPlace(head);
-        //rd.remDupWithBuffer(head);
+        head = rd.remDupInPlace(head);
+        //head = rd.remDupWithBuffer(head);
         
         //head = ll.mergeSort(head);
             ll.printLL(head);
