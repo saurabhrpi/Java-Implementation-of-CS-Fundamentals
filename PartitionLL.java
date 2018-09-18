@@ -1,140 +1,193 @@
-    /*
-    To partition a linked list around a value x, such that all nodes less than x come
-    before all nodes greater than or equal to x. If x is contained within the list the values of x only need
-    to be after the elements less than x. The partition element x can appear anywhere in the
-    "right partition"; it does not need to appear between the left and right partitions
-    */
+import java.io.*;
+import java.util.*;
 
-class Node {
-    Node next = null;
-    int data;
+class Node{
+    int d;
+    Node next;
     
-    public Node()
+    Node(int i)
     {
-        
-    } 
-    
-    public Node(int d)
-    {
-        data = d;
+        d = i;
+        next = null;
     }
     
-    public void appendToTail(int d)
+    void appendToTail(Node n)
     {
-        Node end = new Node(d);
-        Node n = this;
-        while(n.next != null)
+        if(this.next == null)
         {
-            n = n.next;
+            this.next = n; 
         }
-        n.next = end;
-    }   
-}
- 
-
-public class PartitionLL{    
-    
-    public void partition(Node node, int val)
-    {
-      Node beforeStart = null;
-      Node beforeEnd = null;
-      Node afterStart = null;
-      Node afterEnd = null;  
-        
-     /* 
-        Partition the list
-     */  
-     while(node != null)
-     {
-         Node next = node.next;
-         node.next = null;
-         if(node.data < x)
-         {
-             /* Insert node into end of before list */
-             if(beforeStart = null)
-             {
-                 beforeStart = node;  // initialized here only
-                 beforeEnd = beforeStart;
-             }
-             else
-             {
-                 beforeEnd.next = node;  // make the current point to incoming
-                 beforeEnd = node;       // move to the new one
-             }
-         }
-         else
-         {
-             /*Insert node into end of the after list*/
-             if(afterStart == null)
-             {
-                 afterStart = node;
-                 afterEnd = afterStart;
-             }
-             else
-             {
-                 afterEnd.next = node;
-                 afterEnd = node;
-             }
-         }
-         node = next;
-      } // end of loop
-      
-      if(beforeStart == Null)
-      {
-          return afterStart;
-      }
-      
-      /*Merge before list and after list*/
-      beforeEnd.next = afterStart;
-      return beforeStart;  
-    }
-    
-    
-    public static void main(String[] args)
-    {
-        //18,10,9,12,10,18
-        Node n = new Node(18);
-        n.appendToTail(10);
-        n.appendToTail(9);
-        n.appendToTail(12);
-        n.appendToTail(10);
-        n.appendToTail(18);  
-        n.appendToTail(1);  
-        
-        //PartitionLL p = new PartitionLL();
-        n.partition(10);
-        
-        while(x != null)
+        else
         {
-            System.out.println(x.data);  // Print the data to debug the issue  
-            x = x.next;
-        }
-    }
-    
-    /* Alternate implementation of partition method */
-    
-    public Node partitionAltImp(Node node, int x)
-    {
-        Node head = node;
-        Node tail = node;
-        
-        while(node != null)
-        {
-            Node next = node.next;
-            if(node.data < x)
+            Node next = this.next;
+            while(next.next != null)
             {
-                /*Insert node at head*/
-                node.next = head;
-                head = node;
+               // System.out.println("next is: " + next.d);
+                next = next.next;
+            }
+            //System.out.println("n is: " + n.d);
+            next.next = n;
+        }
+    }
+}
+
+class LinkedList{
+    
+    void printLL(Node head)
+    {
+        Node next = head;
+        while(next != null)
+        {
+            System.out.println(next.d);
+            next = next.next;
+        }
+    }
+    
+    Node deleteNode(Node head, Node del)
+    {
+        System.out.println("del node requested "+ del.d);   
+        if(head == null)
+        {
+            return null;
+        }
+        else
+        {
+            if(del == head)
+            {
+                head = head.next;
             }
             else
             {
-                /*Insert node at tail*/
-                tail.next = node;
-                tail = node;
+                Node next = head; 
+                while(next.next != null)
+                {
+                    if(next.next == del)
+                    {
+                        next.next = del.next;
+                        break;
+                    }
+                    next = next.next;
+                }
             }
-            node = next;
         }
-        tail.next = null;
+        System.out.println("head returned "+ head.d);
+        return head;
+    }
+}
+
+public class PartitionLL{
+    
+    public Node partition(Node head, int val)
+    {
+        if(head == null)
+        {
+            return null;
+        }
+        
+        if(head.next == null)
+        {
+            return head;
+        }
+        
+        Node smallLL = null;
+        
+        Node bigLL = null;
+        
+        Node next = head;
+        Node temp = head.next;
+        while(next != null)
+        {
+            //System.out.println("next node at the beginning of loop: " + next.d);
+            if(next.d < val)
+            {
+                if(smallLL != null)
+                {
+                  smallLL.appendToTail(next);   // Make sure the node appended is not pointed to already by something else.
+                }
+                else
+                {
+                  smallLL = next;
+                }
+            }
+            else
+            {
+                if(bigLL != null)
+                {
+                    bigLL.appendToTail(next);
+                }
+                else
+                {
+                  bigLL = next;
+                }
+            }
+            next.next = null;
+            next = temp;
+            if(temp != null)
+            {
+                temp = temp.next;   
+            }
+        }
+        
+        next = bigLL;
+        while(next.next != null)
+        {
+            next = next.next;
+        }
+        
+        next.next = null; // set last node's pointerr of bigLL to null.
+        
+        next = smallLL;
+        if(smallLL != null)
+        {
+            while(next.next != null)
+            {
+                next = next.next;
+            }   
+            
+            next.next = bigLL;
+        
+            return smallLL;
+        }
+            
+            return bigLL;
+    }
+
+    
+    public static void main(String args[]) {
+        
+        PartitionLL rd = new PartitionLL();
+        
+        Node head = new Node(76);
+        
+        LinkedList ll = new LinkedList();
+        
+        head.appendToTail(new Node(32));
+        head.appendToTail(new Node(23));
+        head.appendToTail(new Node(12));
+        head.appendToTail(new Node(32));
+        head.appendToTail(new Node(10));
+        head.appendToTail(new Node(16));
+        head.appendToTail(new Node(90));
+        
+        //System.out.println("Linked list before calling kthToLast");
+        //ll.printLL(head);
+        head = rd.partition(head,90);
+        
+        if(head == null)
+        {
+            System.out.println("Please enter a non null list");
+        }
+        else
+        {
+            if(head.next == null)
+            {
+                System.out.println("There is only one element in the list");
+            }
+            else
+            {
+                System.out.println("Linked list after calling functionality");
+                ll.printLL(head);   
+            }
+        }
     }
 }
