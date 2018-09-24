@@ -32,7 +32,7 @@ public class UniqueString{
     public static void main(String [] args)
     {
         UniqueString s = new UniqueString();
-        if(s.isUniqueInPlace(" hi ther"))
+       /* if(s.isUniqueInPlace(" hi ther"))
         {
             System.out.println("is unique");
         }
@@ -40,6 +40,7 @@ public class UniqueString{
         {
             System.out.println("is NOT unique");
         }
+        */
     }
     
 }
