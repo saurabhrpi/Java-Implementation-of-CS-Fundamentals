@@ -13,21 +13,12 @@ class Node{
     
     void appendToTail(Node n)
     {
-        if(this.next == null)
+        Node temp = this;
+        while(temp.next != null)
         {
-            this.next = n; 
+            temp = temp.next;
         }
-        else
-        {
-            Node next = this.next;
-            while(next.next != null)
-            {
-               // System.out.println("next is: " + next.d);
-                next = next.next;
-            }
-            //System.out.println("n is: " + n.d);
-            next.next = n;
-        }
+        temp.next = n;
     }
 }
 
@@ -65,6 +56,7 @@ class LinkedList{
                 }
             }
         }
+        return head;
     }
 }
 
