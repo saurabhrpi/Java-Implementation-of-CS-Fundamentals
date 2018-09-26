@@ -20,31 +20,48 @@ public class NumEdits{
             return false;
         }
         
-        int[] ch = new int[128];
+        String big = s1.length() >= s2.length() ? s1 : s2;
+        String small = s2.length() > s1.length() ? s1 : s2;
         
-        for(int i=0 ; i < s1.length(); i++)
+        System.out.println("big " + big);
+        System.out.println("small " + small);
+        
+        boolean foundDiff = false;
+        
+        int i;
+        int k = 0;
+        
+        if(small.length() < big.length())
         {
-            ch[s1.charAt(i)]++;
-        }
-        
-        int foundNeg = 0;
-        
-        for(int i=0 ; i < s2.length(); i++)
-        {
-            char c = s2.charAt(i);
-            ch[c]--;
-        
-            if(ch[c] < 0)
+            for(i=0; i < small.length(); i++)
             {
-                foundNeg++;
+                if(small.charAt(i) != big.charAt(k))
+                {
+                    if( i == k)
+                    {
+                        k++;   
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                k++;
             }
         }
-        
-        int diff = Math.abs(s2.length() - s1.length());
-        
-        if((diff > 0 && foundNeg >= 1) || (diff == 0 && foundNeg > 2))
+        else
         {
-            return false;
+            for(i=0; i < small.length(); i++)
+            {
+                if(small.charAt(i) != big.charAt(i))
+                {
+                    if(foundDiff)
+                    {
+                        return false;
+                    }
+                    foundDiff = true;
+                }
+            }
         }
         
         return true;
@@ -53,8 +70,8 @@ public class NumEdits{
     public static void main(String [ ] a)
     {
         NumEdits x = new NumEdits();
-        String s1 = "pales";
-        String s2 = "bales";
+        String s1 = "pale";
+        String s2 = "lale";
         System.out.println(x.suffEditsAway(s1, s2));
     }
 }
