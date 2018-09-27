@@ -20,7 +20,29 @@ public class rotateString {
         }
         return true;
     }
-    
+    public boolean myIsSubstring(String s1, String s2)
+    {
+        if(s2.length() > s1.length())
+        {
+            return false;
+        }
+        
+        int small = 0;
+        
+        for(int i = 0 ; i < s1.length(); i++)
+        {
+            if(s1.charAt(i) == s2.charAt(small))
+            {
+                if(small == s2.length() - 1)
+                {
+                    return true;
+                }
+                small++;
+            }
+        }
+        
+        return false;   
+    }
     public static void main(String[] args)
     {
         String s1 = "ttlewaterbo";
