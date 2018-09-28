@@ -77,81 +77,63 @@ class LinkedList{
 
 public class PartitionLL{
     
-    public Node partition(Node head, int val)
+    public Node partition(Node head, int p)
     {
         if(head == null)
         {
-            return null;
-        }
-        
-        if(head.next == null)
-        {
+            //message
             return head;
         }
         
-        Node smallLL = null;
+        Node big = null;
+        Node small = null;
+        Node temp = head;
         
-        Node bigLL = null;
-        
-        Node next = head;
-        Node temp = head.next;
-        while(next != null)
+        while(temp != null)
         {
-            //System.out.println("next node at the beginning of loop: " + next.d);
-            if(next.d < val)
+            Node x = temp;
+            temp = temp.next;
+            x.next = null;
+            if(x.d >= p)
             {
-                if(smallLL != null)
+                if(big != null)
                 {
-                  smallLL.appendToTail(next);   // Make sure the node appended is not pointed to already by something else.
+                    big.appendToTail(x);   
                 }
                 else
                 {
-                  smallLL = next;
+                    big = x;
                 }
             }
             else
             {
-                if(bigLL != null)
+                if(small != null)
                 {
-                    bigLL.appendToTail(next);
+                    small.appendToTail(x);   
                 }
                 else
                 {
-                  bigLL = next;
+                    small = x;
                 }
             }
-            next.next = null;
-            next = temp;
-            if(temp != null)
+        }
+        
+        if(small != null)
+        {
+            Node t = small;
+            
+            while( t.next != null)
             {
-                temp = temp.next;   
+                t = t.next;
             }
-        }
-        
-        next = bigLL;
-        while(next.next != null)
-        {
-            next = next.next;
-        }
-        
-        next.next = null; // set last node's pointerr of bigLL to null.
-        
-        next = smallLL;
-        if(smallLL != null)
-        {
-            while(next.next != null)
-            {
-                next = next.next;
-            }   
             
-            next.next = bigLL;
-        
-            return smallLL;
-        }
+            t.next = big;   
             
-            return bigLL;
+            return small;
+        }
+        
+        return big;
     }
-
     
     public static void main(String args[]) {
         
