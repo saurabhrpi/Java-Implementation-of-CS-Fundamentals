@@ -22,7 +22,23 @@ class Node{
     }
 }
 
-class LinkedList{
+class myLinkedList{
+    
+    public Node appendToHead(Node head, Node n)
+    {
+        if(n == null)
+        {
+            //message
+            return n;
+        }
+        
+        Node temp = head;
+        head = n;
+        head.next = temp;
+        temp = null;
+        
+        return head;
+    }
     
     void printLL(Node head)
     {
@@ -131,7 +147,7 @@ public class RemoveDupes{
         
         Node head = new Node(76);
         
-        LinkedList ll = new LinkedList();
+        myLinkedList ll = new myLinkedList();
         
         head.appendToTail(new Node(28));
         head.appendToTail(new Node(23));
