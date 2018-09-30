@@ -156,37 +156,47 @@ public class SumNumbersRev{
     
     public Node recurseResult(Node first, Node second, int carry)
     {
-        if(first == null && second == null)
+        Node n = new Node();
+        
+        if(first == null && sec == null)
         {
+            if(c != 0)
+            {
+                n.d = c;   
+                return n;
+            }
+            
             return null;
         }
         
         if(first != null)
         {
-            carry += first.d;
+            c += first.d;    
         }
         
-        if(second != null)
+        if(sec != null)
         {
-            carry += second.d;
+            c += sec.d;    
         }
         
-        Node res = null;
-        
-        if(carry >= 10)
+        if(c >= 10)
         {
-            res = new Node(carry % 10);
+            n.d = c % 10;
+            c = 1;
         }
         else
         {
-            res = new Node(carry);
+            n.d = c;
+            c = 0;
         }
         
-        res.appendToTail(recurseResult(first == null? null : first.next,
-                                       second == null? null : second.next,
-                                       carry >= 10? 1 : 0));
+        n.appendToTail(recurse(first == null? null : first.next, 
+                               sec == null? null : sec.next, 
+                               c
+                               )
+                      );
         
-        return res;
+        return n;
     }
 
     // 237, 9891
