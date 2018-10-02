@@ -38,7 +38,7 @@ class Node{
     }
 }
 
-class LinkedL{
+class myLinkedList{
     
     void printLL(Node head)
     {
@@ -104,44 +104,37 @@ public class IntersectionLL{
           return null;
         }
         
-        LinkedL ll = new LinkedL();
-        
-        int fl = ll.len(first);
-        int sl = ll.len(second);
-        int diff = 0;
-        Node big = null;
-        Node small = null;
-        
-        if(fl > sl)
+         if(first == null && sec == null)
         {
-            diff = fl - sl;
-            big  = first;
-            small = second;
-        }
-        else
-        {
-            diff = sl - fl;
-            big  = second;
-            small = first;
+            //message
+            return null;
         }
         
-        int i = 0;
-        while(i < diff)
+        myLinkedList ll = new myLinkedList();
+        
+        int diff = ll.length(first) - ll.length(sec);
+        
+        while (diff != 0)
         {
-            big = big.next;        
-            i++;
+            if(diff > 0)
+            {
+                first = first.next;
+                diff--;                        
+            }
+            else
+            {
+                sec = sec.next;
+                diff++;
+            }
         }
         
-        Node run1 = big;
-        Node run2 = small;
-        
-        while(run1 != run2)
+        while(first != sec)
         {
-            run1 = run1.next;
-            run2 = run2.next;
+            first = first.next;
+            sec = sec.next;
         }
         
-        return run1;
+        return first;
     }
     
     public boolean hasIntersection(Node first, Node second)
@@ -169,7 +162,7 @@ public class IntersectionLL{
         
         IntersectionLL rd = new IntersectionLL();
         
-        LinkedL ll = new LinkedL();
+        myLinkedList ll = new myLinkedList();
         
         
         Node head = new Node(4);
