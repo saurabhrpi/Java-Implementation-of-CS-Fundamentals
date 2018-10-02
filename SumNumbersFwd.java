@@ -36,7 +36,7 @@ class Node{
     }
 }
 
-class LinkedList{
+class myLinkedList{
     
     void printLL(Node head)
     {
@@ -78,6 +78,19 @@ class LinkedList{
         System.out.println("head returned "+ head.d);
         return head;
     }
+    
+    public int length(Node head)
+    {
+        int count = 0;
+        
+        while(head != null)
+        {
+            count++;
+            head = head.next;
+        }
+        
+        return count;
+    }
 }
 
 class Carry{
@@ -85,42 +98,37 @@ class Carry{
 }
 
 public class SumNumbersFwd{
-    
-    public int length(Node n)
+        
+    public Node stuffZeroes(Node head, int l)
     {
-        int l = 0;
-        while(n != null)
+        
+        myLinkedList ll = new myLinkedList();
+        
+        while(l > 0)
         {
-            l++;
-            n = n.next;
-        }
-        return l;
-    }
-    
-    public Node stuffZeroes(Node n, int diff)
-    {
-        Node temp = null;
-        Node prev = n;
-        while(diff > 0)
-        {
-            temp = new Node(0);
-            temp.next = prev;
-            prev = temp;
-            diff--;
+            head = ll.appendToHead(head, new Node(0));
+            l--;
         }
         
-        return temp;
+        return head;
     }
     
     public Node recurseHandler(Node first, Node second)
     {
-        if(length(first) < length(second))
+        myLinkedList ll = new myLinkedList();
+        
+        int l = ll.length(first) - ll.length(sec);
+        
+        if(l != 0)
         {
-            first = stuffZeroes(first, length(second) - length(first));
-        }
-        else if(length(first) > length(second))
-        {
-            second = stuffZeroes(second, length(first) - length(second));
+            if(l > 0)
+            {
+                sec = stuffZeroes(sec,l);   
+            }
+            else
+            {
+                first = stuffZeroes(first,(0-l));
+            }
         }
         
         Carry c = new Carry();
@@ -180,7 +188,7 @@ public class SumNumbersFwd{
         
         SumNumbersFwd rd = new SumNumbersFwd();
         
-        LinkedList ll = new LinkedList();
+        myLinkedList ll = new myLinkedList();
         
         Node head = new Node(7);
         head.appendToTail(new Node(3));
