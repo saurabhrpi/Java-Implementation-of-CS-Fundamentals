@@ -186,7 +186,33 @@ public class PalindromeLL{
         //System.out.println("head.d  " + head.d);
         return true;
     }
-
+    
+    public Result booksRecursive(Node head, int l)
+    {
+        if(head == null || l == 0)
+        {
+            return new Result(head, true);
+        }
+        
+        if(l == 1)
+        {
+            return new Result(head.next, true);
+        }
+        
+        Result res = booksRecursive(head.next, l - 2);
+        
+        
+        if(!res.res)
+        {
+            return res;
+        }
+        
+        
+        res.res = (head.d == res.n.d);
+        res.n = res.n.next;
+        
+        return res;
+    }
     
     public boolean iterative(Node head)
     {
