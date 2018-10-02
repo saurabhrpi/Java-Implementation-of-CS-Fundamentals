@@ -86,18 +86,9 @@ public class SumNumbersRev{
     {
         if(first == null && second == null)
         {
+            //message
             return null;
-        }
-        
-        if(first == null)
-        {
-            return second;
-        }
-        
-        if(second == null)
-        {
-            return first;
-        }
+        }        
         
         Node it = first;
         Node it2 = second;
