@@ -1,3 +1,18 @@
+/*
+Proof :
+non-loop : length of unlooped (linear part of) linked list.
+loop : length of looped linked list.
+rLoop : residual distance covered by Fast pointer in clockwise direction into the loop the moment slow pointer is at the start node.
+
+If slow pointer covers non-loop distance, then fast covers non-loop + loop + rLoop distance.
+
+This means fast is loop - rloop steps behind slow which it will bridge in loop - rLoop hops.
+
+In the same number of hops the slow (and thus fast) will be at loop - rLoop steps (calculated in clockwise from start of loop).
+
+This is same as rLoop distance in counterclockwise direction from the start of loop. < In progress > 
+*/
+
 import java.io.*;
 import java.util.*;
 import java.util.LinkedList; 
