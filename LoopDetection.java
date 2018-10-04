@@ -114,33 +114,34 @@ public class LoopDetection{
     
     public Node returnsStartNode(Node head)
     {
-        if(head == null || head.next == null)
+        if(head == null)
         {
-            // message
-            return null;
+            //message
+            return head;
         }
         
-        Node fast = head.next.next;
-        Node slow = head.next;
+        Node fast = head;
+        Node slow = head;
         
         while(fast != null && fast.next != null)
         {
-            slow = slow.next;  
-            fast = fast.next.next;  
-            if(slow == fast && slow != null)
+            fast = fast.next.next;
+            slow = slow.next;
+            if( fast == slow )
             {
                 break;
             }
         }
         
-        if(fast == null || fast.next == null)
+        if(fast == null || fast.next == null) // for 2nd case will be when there is only one node
         {
+            System.out.println("No loop exists");
             return null;
         }
         
-        slow = head;
+        fast = head;
         
-        while (fast != slow)
+        while(fast != slow)
         {
             fast = fast.next;
             slow = slow.next;
@@ -166,14 +167,7 @@ public class LoopDetection{
         Node n = new Node(30);
         head.appendToTail(n);
         head.appendToTail(new Node(13));
-        
-        Node temp = head;
-        while(temp.next != null)
-        {
-            temp = temp.next;
-        }
-        
-        temp.next = null;
+        head.appendToTail(n);
         
         Node res = rd.returnsStartNode(head);
         
