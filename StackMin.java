@@ -1,38 +1,14 @@
 import java.io.*;
 import java.lang.RuntimeException;
 
-class Node{
-    int d;
-    Node next;
+class NodeWithMin{
+    int data;
+    int min;
     
-    Node()
+    public NodeWithMin(int min, int data)
     {
-        
-    }
-    
-    Node(int i)
-    {
-        d = i;
-        next = null;
-    }
-    
-    void appendToTail(Node n)
-    {
-        if(this.next == null)
-        {
-            this.next = n; 
-        }
-        else
-        {
-            Node next = this.next;
-            while(next.next != null)
-            {
-               // System.out.println("next is: " + next.d);
-                next = next.next;
-            }
-            //System.out.println("n is: " + n.d);
-            next.next = n;
-        }
+        this.min = min;
+        this.data = data;
     }
 } 
 
