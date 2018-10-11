@@ -43,3 +43,42 @@ public class myStack extends Stack<minNode> {
         System.out.println(m.min());
     }
 }
+
+// More efficient implementation
+class myStack extends Stack<Integer>{
+    
+    Stack<Integer> m;
+    
+    public myStack()
+    {
+        m = new Stack<Integer>();
+    }
+    
+    public void push(int val)
+    {
+        int min = val;
+        if(!m.empty())
+        {
+            min = Math.min(m.peek(),val);
+        }
+        
+        m.push(min);
+        super.push(val);
+    }
+    
+    public Integer pop()
+    {
+        m.pop();
+        return super.pop();
+    }
+    
+    public Integer min()
+    {
+        if(!m.empty())
+        {
+            return m.peek();
+        }
+        
+        return Integer.MAX_VALUE;
+    }
+}
