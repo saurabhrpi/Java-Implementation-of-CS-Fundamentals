@@ -3,80 +3,99 @@ import java.lang.*;
 
 class myStack extends Stack{
     
-    int thresh = 15;
+    int thresh;
     
-    public int size()
-    {
-        myStack s = new myStack();
-        
-        int count = 0;
-        while(!empty())
-        {
-            count++;
-            s.push(pop());
-        }
-        
-        while(!s.empty())
-        {
-            push(s.pop());
-        }
-        
-        return count;
-    }
-
 }
 
 public class SetOfStacks{
     
     myStack[] m;
     
-    public SetOfStacks(int items)
+    public SetOfStacks(int thresh)
     {
-        int len = 0;
-        len = (items / 15) + 1; 
-        m = new myStack[len];
+        m = new myStack[1];
+        m[0] = new myStack();
+        m[0].thresh = thresh;
+    }
+    
+    public myStack[] expand()
+    {
+        myStack[] n = new myStack[m.length + 1]; 
+        
+        int i=0;
+        
+        for(; i < m.length; i++)
+        {
+            n[i] = (myStack) m[i].clone();
+        }
+        
+        n[i] = new myStack();
+        
+        return n;
     }
     
     public void push(int val)
     {
-       int i = m.length - 1;
-       while(i >= 0)
-       {
-            if(m[i] != null)
-           {
-               if(m[i].size() == 15)
-               {
-                    if(i > 0)
-                   {
-                      m[i] = new myStack();   
-                   }
-                   else if(i == 0)
-                   {
-                       int k = m.length;
-                       myStack[] n = new myStack[k + 1];
-                       while(k > 0)
-                       {
-                           n[k] = (myStack) m[k].clone();
-                       }
-                       n[k].push(val);
-                       break;
-                   }   
-               }
-               else
-               {
-                    m[i].push(val);
-                    break;    
-               }
-           }   
-           else
-           {
-               m[i] = new myStack();
-               m[i].push(val);
-               break;
-           }
-           i-- ;
-       }
+        if(size(m.length - 1) == m[m.length - 1].thresh)
+        {
+            m = expand();
+        }
+    
+        m[m.length - 1].push(val);
     }
+    
+    public Integer pop()
+    {
+        int i = m.length - 1;
+        
+        while(m[i].empty() && i > 0)
+        {
+            i--;
+        }
+        
+        Integer in = (Integer)m[i].pop();
+        
+        if(m[i].empty() && i>0)
+        {
+            myStack[] s = new myStack[i];
+            
+            i--;
+            while(i >= 0)
+            {
+                s[i] = (myStack)m[i].clone();
+                i--;
+            }
+            
+            m = s;
+        }    
+        
+        return in;        
+    }
+    
+    public int size(int stackNum)
+    {
+        if(m[stackNum] != null)
+        {
+            Stack s = new Stack();
+        
+            int count = 0;
+            while(!m[stackNum].empty())
+            {
+                count++;
+                s.push(m[stackNum].pop());
+            }
+            
+            while(!s.empty())
+            {
+                m[stackNum].push(s.pop());
+            }   
+            
+            return count;
+        }
+        
+        return -1;
+    }
+
     
     public void printSet()
     {
@@ -84,23 +103,46 @@ public class SetOfStacks{
         while(i < m.length)
         {
             int k = 0;
-            while(m[i] != null && k < m[i].size())
+            if(m[i] != null)
             {
-                System.out.println("This is element #" + k + " of stack #" + i);
-                k++;
+                Stack c = (Stack)m[i].clone();
+                while(k < size(i))
+                {
+                    System.out.println("This is element #" + (k+1) + " of stack #" + (i+1) + ": "+ c.pop());
+                    k++;
+                }
             }
-            i++;
+            i++;   
+        }
+        
+        while(m.length > 0 && !m[0].empty())
+        {
+            System.out.println("just removed: "+ pop());
         }
     }
     
     public static void main(String[] args)
     {
-        SetOfStacks ss = new SetOfStacks(100);
+        SetOfStacks ss = new SetOfStacks(5);
         ss.push(89);
         ss.push(189);
         ss.push(829);
         ss.push(893);
-        ss.push(1189);
+        ss.push(899);
+        ss.push(809);
+        ss.push(119);
+        ss.push(11);
+        
+        ss.printSet();
+        
+        ss.push(89);
+        ss.push(189);
+        ss.push(829);
+        ss.push(893);
+        ss.push(899);
+        ss.push(809);
+        ss.push(119);
+        ss.push(11);
         
         ss.printSet();
     }
