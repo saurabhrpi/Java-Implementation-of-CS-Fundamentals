@@ -121,6 +121,56 @@ public class SetOfStacks{
         }
     }
     
+    // FollowUp
+    
+    public Integer popAt(int index)
+    {
+        int subStack = (index / m[0].thresh);
+        int off = (index % m[0].thresh) - 1;
+        
+        Stack s = new Stack();    
+        
+        while(size(subStack) - index > 0)
+        {
+            System.out.println("before "+ size(subStack));
+            s.push(m[subStack].pop());
+            System.out.println("after "+ size(subStack));
+        }
+        
+        Integer res = (Integer)m[subStack].pop();
+        
+        while(!s.empty())
+        {
+            m[subStack].push(s.pop());
+        }
+        
+        if(subStack == m.length - 1)
+        {
+            return res;
+        }
+        
+        int movedFS = subStack + 1;
+        int movedTS = subStack;
+        
+        while(movedFS <= (m.length - 1))
+        {
+          while(!m[movedFS].empty())    
+          {
+              s.push(m[movedFS].pop());
+          }
+          
+          while(!s.empty())
+          {
+            m[movedTS].push(s.pop());    
+          }
+          
+          movedFS++;
+          movedTS++;
+        }   
+        
+        return res;
+    }
+    
     public static void main(String[] args)
     {
         SetOfStacks ss = new SetOfStacks(5);
