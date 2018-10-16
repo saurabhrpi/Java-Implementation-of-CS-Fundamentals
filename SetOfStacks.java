@@ -123,53 +123,38 @@ public class SetOfStacks{
     
     // FollowUp
     
-    public Integer popAt(int index)
+    public Node popAt(int index)
     {
-        int subStack = (index / m[0].thresh);
-        int off = (index % m[0].thresh) - 1;
+        System.out.println("size "+ size(index));
         
-        Stack s = new Stack();    
+        Node res = (Node) m[index].pop();
         
-        while(size(subStack) - index > 0)
-        {
-            System.out.println("before "+ size(subStack));
-            s.push(m[subStack].pop());
-            System.out.println("after "+ size(subStack));
-        }
-        
-        Integer res = (Integer)m[subStack].pop();
-        
-        while(!s.empty())
-        {
-            m[subStack].push(s.pop());
-        }
-        
-        if(subStack == m.length - 1)
+        if(index == m.length - 1)
         {
             return res;
         }
         
-        int movedFS = subStack + 1;
-        int movedTS = subStack;
+        System.out.println("subset != m.length-1");
+        
+        int movedFS = index + 1;
+        int movedTS = index;
         
         while(movedFS <= (m.length - 1))
         {
-          while(!m[movedFS].empty())    
-          {
-              s.push(m[movedFS].pop());
-          }
-          
-          while(!s.empty())
-          {
-            m[movedTS].push(s.pop());    
-          }
-          
+              
+          Node n = m[movedFS].bottom;
+          m[movedFS].bottom = n.above;
+          n.above.below = null;
+          n.above = null;
+          m[movedTS].top.above = n;
+          n.below = m[movedTS].top;
+          m[movedTS].top = n;
           movedFS++;
           movedTS++;
         }   
         
         return res;
-    }
+    }    
     
     public static void main(String[] args)
     {
