@@ -10,6 +10,16 @@ class Node{
 class myStack extends Stack<Node>{
     
     Node bottom, top;   
+    
+    myStack()
+    {
+        
+    }
+    
+    myStack(int thresh)
+    {
+        this.thresh = thresh;
+    }
 }
 
 public class SetOfStacks{
@@ -19,8 +29,7 @@ public class SetOfStacks{
     public SetOfStacks(int thresh)
     {
         m = new myStack[1];
-        m[0] = new myStack();
-        m[0].thresh = thresh;
+        m[0] = new myStack(thresh);
     }
     
     public myStack[] expand()
@@ -34,7 +43,7 @@ public class SetOfStacks{
             n[i] = (myStack) m[i].clone();
         }
         
-        n[i] = new myStack();
+        n[i] = new myStack(m[0].thresh);
         
         return n;
     }
@@ -116,7 +125,13 @@ public class SetOfStacks{
         while(movedFS <= (m.length - 1))
         {
               
-                
+          Node n = m[movedFS].bottom;
+          m[movedFS].bottom = n.above;
+          n.above.below = null;
+          n.above = null;
+          m[movedTS].top.above = n;
+          n.below = m[movedTS].top;
+          m[movedTS].top = n;
           movedFS++;
           movedTS++;
         }   
