@@ -121,40 +121,6 @@ public class SetOfStacks{
         }
     }
     
-    // FollowUp
-    
-    public Node popAt(int index)
-    {
-        System.out.println("size "+ size(index));
-        
-        Node res = (Node) m[index].pop();
-        
-        if(index == m.length - 1)
-        {
-            return res;
-        }
-        
-        System.out.println("subset != m.length-1");
-        
-        int movedFS = index + 1;
-        int movedTS = index;
-        
-        while(movedFS <= (m.length - 1))
-        {
-              
-          Node n = m[movedFS].bottom;
-          m[movedFS].bottom = n.above;
-          n.above.below = null;
-          n.above = null;
-          m[movedTS].top.above = n;
-          n.below = m[movedTS].top;
-          m[movedTS].top = n;
-          movedFS++;
-          movedTS++;
-        }   
-        
-        return res;
-    }    
     
     public static void main(String[] args)
     {
