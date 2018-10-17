@@ -2,25 +2,25 @@ import java.util.*;
 import java.lang.*;
 
 class Node{
-    public int data;
-    Node below;
-    Node above;
+    int data;
+    Node above, below;
     
     Node()
     {
         
     }
     
-    Node(int val)
+    Node(int n)
     {
-        this.data = val;
+        data = n;
     }
 }
 
 class myStack extends Stack<Node>{
     int thresh;
     int size;
-    Node bottom, top;   
+    
+    Node top, bottom;
     
     myStack()
     {
@@ -30,54 +30,36 @@ class myStack extends Stack<Node>{
     myStack(int thresh)
     {
         this.thresh = thresh;
+        //super();
     }
 }
 
 public class SetOfStacks{
-    
     myStack[] m;
     
-    public SetOfStacks(int thresh)
+    SetOfStacks(int thresh)
     {
         m = new myStack[1];
         m[0] = new myStack(thresh);
     }
     
-    public myStack[] expand()
+    public void push(Node n)
     {
-        myStack[] n = new myStack[m.length + 1]; 
-        
-        int i=0;
-        
-        for(; i < m.length; i++)
-        {
-            n[i] = (myStack) m[i].clone();
-        }
-        
-        n[i] = new myStack(m[0].thresh);
-        
-        return n;
-    }
-    
-    public void push(int val)
-    {
-        if(m[m.length - 1].size == m[m.length - 1].thresh)
+        if(m[m.length-1].size == m[m.length-1].thresh)
         {
             m = expand();
         }
         
-        
         Node prev = null;
         
-
         if(m[m.length - 1].size > 0)
         {
             prev = m[m.length - 1].peek();
         }
-        
-        Node n = new Node(val);
-        m[m.length - 1].push(n);
-        m[m.length - 1].size++;
+            
+        m[m.length-1].push(n);
+        m[m.length-1].size++;
+    
         
         if(m[m.length - 1].bottom == null)
         {
@@ -88,73 +70,80 @@ public class SetOfStacks{
         
         if(prev != null)
         {
-            m[m.length - 1].peek().below = prev;
-            prev.above = m[m.length - 1].peek();   
+            prev.above = n;
+            n.below = prev;
         }
-        
+
     }
     
     public Node pop()
     {
-        int i = m.length - 1;
-        
-        while(m[i].empty() && i > 0)
+        if(m[m.length - 1].size == 0)
         {
-            i--;
+            return null;
         }
         
-        Node n = (Node) m[i].pop();
-        m[i].size--;
+        Node res = (Node)m[m.length - 1].pop();
+        m[m.length - 1].size--;
         
-        if(m[i].empty() && i>0)
+        
+        if(m[m.length - 1].empty())
         {
-            myStack[] s = new myStack[i];
+            myStack[] n = new myStack[m.length - 1];
             
-            i--;
-            while(i >= 0)
+            for(int i = 0; i < m.length - 1; i++)
             {
-                s[i] = (myStack)m[i].clone();
-                i--;
+                n[i] = (myStack)m[i].clone();
             }
             
-            m = s;
-        }    
+            m = n;
+        }
         
-        return n;        
+        return res;
     }
     
     public Node popAt(int index)
     {
-        //System.out.println("size "+ size(index));
+        Node res = m[index].pop();
+        m[index].top = res.below;
+        res.below.above = null;
+        res.below = null;
+        m[m.length - 1].size--;
         
-        Node res = (Node) m[index].pop();
-        m[index].size--;
-        
-        if(index == m.length - 1)
+        if(index != m.length - 1)
         {
-            return res;
-        }    
-        
-        int movedFS = index + 1;
-        int movedTS = index;
-        
-        while(movedFS <= (m.length - 1))
-        {
-              
-          Node n = m[movedFS].bottom;
-          m[movedFS].bottom = n.above;
-          n.above.below = null;
-          n.above = null;
-          m[movedTS].top.above = n;
-          n.below = m[movedTS].top;
-          m[movedTS].top = n;
-          movedFS++;
-          movedTS++;
-        }   
+            int movedFS = index + 1;
+            int movedTS = index;
+            while(movedFS <= m.length - 1)
+            {
+                Node n = m[movedFS].bottom;
+                m[movedFS].bottom = n.above;
+                m[movedFS].bottom.below = null;
+                n.above = null;
+                m[movedTS].push(n);
+                movedFS++;
+                movedTS++;
+            }
+        }
         
         return res;
     }
-
+    
+    public myStack[] expand()
+    {
+        myStack[] n = new myStack[m.length + 1];
+        
+        int i=0;
+        for(; i < m.length; i++)
+        {
+            myStack s = (myStack)m[i].clone();
+            n[i] = s;
+        }
+        
+        n[i] = new myStack(m[0].thresh);
+        
+        return n;
+    }
     
     public void printSet()
     {
@@ -179,21 +168,22 @@ public class SetOfStacks{
     public static void main(String[] args)
     {
         SetOfStacks ss = new SetOfStacks(3);
-        ss.push(89);
-        ss.push(189);
-        ss.push(829);
-        ss.push(893);
-        ss.push(899);
-        ss.push(809);
-        ss.push(119);
-        ss.push(11);
+        ss.push(new Node(89));
+        ss.push(new Node(189));
+        ss.push(new Node(829));
+        ss.push(new Node(893));
+        ss.push(new Node(899));
+        ss.push(new Node(809));
+        ss.push(new Node(119));
+        ss.push(new Node(11));
         
         ss.printSet();
         
-        ss.popAt(2);
+        ss.popAt(0);
+        //ss.pop();
+        
+        System.out.println("****");
         
         ss.printSet();
     }
 }
-
-/* Textbook Implementation */
