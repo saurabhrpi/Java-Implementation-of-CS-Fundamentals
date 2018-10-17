@@ -84,6 +84,9 @@ public class SetOfStacks{
         }
         
         Node res = (Node)m[m.length - 1].pop();
+        m[m.length - 1].top = res.below;
+        res.below.above = null;
+        res.below = null;
         m[m.length - 1].size--;
         
         
