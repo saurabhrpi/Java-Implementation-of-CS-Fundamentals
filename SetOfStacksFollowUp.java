@@ -108,6 +108,8 @@ public class SetOfStacks{
     public Node popAt(int index)
     {
         Node res = m[index].pop();
+
+        // remove top
         m[index].top = res.below;
         res.below.above = null;
         res.below = null;
