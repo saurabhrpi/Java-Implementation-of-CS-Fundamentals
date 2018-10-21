@@ -13,25 +13,21 @@ public class SortStack{
             int var = (Integer)inp.pop();
             while(it != inpS)
             {
-                int i = 0;
+                int i = 1;
                 while(i < inpS - it)
                 {
-                    //var = (Integer)inp.pop();
-                    System.out.println("var popped is " + var);
                     if((Integer)inp.peek() > var)
-                    {
-                        System.out.println("var pushed into temp " + var);
+                    {                        
                         temp.push(var);
-                        var =  (Integer)inp.pop();
-                        System.out.println("next var popped " + var);
+                        var =  (Integer)inp.pop();                     
                     }
                     else
-                    {
-                        System.out.println("next val pushed into temp " + inp.peek());
+                    {                        
                         temp.push(inp.pop());   
                     }
-                }
-                
+                    i++;
+                }                
+             
                 inp.push(var);
                 it++;
                 
@@ -40,9 +36,12 @@ public class SortStack{
                     inp.push(temp.pop());
                 }
                 
-                //System.out.println("inp at the end");
-                //printStack(inp);
+                if( it < inpS )
+                {
+                    var = (Integer)inp.pop();   
+                }
             }
+            printStack(inp);
         }
     }
     
@@ -71,10 +70,12 @@ public class SortStack{
     public static void main(String[] args)
     {
         Stack s = new Stack();
-        s.push(1);
+        s.push(10);
         s.push(11);
-        s.push(5);
-        s.push(7);
+        s.push(11);
+        s.push(10);
+        //s.push(1);
+        //s.push(2);
         
         SortStack ss = new SortStack();
         
