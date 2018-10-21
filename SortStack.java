@@ -13,7 +13,7 @@ public class SortStack{
             int var = (Integer)inp.pop();
             while(it != inpS)
             {
-                int i = 1;
+                int i = 0;
                 while(i < inpS - it)
                 {
                     if((Integer)inp.peek() > var)
