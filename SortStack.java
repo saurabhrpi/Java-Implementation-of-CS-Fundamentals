@@ -13,21 +13,24 @@ public class SortStack{
             int var = (Integer)inp.pop();
             while(it != inpS)
             {
-                int i = 0;
+                int i = 1;
                 while(i < inpS - it)
                 {
-                    if((Integer)inp.peek() > var)
-                    {                        
+                    if(var < (Integer)inp.peek())
+                    {
+                        System.out.println("var pushed to temp " + var);   
                         temp.push(var);
-                        var =  (Integer)inp.pop();                     
+                        var = (Integer)inp.pop();
+                        System.out.println("new value of var " + var);   
                     }
                     else
-                    {                        
-                        temp.push(inp.pop());   
+                    {
+                        System.out.println("inp's top pushed into temp " + inp.peek());   
+                        temp.push(inp.pop());
                     }
                     i++;
-                }                
-             
+                }
+                
                 inp.push(var);
                 it++;
                 
@@ -36,24 +39,28 @@ public class SortStack{
                     inp.push(temp.pop());
                 }
                 
-                if( it < inpS )
+                if(it != inpS)
                 {
-                    var = (Integer)inp.pop();   
+                    var = (Integer)inp.pop();
                 }
             }
             printStack(inp);
         }
     }
+
     
     public int size(Stack s)
     {
         int count = 0;
-        Stack t = (Stack)s.clone();
-        while(!t.empty())
+        
+        Stack t = (Stack) s.clone(); 
+        
+        while (!t.empty())
         {
             count++;
             t.pop();
         }
+        
         return count;
     }
     
@@ -70,12 +77,15 @@ public class SortStack{
     public static void main(String[] args)
     {
         Stack s = new Stack();
+        s.push(190);
+        s.push(910);
+        s.push(100);
+        s.push(1);
         s.push(10);
-        s.push(11);
-        s.push(11);
-        s.push(10);
-        //s.push(1);
-        //s.push(2);
+        s.push(9);
+        s.push(7);
+        s.push(1);
+        s.push(2);
         
         SortStack ss = new SortStack();
         
