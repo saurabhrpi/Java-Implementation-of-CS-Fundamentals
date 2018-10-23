@@ -74,6 +74,32 @@ public class SortStack{
         }    
     }
     
+    // Book's implementation of Sort
+    
+    public void bookSort(Stack inp)
+    {
+        if(inp != null && !inp.empty())
+        {
+            Stack temp = new Stack();
+            while(!inp.empty())
+            {
+                int var = (Integer)inp.pop();
+                while(!temp.empty() && (Integer)temp.peek() > var)
+                {
+                    inp.push(temp.pop()); // Compare till the right place of var is found in temp
+                }
+                temp.push(var);
+            }
+            
+            while(!temp.empty())
+            {
+                inp.push(temp.pop());
+            }
+            printStack(inp);
+        }
+    }
+
+    
     public static void main(String[] args)
     {
         Stack s = new Stack();
