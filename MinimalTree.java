@@ -1,94 +1,78 @@
-class Tree
-{
-    public void printTree(Node temp, int i)
+import java.util.*;
+import java.lang.*;
+
+class Node {
+    public int data;
+    public Node left;
+    public Node right;
+    
+    Node()
     {
-        if(temp != null)
+        
+    }
+    
+    Node(int data)
+    {
+        this.data = data;
+    }
+}
+
+class Tree{
+    
+    public void printTree(Node root, int level)
+    {
+        if(root != null)
         {
-            System.out.println("start of level " + i);
-            System.out.println(temp.data);
+            System.out.println("level " + level + " for node " + root.data + " begins");
             
-            Node left = null;
-            Node right = null;
+            System.out.println("Left Child at " + (level + 1) + " is");   
+            System.out.println(root.left == null ? null : root.left.data);
             
-            if(temp.children.size() != 0)
-            {
-                left = temp.children.get(0);
-                
-                if(left != null)
-                {
-                    System.out.println("left child " + left.data);   
-                }
-                
-            }    
+            System.out.println("Right Child at " + (level + 1) + " is");
+            System.out.println(root.right == null ? null : root.right.data);
             
-            if(temp.children.size() > 1)
-            {    
-                right = temp.children.get(1);
-                
-                if(right != null)
-                {
-                    System.out.println("right child " + right.data);   
-                }
-                
-            }
-             
-             System.out.println("end of level " + i);
-             i++;
-             
-             if(left != null)
-             {
-                printTree(left, i);   
-             }
-             
-             if(right != null)
-             {
-                printTree(right, i); 
-             }  
+            System.out.println("level " + level + " for node " + root.data + " ends");
+            
+            level++;
+            printTree(root.left,level);
+            printTree(root.right,level);
         }
     }
 }
 
-public class MinimalTree{
+public class minimalBST{
     
-    public Node minimize(int[] inp)
+    public Node createMinimalBST(int[] inp, int start, int end)
     {
-        if(inp != null)
+        if(end < start || inp == null)
         {
-            if(inp.length == 0)
-            {
-                return null;   
-            }
-    
-            Node root = new Node(inp[inp.length/2]);
-            
-            if(inp.length > 1)
-            {
-                int[] right = Arrays.copyOfRange(inp,((inp.length)/2) + 1,inp.length);
-                int[] left = Arrays.copyOfRange(inp, 0, (inp.length)/2); 
-                
-                Node rc = minimize(right);
-                Node lc = minimize(left);
-                
-                root.children.add(lc);
-                root.children.add(rc);
-            }
-            return root;
+            return null;
         }
-        return null;        
+        
+        int mid = (start + end) / 2;
+        
+        Node root = new Node(inp[mid]);
+        
+        root.left = createMinimalBST(inp, start, mid - 1);
+        root.right = createMinimalBST(inp, mid + 1, end);
+        
+        return root;
     }
     
     public static void main(String[] args)
     {
         int[] inp = {14, 29, 37, 44, 50, 100, 110, 190, 200, 400};
         
-        MinimalTree mt = new MinimalTree();
+        //int[] inp = {9, 81, 171, 200, 201};
         
-        Node temp = mt.minimize(inp);
+        minimalBST mt = new minimalBST();
+        
+        Node temp = mt.createMinimalBST(inp,0, inp.length - 1);
         
         Tree t = new Tree();
         
         System.out.println("**********printing tree***********");
         t.printTree(temp, 0);
     }
+
 }
-	
