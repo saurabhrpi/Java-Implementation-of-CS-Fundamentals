@@ -3,8 +3,6 @@ import java.lang.*;
 
 class TreeNode {
     public int data;
-    public int level;
-    public TreeNode root;
     public TreeNode left;
     public TreeNode right;
     
@@ -13,28 +11,14 @@ class TreeNode {
         
     }
     
-    TreeNode(Node root, int data, int leftd, int rightd)
+    TreeNode(int data)
     {
-        this.data = data;
-        this.root = root;
-        
+        this.data = data;        
     }
     
 }
 
-class Tree{
-    
-    /*
-    public TreeNode createTree(int[] inp)
-    {
-        if(inp == null)
-        {
-            return null;
-        }
-        
-        
-    }
-    */
+class Tree{   
     
     public void printTree(TreeNode root, int level)
     {
