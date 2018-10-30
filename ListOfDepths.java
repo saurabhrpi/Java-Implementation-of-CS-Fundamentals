@@ -13,12 +13,12 @@ class TreeNode {
     
     TreeNode(int data)
     {
-        this.data = data;        
+        this.data = data;
     }
     
 }
 
-class Tree{   
+class Tree{
     
     public void printTree(TreeNode root, int level)
     {
@@ -43,45 +43,79 @@ class Tree{
 
 public class ListOfDepths{
     
-    public LinkedList<TreeNode> createList(TreeNode root)
+    public ArrayList<LinkedList<TreeNode>> createLists(TreeNode root)
     {
         if(root == null)
         {
-            return root;
+            return null;
         }
         
         ArrayList<LinkedList<TreeNode>> al = new ArrayList<LinkedList<TreeNode>>();
         
-        LinkedList<TreeNode> l = new LinkedList<TreeNode>();
+        int level = 0;
         
-        l.add(root);
-        
-        addNodesAtSameLevel(l, root);
-        
-        al.add(createList(root.left));
-        al.add(createList(root.right));
+        addNodesAtSameLevel(al, root, level);
         
         return al;
     }
     
-    public void addNodesAtSameLevel(LinkedList<TreeNode> l, TreeNode root, ArrayList<LinkedList> al)
+    public void addNodesAtSameLevel(ArrayList<LinkedList<TreeNode>> al, TreeNode root, int level)
     {
         if(root != null)
         {
+           LinkedList<TreeNode> l;
            
+           if(al.size() == level)
+           {
+                l = new LinkedList<TreeNode>();     
+                al.add(l);
+           }
+           else
+           {
+               l = al.get(level);
+           }
+           
+           l.add(root);
+           
+           addNodesAtSameLevel(al, root.left, level + 1);
+           addNodesAtSameLevel(al, root.right, level + 1);
         }
     }
     
     public static void main(String[] args)
     {
-        TreeNode root = new TreeNode(100,0);
-        root.left = new TreeNode(140,1);
-        root.right = new TreeNode(178,1);
-        root.root = null;
+        TreeNode root = new TreeNode(100);
+        root.left = new TreeNode(140);
+        root.right = new TreeNode(178);
         
-        TreeNode root = new TreeNode(100,0, 140, 178);
+        TreeNode root2 = root.left;
+        root2.left = new TreeNode(1400);
+        root2.right = new TreeNode(1708);
         
-        ArrayList<LinkedList> al = new ArrayList<LinkedList>();
+        TreeNode root3 = root.right;
+        root3.left = new TreeNode(10);
+        root3.right = new TreeNode(708);
+        
+        //Tree t = new Tree();
+        
+        //t.printTree(root, 0);
+        
+        ListOfDepths ld = new ListOfDepths();
+        
+        ArrayList<LinkedList<TreeNode>> al = ld.createList(root);
+        
+        if(al != null)
+        {
+            for(int i=0; i < al.size(); i++)
+            {
+                LinkedList<TreeNode> ll = al.get(i);
+                for(int j=0; j < ll.size(); j++)
+                {
+                    System.out.println("printing linkedlist " + i);
+                    System.out.println(ll.get(j).data);   
+                }
+            }   
+        }
     }
 
 }
