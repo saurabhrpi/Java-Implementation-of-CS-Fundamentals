@@ -43,12 +43,14 @@ class Tree{
 
 public class ListOfDepths{
     
-    public LinkedList<TreeNode> createList(TreeNode root, ArrayList<LinkedList> al)
+    public LinkedList<TreeNode> createList(TreeNode root)
     {
         if(root == null)
         {
             return root;
         }
+        
+        ArrayList<LinkedList<TreeNode>> al = new ArrayList<LinkedList<TreeNode>>();
         
         LinkedList<TreeNode> l = new LinkedList<TreeNode>();
         
@@ -62,9 +64,12 @@ public class ListOfDepths{
         return al;
     }
     
-    public TreeNode addNodesAtSameLevel(LinkedList<TreeNode> l, TreeNode root)
+    public void addNodesAtSameLevel(LinkedList<TreeNode> l, TreeNode root, ArrayList<LinkedList> al)
     {
-        
+        if(root != null)
+        {
+           
+        }
     }
     
     public static void main(String[] args)
