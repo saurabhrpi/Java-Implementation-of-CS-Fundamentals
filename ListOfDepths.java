@@ -82,6 +82,48 @@ public class ListOfDepths{
         }
     }
     
+     public ArrayList<LinkedList<TreeNode>> createListsBFS(TreeNode root)
+    {
+        if(root == null)
+        {
+            return null;
+        }
+        
+        LinkedList<TreeNode> l = new LinkedList<TreeNode>();
+        
+        ArrayList<LinkedList<TreeNode>> al = new ArrayList<LinkedList<TreeNode>>();
+        
+        if(root != null)
+        {
+            l.add(root);
+        }
+        
+        while(l.size() > 0)
+        {
+            al.add(l);
+            
+            LinkedList<TreeNode> parents = l;
+            
+            l = new LinkedList<TreeNode>();
+            
+            for(int i=0; i < parents.size(); i++)
+            {
+                if(parents.get(i).left != null)
+                {
+                    l.add(parents.get(i).left);
+                }
+                
+                if(parents.get(i).right != null)
+                {
+                    l.add(parents.get(i).right);
+                }
+            }
+        }
+        
+        return al;
+    }	
+
+    
     public static void main(String[] args)
     {
         TreeNode root = new TreeNode(100);
