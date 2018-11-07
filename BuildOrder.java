@@ -1,111 +1,138 @@
-import java.lang.*;
 import java.util.*;
+import java.lang.*;
 
 class Project{
-    public String name;
-    public ArrayList<Project> children = new ArrayList<Project>(); // children = neighbor = dependency
-    public HashMap<String, Project> neighborIds = new HashMap<String, Project>();
-    public int dependencies = 0;
+    private String name;
+    private ArrayList<Project> children = new ArrayList<Project>();
+    public HashMap<String, Project> childIds = new HashMap<String, Project>();
+    private int dependency = 0;
     
     Project(String name)
     {
         this.name = name;
     }
     
-    public void incrementDependencies()
+    public ArrayList<Project> getChildren()
     {
-        dependencies++;
+        return children;
     }
     
-    public void decrementDependencies()
+    public void addNeighbor(Project n)
     {
-        dependencies--;
-    }
-    
-    public void addNeighbor(Project node)
-    {
-        if(!neighborIds.containsKey(node.name))
+        if(n != null)
         {
-            neighborIds.put(node.name, node);
-            children.add(node);
-            node.incrementDependencies();
+            children.add(n);
+            childIds.put(n.getName(),n);
+            n.increaseDependency();
         }
+    }
+    
+    public void decreaseDependency()
+    {
+        dependency--;
+    }
+    
+    public void increaseDependency()
+    {
+        dependency++;
+    }
+    
+    public int getDependency()
+    {
+        return dependency;
+    }
+    
+    public String getName()
+    {
+        return name;
     }
     
 }
 
- class Graph{
-    
+class Graph{
     public ArrayList<Project> nodes = new ArrayList<Project>();
-    public HashMap<String, Project> projIds = new HashMap<String, Project>();
+    public HashMap<String, Project> projectIDs = new HashMap<String, Project>();
     
-    Graph(String[] nodes, String[][] dep)
+    public Project getProject(String name)
     {
-        for(int i=0 ; i < nodes.length; i++)
+        if(!projectIDs.containsKey(name))
         {
-            Project n = new Project(nodes[i]);
-            this.nodes.add(n);    
-            projIds.put(nodes[i], n);
+            return null;
         }
         
-        for(int i=0; i < dep.length; i++)
+        return projectIDs.get(name);
+    }
+    
+    Graph(String[] nodes, String[][] edges)
+    {
+        for(int i=0; i < nodes.length; i++)
         {
-            Project par = projIds.get(dep[i][0]);
-            Project child = projIds.get(dep[i][1]);
-            par.addNeighbor(child);
+            Project n = new Project(nodes[i]);
+            this.nodes.add(n);
+            projectIDs.put(nodes[i], n);
+        }
+        
+        for(int i=0; i < edges.length; i++)
+        {
+            Project first = getProject(edges[i][0]);
+            Project sec = getProject(edges[i][1]);
+            first.addNeighbor(sec);
         }
     }
 }
-
 
 public class BuildOrder{
     
-    public Project[] createOrderHelp(String[] nodes, String[][] dep)
+    public Project[] createOrderHelp(String[] nodes, String[][] edges)
     {
-        Graph g = new Graph(nodes, dep);
+        Graph g  = new Graph(nodes, edges);
         return createOrder(g);
+    }
+    
+    public int addNonDependentProject(Project[] order, ArrayList<Project> projects, int offset)
+    {
+        for(int i=0; i < projects.size(); i++)
+        {
+            if(projects.get(i).getDependency() == 0)
+            {
+                order[offset++] = projects.get(i);
+            }
+        }
+        return offset;
     }
     
     public Project[] createOrder(Graph g)
     {
+        ArrayList<Project> projects = g.nodes; 
+        
         Project[] order = new Project[g.nodes.size()];
-        int end = addNonDependents(g.nodes, order, 0);
+        
+        int end = addNonDependentProject(order, projects, 0);
         
         int toBeProcessed = 0;
         
         while(toBeProcessed != order.length)
         {
             Project current = order[toBeProcessed];
-        
+            
             if(current == null)
             {
-                return null; // cyclic graph
+                return null ; // cycle detected
             }
             
-            ArrayList<Project> children = current.children;
+            ArrayList<Project> children = current.getChildren();
             
             for(int i=0; i < children.size(); i++)
             {
-                children.get(i).decrementDependencies();
+                children.get(i).decreaseDependency();
             }
             
-            end = addNonDependents(children, order, end);
+            end = addNonDependentProject(order, children, end);
+            
             toBeProcessed++;
         }
+        
         return order;
-    }
-    
-    public int addNonDependents(ArrayList<Project> projects, Project[] order, int offset)
-    {
-        for(int i=0; i < projects.size(); i++)
-        {
-            if(projects.get(i).dependencies == 0)
-            {
-                order[offset] = projects.get(i);
-                offset++;
-            }
-        }
-        return offset;
     }
     
     public static void main(String[] args)
@@ -113,7 +140,7 @@ public class BuildOrder{
         String[] projects = {"a","b","c","d","e","f"};
         
         String[][] dep = {
-            {"a","d"}, 
+            {"d","a"}, 
             {"f","b"},
             {"b","d"},
             {"f","a"},
@@ -128,7 +155,7 @@ public class BuildOrder{
         
         for(int i = 0; i < res.length; i++)
         {
-            System.out.println(res[i].name);
+            System.out.println(res[i].getName());
         }
     }
 }
