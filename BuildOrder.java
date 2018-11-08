@@ -135,6 +135,8 @@ public class BuildOrder{
         return order;
     }
     
+    // DFS approach
+    
     public static void main(String[] args)
     {
         String[] projects = {"a","b","c","d","e","f"};
