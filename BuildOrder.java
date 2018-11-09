@@ -1,7 +1,11 @@
 import java.util.*;
 import java.lang.*;
 
+enum STATE {UNVISITED, PARTIAL, VISITED ;}
+
 class Project{
+    
+    private STATE state = STATE.UNVISITED;
     private String name;
     private ArrayList<Project> children = new ArrayList<Project>();
     public HashMap<String, Project> childIds = new HashMap<String, Project>();
@@ -10,6 +14,16 @@ class Project{
     Project(String name)
     {
         this.name = name;
+    }
+    
+    public void setState(STATE state)
+    {
+        this.state = state;
+    }
+    
+    public STATE getState()
+    {
+        return state;
     }
     
     public ArrayList<Project> getChildren()
