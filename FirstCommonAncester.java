@@ -107,6 +107,27 @@ public class FirstCommonAncester{
         
         return null;
     }
+    
+    public TreeNode findAncesterBook(TreeNode root, TreeNode first, TreeNode sec)
+    {
+        if(root == null || root == first || root == sec)
+        {
+            return root;
+        }
+        
+        boolean fIsOnLeft = covers(root.left, first); 
+        boolean sIsOnLeft = covers(root.left, sec);
+        
+        if(fIsOnLeft != sIsOnLeft)
+        {
+            return root;
+        }
+        
+        TreeNode child = fIsOnLeft == true ? root.left : root.right;
+        
+        return findAncesterBook(child, first, sec);
+    }
+
 
     
     public static void main(String[] args)
