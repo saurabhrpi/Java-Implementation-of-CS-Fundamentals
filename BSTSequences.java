@@ -40,7 +40,7 @@ public class BSTSequences{
         LinkedList<Integer> prefix = new LinkedList<Integer>();
         prefix.add(node.getData());
         
-        System.out.println("added to prefix " + node.getData());
+        //System.out.println("added to prefix " + node.getData());
         
         ArrayList<LinkedList<Integer>> leftSeq = allSequences(node.left);
         ArrayList<LinkedList<Integer>> rightSeq = allSequences(node.right);
@@ -52,7 +52,7 @@ public class BSTSequences{
                 ArrayList<LinkedList<Integer>> weaved = new ArrayList<LinkedList<Integer>>();
                 
                 weaveLists(leftSeq.get(i), rightSeq.get(j), weaved, prefix);
-                
+                /*
                 System.out.println("adding weaved = ");
                 System.out.println("{ ");
                 for(int k=0; k < weaved.size(); k++)
@@ -71,8 +71,9 @@ public class BSTSequences{
                     }
                     System.out.println("} ");
                 }
+                */
                 result.addAll(weaved);
-                
+                /*
                 System.out.println("result after adding weaved ");
                 
                 for(int k=0; k < result.size(); k++)
@@ -84,8 +85,10 @@ public class BSTSequences{
                     }
                     System.out.println("} ");
                 }
+                */
             }
         }
+        System.out.println("returning result ");
         return result;
     }
     
@@ -93,15 +96,15 @@ public class BSTSequences{
     {
         if(first.size() == 0 || second.size() == 0)
         {
-            
+            /*
             System.out.println("prefix being cloned ");
             for(int i=0; i < prefix.size(); i++)
             {
                 System.out.println(prefix.get(i));   
             }
-            
+            */
             LinkedList<Integer> result = (LinkedList<Integer>) prefix.clone();
-            
+            /*
             System.out.println("adding 1st to result when sec is empty " );
             for(int i=0; i < first.size(); i++)
             {
@@ -113,7 +116,7 @@ public class BSTSequences{
             {
                 System.out.println(second.get(i));   
             }
-            
+            */
             // merge first with sec
             result.addAll(first);
             result.addAll(second); 
@@ -129,7 +132,7 @@ public class BSTSequences{
         }
         else
         {
-            
+            /*
             System.out.println("first after either lists empty check");
             for(int i=0; i < first.size(); i++)
             {
@@ -141,47 +144,47 @@ public class BSTSequences{
             {
                 System.out.println(second.get(i));   
             }
+            */
             
-            
-            int headFirst = first.removeFirst();
-            
+            int headFirst = first.removeFirst(); // making sure we start take the elements in right order
+            /*
             System.out.println("headfirst " + headFirst + " to be added to prefix ");
             for(int i=0; i < prefix.size(); i++)
             {
                 System.out.println(prefix.get(i));   
             }
-               
+            */   
             
             prefix.addLast(headFirst);
             weaveLists(first, second, results, prefix);
-            prefix.removeLast();
-            
+            prefix.removeLast(); // ensures we edit starting the back of a list
+            /*
             System.out.println("headfirst " + headFirst + " removed from prefix ");
             for(int i=0; i < prefix.size(); i++)
             {
                 System.out.println(prefix.get(i));   
             }
-            
+            */
             first.addFirst(headFirst);
             
             int headSec = second.removeFirst();
-            
+            /*
             System.out.println("headSec " + headSec + " to be added to prefix ");
             for(int i=0; i < prefix.size(); i++)
             {
                 System.out.println(prefix.get(i));   
             }
-            
+            */
             prefix.addLast(headSec);
             weaveLists(first, second, results, prefix);
             prefix.removeLast();
-            
+            /*
             System.out.println("headSec " + headSec + " to removed from prefix ");
             for(int i=0; i < prefix.size(); i++)
             {
                 System.out.println(prefix.get(i));   
             }
-            
+            */
             second.addFirst(headSec);   
         }
     }
