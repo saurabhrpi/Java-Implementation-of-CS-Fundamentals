@@ -34,5 +34,12 @@ public class RankFromStream{
           1,
           6
         };
+        
+        RankFromStream rfs = new RankFromStream();
+        
+        for(int i=0; i < arr.length; i++)
+        {
+            rfs.track(arr[i]);
+        }
     }
 }
