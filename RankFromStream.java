@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 
 public class RankFromStream{
     
+    int count = 0;
     ArrayList<Integer> stream;
     
     RankFromStream()
@@ -19,7 +20,7 @@ public class RankFromStream{
     
     public Integer getRankOfNumber(int x)
     {
-        
+         
     }
     
     public static void main(String[] args)
