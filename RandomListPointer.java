@@ -60,7 +60,7 @@ public class RandomListPointer{
        
        RandomListNode r = m.copyRandomListNode(n);
        
-       k.data = 113;
+       k.data = 113; 
        
        System.out.println(n.next.data);
        System.out.println(r.next.data);
