@@ -1,6 +1,8 @@
 import java.util.*;
 import java.lang.*;
 
+// Create a new data structure
+
 class Coordinate implements Cloneable{
     
     int row;
