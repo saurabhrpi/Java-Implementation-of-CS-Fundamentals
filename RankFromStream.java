@@ -2,8 +2,6 @@ import java.lang.*;
 import java.util.*;
 import java.util.stream.Stream;
 
-//3.19
-
 class RankNode{
     public int left_size = 0;
     public RankNode left, right;
