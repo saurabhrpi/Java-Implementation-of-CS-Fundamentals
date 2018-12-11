@@ -101,7 +101,8 @@ public class RankFromStream{
           9,
           1,
           6, 
-          10
+          10,
+          7
         };
         
         RankFromStream rfs = new RankFromStream();
