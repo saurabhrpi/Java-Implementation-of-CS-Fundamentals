@@ -3,8 +3,7 @@ import java.lang.*;
 
 class LRUCache {
     int capacity = 0;
-    HashMap<Integer, Integer> map;
-    LinkedList<Integer> l;
+    HashMap<Integer, LinkedList<Integer>> map;
     
     public LRUCache(int capacity) {
             this.capacity = capacity;
