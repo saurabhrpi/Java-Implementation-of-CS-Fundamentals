@@ -1,8 +1,8 @@
-import java.io.*;
 import java.util.*;
+import java.lang.*;
 
 class Node{
-    int d;
+    int data;
     Node next;
     
     Node()
@@ -10,185 +10,140 @@ class Node{
         
     }
     
-    Node(int i)
+    Node(int data)
     {
-        d = i;
-        next = null;
+        this.data = data;
     }
     
-    void appendToTail(Node n)
+    public void appendToTail(Node n)
     {
-        if(this.next == null)
+        Node next = this.next;
+        Node prev = this;
+        
+        while(next != null)
         {
-            this.next = n; 
+            prev = next;
+            next = next.next;
         }
-        else
+        
+        prev.next = n;
+    }
+    
+    
+    public void printLL()
+    {
+        Node temp = this;
+        
+        while(temp != null)
         {
-            Node next = this.next;
-            while(next.next != null)
-            {
-               // System.out.println("next is: " + next.d);
-                next = next.next;
-            }
-            //System.out.println("n is: " + n.d);
-            next.next = n;
+            System.out.println(temp.data);
+            temp = temp.next;
         }
     }
 }
 
-class myLinkedList{
+class Carry
+{
+    int car = 0;
+}
+
+public class AddNumbers{
     
-    void printLL(Node head)
+    public Node addHelper(Node f, Node s)
     {
-        Node next = head;
-        while(next != null)
+        Carry car = new Carry();
+        
+        int diff = findLen(f) - findLen(s);
+        
+        if(diff != 0)
         {
-            System.out.println(next.d);
-            next = next.next;
+            if(diff < 0)
+            {
+                f = padZeroes(f, Math.abs(diff));
+            }
+            else 
+            {
+                s = padZeroes(s, diff);
+            } 
         }
+        
+        Node res = add(f, s, car);
+        
+        if(car.car > 0)
+        {
+            Node n = new Node(1);
+            n.next = res;
+            res = n;
+        }
+        
+        return res;
     }
     
-    Node deleteNode(Node head, Node del)
-    {
-        System.out.println("del node requested "+ del.d);   
-        if(head == null)
-        {
-            return null;
-        }
-        else
-        {
-            if(del == head)
-            {
-                head = head.next;
-            }
-            else
-            {
-                Node next = head; 
-                while(next.next != null)
-                {
-                    if(next.next == del)
-                    {
-                        next.next = del.next;
-                        break;
-                    }
-                    next = next.next;
-                }
-            }
-        }
-        System.out.println("head returned "+ head.d);
-        return head;
-    }
-    
-    public int length(Node head)
+    public int findLen(Node head)
     {
         int count = 0;
-        
         while(head != null)
         {
             count++;
             head = head.next;
         }
-        
         return count;
     }
-}
-
-class Carry{
-    public int car = 0; 
-}
-
-public class SumNumbersFwd{
-        
-    public Node stuffZeroes(Node head, int l)
+    
+    public Node padZeroes(Node small, int diff)
     {
-        
-        myLinkedList ll = new myLinkedList();
-        
-        while(l > 0)
+        while(diff > 0)
         {
-            head = ll.appendToHead(head, new Node(0));
-            l--;
+            Node n = new Node(0);
+            n.next = small;
+            small = n;
+            diff--;
         }
         
-        return head;
+        return small;
     }
     
-    public Node recurseHandler(Node first, Node second)
+    public Node add(Node f, Node s, Carry car)
     {
-        myLinkedList ll = new myLinkedList();
-        
-        int l = ll.length(first) - ll.length(sec);
-        
-        if(l != 0)
-        {
-            if(l > 0)
-            {
-                sec = stuffZeroes(sec,l);   
-            }
-            else
-            {
-                first = stuffZeroes(first,(0-l));
-            }
-        }
-        
-        Carry c = new Carry();
-        
-        Node res = recurseResult(first, second, c);
-        
-        if(c.car == 1)
-        {
-            Node head = new Node(1);
-            head.next = res;
-            return head;
-        }
-        
-        return res;
-    }
-    
-    public Node recurseResult(Node first, Node second, Carry c)
-    {
-        if(first == null && second == null)
+        if(f == null && s == null)
         {
             return null;
         }
         
-        Node res = new Node();
+        Node result = new Node();
         
-        res.appendToTail(recurseResult(first == null? null : first.next,
-                                       second == null? null : second.next,
-                                       c
-                                       ));
-    
-        if(first != null)
+        result.appendToTail(add(f == null? null : f.next, 
+                                s == null? null : s.next, 
+                                car)
+                            );
+        
+        if(f != null)
         {
-            c.car += first.d;
+          car.car += f.data;   
         }
         
-        if(second != null)
+        if(s != null)
         {
-            c.car += second.d;
+          car.car += s.data;
         }
         
-        if(c.car >= 10)
+        if(car.car >= 10)
         {
-            res.d = c.car % 10;
-            c.car = 1;
+            result.data = car.car % 10;
+            car.car = 1;
         }
         else
         {
-            res.d = c.car;
-            c.car = 0;
+            result.data = car.car;
+            car.car = 0;
         }
         
-        return res;
+        return result;
     }
-
-    // 237, 9891
+    
     public static void main(String args[]) {
         
-        SumNumbersFwd rd = new SumNumbersFwd();
-        
-        myLinkedList ll = new myLinkedList();
+        AddNumbers rd = new AddNumbers();
         
         Node head = new Node(7);
         head.appendToTail(new Node(3));
@@ -206,7 +161,7 @@ public class SumNumbersFwd{
         
         //head = rd.result(head3,head2);
         
-        head =  rd.recurseHandler(head2, head);
+        Node result =  rd.addHelper(head2, head3); //413, 19897
         
         if(head == null)
         {
@@ -214,15 +169,8 @@ public class SumNumbersFwd{
         }
         else
         {
-            if(head.next == null)
-            {
-                System.out.println("There is only one element in the list");
-            }
-            else
-            {
-                System.out.println("Linked list after calling functionality");
-                ll.printLL(head);   
-            }
+            System.out.println("Linked list after calling functionality");
+            result.printLL();   
         }
     }
 }
