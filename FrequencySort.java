@@ -11,8 +11,8 @@ public class FrequencySort{
             map.put(c, map.getOrDefault(c,0) + 1);
         }
         
-        List<Character>[] bucket = new List[s.length()];  // can't use arrayList as an index could be reinitialized
-                                                          // can't use array as the length of the second array is unknown                               
+        List<Character>[] bucket = new List[s.length()];  // can use arrayList too
+                                                          
         for(char k : map.keySet())
         {
             int frequency = map.get(k);
