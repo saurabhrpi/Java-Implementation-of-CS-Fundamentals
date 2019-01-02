@@ -53,7 +53,7 @@ public class FlattenBT{
         
         (new FlattenBT()).flatten(root);
         
-        TreeNode temp = root;
+        TreeNode temp = root; 
         while(temp != null)
         {
             System.out.println(temp.data);
