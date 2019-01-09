@@ -89,6 +89,6 @@ public class AlienDict{
         String [] words2 = {"z", "x", "z"};
         String [] words3 = {"z", "x"};
         
-        System.out.println((new AlienDict()).derive(words3));
+        System.out.println((new AlienDict()).derive(words3)); 
     }
 }
