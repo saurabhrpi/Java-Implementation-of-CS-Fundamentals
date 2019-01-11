@@ -90,5 +90,5 @@ public class AlienDict{
         String [] words3 = {"z", "x"};
         
         System.out.println((new AlienDict()).derive(words3)); 
-    }
+    } 
 }
