@@ -33,7 +33,7 @@ public class DeleteNodeSpecial{
         n.appendToTail(9);
         n.appendToTail(12);
         n.appendToTail(10);
-        n.appendToTail(18);  
+        n.appendToTail(18);   
         
         DeleteNodeSpecial r = new DeleteNodeSpecial();
         //Node x = r.returnElement(2,n);
