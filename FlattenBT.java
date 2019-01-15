@@ -2,7 +2,7 @@ import java.util.*;
 import java.lang.*;
 
 class TreeNode 
-{
+{ 
     int data;
     TreeNode left;
     TreeNode right;
