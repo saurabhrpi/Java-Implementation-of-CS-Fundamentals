@@ -36,7 +36,7 @@ public class CompressString{
                 //System.out.println(ch[k]);
                 j = j + 2;
             }
-        }
+        } 
         
         return new String(c);   
     }
