@@ -36,7 +36,7 @@ public class FlattenBT{
                 left.right = root.right;
                 root.right = root.left;
                 root.left = null;
-            }
+            } 
             root = root.right;
         }
     }
