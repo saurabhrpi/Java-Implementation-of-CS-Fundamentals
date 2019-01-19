@@ -37,7 +37,7 @@ public class FirstCommonAncester{
         }
         
         int count = 0; 
-        while(n != null)
+        while(n != null) 
         {
             count++;
             n = n.parent;
