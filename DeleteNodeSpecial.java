@@ -24,7 +24,7 @@ public class DeleteNodeSpecial{
     { 
 	acc.data = acc.next.data;
 	acc.next = acc.next.next;               
-    }
+    } 
     public static void main(String[] args)
     {
         //18,10,9,12,10,18
