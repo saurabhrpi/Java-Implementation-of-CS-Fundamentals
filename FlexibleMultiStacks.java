@@ -241,6 +241,6 @@ public class FlexibleMultiStack{
     //m.pop(1);
     //System.out.println("popped again" + 2);
     
-    //m.printMultiStacks();    
+    //m.printMultiStacks();     
     }
 }
