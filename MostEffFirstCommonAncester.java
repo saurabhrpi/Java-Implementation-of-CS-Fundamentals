@@ -35,7 +35,7 @@ class Result{
     }
 }
 
-public class MostEffFirstCommonAncester{
+public class MostEffFirstCommonAncester{ 
     
     public Result findCommonAncester(TreeNode root, TreeNode first, TreeNode sec)
     {
