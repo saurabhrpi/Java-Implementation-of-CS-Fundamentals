@@ -35,7 +35,7 @@ public class FirstCommonAncester{
         //return findAncesterBook(root, first, sec);
         return findAncester(root, first, sec);
     }
-    
+     
     public boolean covers(TreeNode root, TreeNode n)
     {
         if(root == null)
