@@ -28,7 +28,7 @@ class Dog extends Animal{
     {
         super(name);
     }
-}
+} 
 
 class Cat extends Animal{
     
