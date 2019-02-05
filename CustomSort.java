@@ -24,7 +24,7 @@ public class CS{
     public void solve(String[] arr)
     {
         Arrays.sort(arr, new CustomSort());
-    }
+    } 
     
     public static void main(String[] args)
     {
