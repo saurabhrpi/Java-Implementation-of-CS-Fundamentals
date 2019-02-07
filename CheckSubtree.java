@@ -34,7 +34,7 @@ public class CheckSubtree{
         }
         
         if(ch == null)
-        {
+        { 
             return true;
         }
         
