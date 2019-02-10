@@ -116,6 +116,6 @@ public class SortedMatrix{
         
         Coordinate res = l.findElement(arr, 42);
         System.out.println("result = (" + res.row + ", " + res.column+ ")");
-        //System.out.println(l.elementAt(70));
+        //System.out.println(l.elementAt(70)); 
     }
 }
