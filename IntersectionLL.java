@@ -26,7 +26,7 @@ class Node{
         }
         else
         {
-            Node next = this.next;
+            Node next = this.next; 
             while(next.next != null)
             {
                // System.out.println("next is: " + next.d);
