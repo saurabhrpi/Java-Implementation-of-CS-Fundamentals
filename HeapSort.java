@@ -1,6 +1,6 @@
 package CTCI;
 
-//HeapSort starts with the assumption that heap is a max heap.
+//HeapSort starts with the assumption that heap is a max heap. 
 public class HeapSort{
     public void sort(int arr[]){
         int n = arr.length;
