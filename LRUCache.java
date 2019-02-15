@@ -36,7 +36,7 @@ public class LRUCache{
         node.post = head.post;
         node.pre = head;
         
-        head.post.pre = node;
+        head.post.pre = node; 
         head.post = node;
         
         count++;
