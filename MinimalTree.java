@@ -35,7 +35,7 @@ class Tree{
             
             level++;
             printTree(root.left,level);
-            printTree(root.right,level);
+            printTree(root.right,level); 
         }
     }
 }
