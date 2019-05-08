@@ -66,48 +66,88 @@ public class RouteFinder{
         return false;
     }
     
-    // book's implementation
+// book's implementation
     
-    public boolean findRoute(Graph g, Node start, Node end)
+// Pick the given start node. 
+// Add adjacent nodes to queue. 
+// Process all these nodes and their corresponding adjacent nodes until the end is found.
+
+enum State{Visited, Visiting, Unvisited};
+
+class Node{
+    State state; // if instead i'd used boolean, won't be able to have 3 values.
+    String name;
+    ArrayList<Node> neighbors;
+    
+    public Node(String name)
     {
-        if(g == null)
-        {
-            return false;
-        }
-        
-        if(start == end)
-        {
-            return true;
-        }
-        
-        Queue q = new LinkedList<Node>();
-        
-        start.state = State.VISITING;
-        q.add(start);
-        
-        while(q.peek() != null)
-        {
-            Node temp = (Node)q.poll();
-            
-            int i = 0;
-            while(i < temp.children.size())
-            {
-                if(temp.children.get(i).state == State.UNVISITED)
-                {
-                    if(temp.children.get(i) == end)
-                    {
-                        return true;
-                    }
-                    temp.children.get(i).state = State.VISITING;
-                    q.add(temp.children.get(i));
-                }
-                i++;
-            }
-            temp.state = State.VISITED;
-        }
-        
-        return false;
+        this.name = name;
+        neighbors = new ArrayList<Node>();
     }
+    
+    public ArrayList<Node> getAdjacentNodes()
+    {
+        return neighbors;
+    }
+}
+
+class Graph{
+    ArrayList<Node> nodes;
+    
+    Graph()
+    {
+        nodes = new ArrayList<Node>();
+    }
+    
+    public ArrayList<Node> getNodes()
+    {
+        return nodes;
+    }
+
+}	
+	
+public class RouteFinder{
+    boolean search(Graph g, Node start, Node end)
+    {
+        if(start == end)
+            return true;
+        
+        LinkedList<Node> q = new LinkedList<Node>();
+        
+        for(Node u : g.getNodes())
+        {
+            u.state = State.Unvisited;
+        }
+        
+        start.state = State.Visiting; // in the queue
+        q.add(start);
+        Node u;
+        while(!q.isEmpty()) // method inherited but never implemented in LinkedList class
+        {
+            u = q.removeFirst();
+            if(u != null)
+            {
+                for(Node v : u.getAdjacent()) // add adjacent nodes to queue
+                {
+                    if(v.state == State.Unvisited)
+                    {
+                        if(v == end)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            v.state = State.Visiting;
+                            q.add(v);
+                        }
+                    }
+                }
+                u.state = State.Visited;
+            }
+        }
+        return false;
+    }    
+
 	
     public static void main(String[] args)
     {
