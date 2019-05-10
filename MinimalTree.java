@@ -42,6 +42,12 @@ class Tree{
 
 public class minimalBST{
     
+    // Break array into half.
+    // Mid is used to create root.
+    // Left half is then broken down again and becomes left subtree. Same for right.
+    // Imp. thing : We are not starting from the root everytime we have to insert a new node, (then we'd have to traverse logN for each node)
+    // thus reducing our runtime from NlogN to N.
+    
     public Node createMinimalBST(int[] inp, int start, int end)
     {
         if(end < start || inp == null)
