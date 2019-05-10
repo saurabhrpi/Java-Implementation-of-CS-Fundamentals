@@ -43,6 +43,8 @@ class Tree{
 
 public class ListOfDepths{
     
+     // DFS : runtime : N. space: N + logN.   recursion adds to space.
+    
     public ArrayList<LinkedList<TreeNode>> createLists(TreeNode root)
     {
         if(root == null)
@@ -81,7 +83,9 @@ public class ListOfDepths{
            addNodesAtSameLevel(al, root.right, level + 1);
         }
     }
-    
+   
+     //BFS : runtime efficiency : N + logN. space : N.
+
      public ArrayList<LinkedList<TreeNode>> createListsBFS(TreeNode root)
     {
         if(root == null)
