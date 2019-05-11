@@ -1,42 +1,73 @@
-import java.lang.*;
 import java.util.*;
+import java.lang.*;
 
 class TreeNode{
-    public int data;
-    public TreeNode left;
-    public TreeNode right;
-    
-    public TreeNode(int data)
-    {
-        this.data = data;
-    }
+    int data;
+    TreeNode left;
+    TreeNode right;
 }
 
 public class ValidateBST{
     
-    Integer val;
+    // Assuming distinct values at each node of tree
+    // In order traversal
     
-    // in place
-    public boolean isBSTInOrderTrav(TreeNode root)
+    int index = 0;
+    
+    public boolean validate(TreeNode root, int size)
+    {
+        int[] array = new int[size];
+        copyArray(root, array);
+        
+        for(int i=0; i < array.length - 1; i++)
+        {
+            if(array[i] > array[i + 1])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public void copyArray(TreeNode root, int[] array)
+    {
+        if(root == null)
+        {
+            return;
+        }
+        
+        copyArray(root.left, array);
+        
+        array[index] = root.data;
+        
+        index++;
+        
+        copyArray(root.right, array);
+    }
+    
+    // Approach #2 : Better than above. No need of array.
+    
+    Integer last = null;
+    
+    public boolean validate(TreeNode root)
     {
         if(root == null)
         {
             return true;
         }
         
-        if(!isBSTInOrderTrav(root.left))
+        if(!validate(root.left))
+        {
+            return false;
+        }
+        else if(root.data < last)
         {
             return false;
         }
         
-        if(val != null && root.data <= val)
-        {
-            return false;
-        }
+        last = root.data;
         
-        val = root.data;
-        
-        if(!isBSTInOrderTrav(root.right))
+        if(!validate(root.right))
         {
             return false;
         }
@@ -44,31 +75,39 @@ public class ValidateBST{
         return true;
     }
     
-    public boolean isBSTRecHelper(TreeNode root)
+    // Approach #3 : 
+    
+    // We do not have min and max for root since root alone is always a BST.
+    // Thumb rule : If branching left, update max. If branching right, update min.
+    // O(N) time, O(logN) space
+    
+    
+    public boolean checkBST(TreeNode root)
     {
-        return isBSTRec(root, null, null);
+        return checkBST(root, null, null);
     }
     
-    public boolean isBSTRec(TreeNode root, Integer min, Integer max)
+    public boolean checkBST(TreeNode root, Integer min, Integer max)
     {
-        if(root == null)
+        if(root == null) // null is always a BST.
         {
             return true;
         }
         
-        if(!isBSTRec(root.left, min, root.data) || !isBSTRec(root.right, root.data, max))
+        // 1st clause for right subtree, 2nd for left.
+        if((min != null && root.data <= min) || (max != null && root.data > max))
         {
             return false;
         }
         
-        if(min != null && root.data < min || max != null && root.data > max)
+        if(!checkBST(root.left,min, root.data) || !checkBST(root.right, root.data, max))
         {
             return false;
         }
         
         return true;
     }
-    
+   
     public static void main(String[] args)
     {
         TreeNode root = new TreeNode(1000);
