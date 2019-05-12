@@ -71,6 +71,7 @@ public class RouteFinder{
 // Pick the given start node. 
 // Add adjacent nodes to queue. 
 // Process all these nodes and their corresponding adjacent nodes until the end is found.
+// Processing adjacent nodes above of the nodes is necessary since that's the only way to move ahead.
 
 enum State{Visited, Visiting, Unvisited};
 
