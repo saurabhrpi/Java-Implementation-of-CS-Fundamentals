@@ -14,6 +14,13 @@ class TreeNode{
 
 public class CheckBalanced{
     
+    // Naive method. It's ineffecient becoz to check if a parent is balanced,
+    // it will calculate the heights of kids, return it to the parent to find if parent is balanced.
+    // It could have used that info to find out whether the kids themselves were balanced too.
+    // O(NLogN). Every node is touched same number of times as the level it is at. 
+    // Root is touched once, its kids twice and so on.
+
+    
     public boolean isBalancedNaive(TreeNode root)
     {
         if(root == null)
@@ -33,7 +40,7 @@ public class CheckBalanced{
     {
         if(root == null)
         {
-            return 0;
+            return -1; // so that root alone has height 0.
         }
         
         return Math.max(getHeightNaive(root.left), getHeightNaive(root.right)) + 1;
@@ -50,9 +57,11 @@ public class CheckBalanced{
     {
         if(root == null)
         {
-            return 0;
+            return -1;
         }
         
+	// Post Order Traversal	
+
         int l = getHeightEff(root.left);
         
         if(l == Integer.MIN_VALUE)
@@ -109,3 +118,4 @@ public class CheckBalanced{
     }
 
 }
+
