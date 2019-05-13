@@ -1,156 +1,170 @@
 import java.util.*;
 import java.lang.*;
 
-enum STATE {UNVISITED, PARTIAL, VISITED ;}
-
 class Project{
     
-    private STATE state = STATE.UNVISITED;
+    // neighbor and children are same.
+    
+    ArrayList<Project> children = new ArrayList<Project>();
+    HashMap<String, Project> map = new HashMap<String, Project>();
+    public enum State {BLANK, PARTIAL, COMPLETE};
+    
     private String name;
-    private ArrayList<Project> children = new ArrayList<Project>();
-    public HashMap<String, Project> childIds = new HashMap<String, Project>();
-    private int dependency = 0;
+    private int dependency;
+    private State state = State.BLANK; 
     
-    Project(String name)
+    public Project(String name)
     {
-        this.name = name;
+       this.name = name;  
     }
     
-    public void setState(STATE state)
-    {
-        this.state = state;
-    }
-    
-    public STATE getState()
+    public State getState()
     {
         return state;
     }
     
-    public ArrayList<Project> getChildren()
+    public void setState(State st)
     {
-        return children;
+        state = st;
     }
     
-    public void addNeighbor(Project n)
+    /*
+    public int getNumberOfDependencies()
     {
-        if(n != null)
-        {
-            children.add(n);
-            childIds.put(n.getName(),n);
-            n.increaseDependency();
-        }
+        return dependency;
     }
     
-    public void decreaseDependency()
-    {
-        dependency--;
-    }
-    
-    public void increaseDependency()
+    public void incrementDependency()
     {
         dependency++;
     }
     
-    public int getDependency()
+    public void decrementDependency()
     {
-        return dependency;
+        dependency--;
     }
+    */
     
     public String getName()
     {
         return name;
     }
     
+    public void addNeighbor(Project node)
+    {
+        if(!map.containsKey(node.getName()))
+        {
+            map.put(node.getName(), node);
+            children.add(node);
+            //node.incrementDependency();
+        }
+    }
+    
+    public ArrayList<Project> getChildren()
+    {
+        return children;   
+    }
 }
 
 class Graph{
-    public ArrayList<Project> nodes = new ArrayList<Project>();
-    public HashMap<String, Project> projectIDs = new HashMap<String, Project>();
+    ArrayList<Project> nodes = new ArrayList<Project>();
+    HashMap<String, Project> map = new HashMap<String, Project>(); // required since we can't check if a project instance already exists
     
-    public Project getProject(String name)
+    public Project getOrCreateNode(String name)
     {
-        if(!projectIDs.containsKey(name))
+        if(!map.containsKey(name))
+        {
+            Project node = new Project(name);
+            nodes.add(node);
+            map.put(name, node);
+        }
+        return map.get(name);
+    }
+    
+    public void addEdge(String s, String e)
+    {
+        Project start = getOrCreateNode(s);
+        Project end = getOrCreateNode(e);
+        start.addNeighbor(end);
+    }
+    
+    public ArrayList<Project> getNodes()
+    {
+        return nodes;
+    }
+
+}
+
+public class BuildOrder{
+     
+    public Stack<Project> build(String[] projects, String[][] dependencies)
+    {
+        if(projects.length == 0)
         {
             return null;
         }
         
-        return projectIDs.get(name);
+        Graph g = buildGraph(projects, dependencies);
+        return build(g);
     }
     
-    Graph(String[] nodes, String[][] edges)
+    public Graph buildGraph(String[] projects, String[][] dependencies)
     {
-        for(int i=0; i < nodes.length; i++)
+        Graph g = new Graph();
+        
+        for(String project : projects)
         {
-            Project n = new Project(nodes[i]);
-            this.nodes.add(n);
-            projectIDs.put(nodes[i], n);
+            g.getOrCreateNode(project);    
         }
         
-        for(int i=0; i < edges.length; i++)
+        for(String[] dependency : dependencies)
         {
-            Project first = getProject(edges[i][0]);
-            Project sec = getProject(edges[i][1]);
-            first.addNeighbor(sec);
+            g.addEdge(dependency[0],dependency[1]);
         }
+        
+        return g;
     }
-}
+    
+    public Stack<Project> build(Graph g)
+    {
+        Stack<Project> result = new Stack<Project>();
+        
+        for(Project p : g.getNodes())
+        {
+            if(p.getState() == Project.State.BLANK)
+            {
+                if(!dfs(p, result))
+                {
+                    return null;
+                }
+            }
+        }
+        return result;
+    }
 
-public class BuildOrder{
-    
-    public Project[] createOrderHelp(String[] nodes, String[][] edges)
+    public boolean dfs(Project p, Stack<Project> result)
     {
-        Graph g  = new Graph(nodes, edges);
-        return createOrder(g);
-    }
-    
-    public int addNonDependentProject(Project[] order, ArrayList<Project> projects, int offset)
-    {
-        for(int i=0; i < projects.size(); i++)
+        if(p.getState() == Project.State.PARTIAL)
         {
-            if(projects.get(i).getDependency() == 0)
-            {
-                order[offset++] = projects.get(i);
-            }
-        }
-        return offset;
-    }
-    
-    public Project[] createOrder(Graph g)
-    {
-        ArrayList<Project> projects = g.nodes; 
-        
-        Project[] order = new Project[g.nodes.size()];
-        
-        int end = addNonDependentProject(order, projects, 0);
-        
-        int toBeProcessed = 0;
-        
-        while(toBeProcessed != order.length)
-        {
-            Project current = order[toBeProcessed];
-            
-            if(current == null)
-            {
-                return null ; // cycle detected
-            }
-            
-            ArrayList<Project> children = current.getChildren();
-            
-            for(int i=0; i < children.size(); i++)
-            {
-                children.get(i).decreaseDependency();
-            }
-            
-            end = addNonDependentProject(order, children, end);
-            
-            toBeProcessed++;
+            return false; // cycle
         }
         
-        return order;
+        if(p.getState() == Project.State.BLANK) // not for Completes
+        {
+            p.setState(Project.State.PARTIAL);
+            for(Project child : p.getChildren())
+            {
+                if(!dfs(child, result))
+                {
+                    return false;
+                }
+            }
+            p.setState(Project.State.COMPLETE);
+            result.push(p);
+        }
+        return true;
     }
-    
-    // DFS approach
-    
+     
     public static void main(String[] args)
     {
         String[] projects = {"a","b","c","d","e","f"};
@@ -165,13 +179,14 @@ public class BuildOrder{
         
         BuildOrder bo = new BuildOrder();
         
-        Project[] res = bo.createOrderHelp(projects, dep);
+        Stack<Project> res = bo.build(projects, dep);
         
         System.out.println("The order is ");
         
-        for(int i = 0; i < res.length; i++)
+        while(!res.empty())
         {
-            System.out.println(res[i].getName());
+            System.out.println(res.pop().getName());
         }
     }
 }
+
