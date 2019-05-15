@@ -27,166 +27,58 @@ class TreeNode{
 
 public class BSTSequences{
     
-    public ArrayList<LinkedList<Integer>> allSequences(TreeNode node)
+    public ArrayList<LinkedList<Integer>> allSequences(TreeNode root)
     {
-        ArrayList<LinkedList<Integer>> result = new ArrayList<LinkedList<Integer>>();
+        ArrayList<LinkedList<Integer>> results = new ArrayList<LinkedList<Integer>>();
         
-        if(node == null)
+        if(root == null)
         {
-            result.add(new LinkedList<Integer>()); // so that the leaf nodes can get into the for loops below
-            return result;
+            results.add(new LinkedList<Integer>());
+            return results;
         }
         
         LinkedList<Integer> prefix = new LinkedList<Integer>();
-        prefix.add(node.getData());
+        prefix.add(root.data);
         
-        //System.out.println("added to prefix " + node.getData());
+        ArrayList<LinkedList<Integer>> lseq = allSequences(root.left);
+        ArrayList<LinkedList<Integer>> rseq = allSequences(root.right);
         
-        ArrayList<LinkedList<Integer>> leftSeq = allSequences(node.left);
-        ArrayList<LinkedList<Integer>> rightSeq = allSequences(node.right);
-        
-        for(int i=0; i < leftSeq.size(); i++)
+        for(LinkedList<Integer> l : lseq)
         {
-            for(int j=0; j < rightSeq.size(); j++)
+            for(LinkedList<Integer> r : rseq)
             {
-                ArrayList<LinkedList<Integer>> weaved = new ArrayList<LinkedList<Integer>>();
+                // Need an arrayList to store the permutation combination of l and r
+                ArrayList<LinkedList<Integer>> result = new ArrayList<LinkedList<Integer>>(); 
                 
-                weaveLists(leftSeq.get(i), rightSeq.get(j), weaved, prefix);
-                /*
-                System.out.println("adding weaved = ");
-                System.out.println("{ ");
-                for(int k=0; k < weaved.size(); k++)
-                {
-                    System.out.println(weaved.get(k));   
-                }
-                System.out.println("} ");
-                System.out.println("result before adding weaved ");
-                
-                for(int k=0; k < result.size(); k++)
-                {
-                    System.out.println("{ ");
-                    for(int l=0; l < result.get(k).size(); l++)
-                    {
-                        System.out.println(result.get(k).get(l));   
-                    }
-                    System.out.println("} ");
-                }
-                */
-                result.addAll(weaved);
-                /*
-                System.out.println("result after adding weaved ");
-                
-                for(int k=0; k < result.size(); k++)
-                {
-                    System.out.println("{ ");
-                    for(int l=0; l < result.get(k).size(); l++)
-                    {
-                        System.out.println(result.get(k).get(l));   
-                    }
-                    System.out.println("} ");
-                }
-                */
+                weaveLists(l, r, result, prefix);
+                results.addAll(result);
             }
         }
-        System.out.println("returning result ");
-        return result;
+        return results;
     }
     
-    void weaveLists(LinkedList<Integer> first, LinkedList<Integer> second, ArrayList<LinkedList<Integer>> results, LinkedList<Integer> prefix)
+    public void weaveLists(LinkedList<Integer> first, LinkedList<Integer> sec, ArrayList<LinkedList<Integer>> weaved, LinkedList<Integer> prefix)
     {
-        if(first.size() == 0 || second.size() == 0)
+        if(first.size() == 0 || sec.size() == 0)
         {
-            /*
-            System.out.println("prefix being cloned ");
-            for(int i=0; i < prefix.size(); i++)
-            {
-                System.out.println(prefix.get(i));   
-            }
-            */
-            LinkedList<Integer> result = (LinkedList<Integer>) prefix.clone();
-            /*
-            System.out.println("adding 1st to result when sec is empty " );
-            for(int i=0; i < first.size(); i++)
-            {
-                System.out.println(first.get(i));   
-            }
-            
-            System.out.println("adding 2nd to result when first is empty " );
-            for(int i=0; i < second.size(); i++)
-            {
-                System.out.println(second.get(i));   
-            }
-            */
-            // merge first with sec
+            LinkedList<Integer> result = new LinkedList<Integer>();
             result.addAll(first);
-            result.addAll(second); 
-            
-            results.add(result);
-            
-            System.out.println("results status " );
-            for(int i=0; i < results.size(); i++)
-            {
-                System.out.println(results.get(i));   
-            }
-            
+            result.addAll(sec);
+            weaved.add(result);
+            return;
         }
-        else
-        {
-            /*
-            System.out.println("first after either lists empty check");
-            for(int i=0; i < first.size(); i++)
-            {
-                System.out.println(first.get(i));   
-            }
-            
-            System.out.println("second after either lists empty check");
-            for(int i=0; i < second.size(); i++)
-            {
-                System.out.println(second.get(i));   
-            }
-            */
-            
-            int headFirst = first.removeFirst(); // making sure we start take the elements in right order
-            /*
-            System.out.println("headfirst " + headFirst + " to be added to prefix ");
-            for(int i=0; i < prefix.size(); i++)
-            {
-                System.out.println(prefix.get(i));   
-            }
-            */   
-            
-            prefix.addLast(headFirst);
-            weaveLists(first, second, results, prefix);
-            prefix.removeLast(); // ensures we edit starting the back of a list
-            /*
-            System.out.println("headfirst " + headFirst + " removed from prefix ");
-            for(int i=0; i < prefix.size(); i++)
-            {
-                System.out.println(prefix.get(i));   
-            }
-            */
-            first.addFirst(headFirst);
-            
-            int headSec = second.removeFirst();
-            /*
-            System.out.println("headSec " + headSec + " to be added to prefix ");
-            for(int i=0; i < prefix.size(); i++)
-            {
-                System.out.println(prefix.get(i));   
-            }
-            */
-            prefix.addLast(headSec);
-            weaveLists(first, second, results, prefix);
-            prefix.removeLast();
-            /*
-            System.out.println("headSec " + headSec + " to removed from prefix ");
-            for(int i=0; i < prefix.size(); i++)
-            {
-                System.out.println(prefix.get(i));   
-            }
-            */
-            second.addFirst(headSec);   
-        }
+        
+        int f = first.removeFirst();
+        prefix.addLast(f);
+        weaveLists(first, sec, weaved, prefix);
+        prefix.removeLast();
+        first.addFirst(f);
+        
+        int s = sec.removeFirst();
+        prefix.addLast(s);
+        weaveLists(first, sec, weaved, prefix);
+        prefix.removeLast();
+        sec.addFirst(s);
     }
     
      
