@@ -108,6 +108,7 @@ public class FirstCommonAncester{
         return null;
     }
     
+    // Worst case : O(n^2) for a completely unbalanced tree.
     public TreeNode findAncesterBook(TreeNode root, TreeNode first, TreeNode sec)
     {
         if(root == null || root == first || root == sec)
