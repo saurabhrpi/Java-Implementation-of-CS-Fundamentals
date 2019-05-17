@@ -1,6 +1,7 @@
 import java.util.*;
 import java.lang.*;
 
+// Given the null nodes are represented by X, the PreOrder traversal of a tree will always yield one and only one binary tree.
 
 class TreeNode{
     private int data;
