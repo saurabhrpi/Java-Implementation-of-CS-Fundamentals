@@ -79,11 +79,13 @@ public class CheckSubtree{
     
     // Approach #2
     // Space : O(log(n) + log(m));
-    // Runtime : O(n + (n/p)*m)
-    // where n : nodes in t1, p : range of values t2's and t1's nodes can take. m : number of nodes of t2.
+    // Worst case : All the nodes in t1 are equal to t2.root and all but one of the nodes in t2 are same.		
+    // Worst case runtime : O(nm).	
+    // Avg Runtime : O(n + (n/p)*m)
+    // where n : nodes in t1, p : range of values t2's root and t1's nodes can take. m : number of nodes of t2.
 
-    // Of the two approaches, if we are fine with priortizing avg runtime (given above) against the worst-case runtime O(n+m) 
-    // of first one, then we can go with this approach.	
+    // Of the two approaches, if we are fine with priortizing avg runtime (given above) against the worst-case runtime O(nm), 
+    // then we can go with this approach.	
 	
     public boolean subtree(TreeNode t1, TreeNode t2)
     {
