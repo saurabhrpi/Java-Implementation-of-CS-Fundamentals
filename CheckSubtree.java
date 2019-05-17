@@ -27,6 +27,36 @@ class TreeNode{
 
 public class CheckSubtree{
     
+    // Approach #1 : O(n+m) run time as well as space.
+    
+    public boolean check(TreeNode t1, TreeNode t2)
+    {
+        if(t1 == null || t2 == null)
+        {
+            return false;
+        }
+        
+        StringBuilder sb1 = new StringBuilder();
+        StringBuilder sb2 = new StringBuilder();
+        
+        generateString(t1, sb1);
+        generateString(t2, sb2);
+        
+        return sb1.indexOf(sb2.toString()) != -1;
+    }
+    
+    public void generateString(TreeNode root, StringBuilder sb)
+    {
+        if(root == null)
+        {
+            return;
+        }
+        
+        sb.append(root.data);
+        generateString(root.left, sb);
+        generateString(root.right, sb);
+    }
+    
     public boolean check(TreeNode par, TreeNode ch)
     {
         if(par == null)
@@ -46,6 +76,8 @@ public class CheckSubtree{
         
         return check(par.left, ch) || check(par.right, ch);
     }
+    
+    // Approach #2 : O(n+km) run time. O(1) space.
     
     public boolean matchTree(TreeNode first, TreeNode sec)
     {
