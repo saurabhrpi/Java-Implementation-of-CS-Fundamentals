@@ -77,26 +77,55 @@ public class CheckSubtree{
         return check(par.left, ch) || check(par.right, ch);
     }
     
-    // Approach #2 : O(n+km) run time. O(1) space.
-    
-    public boolean matchTree(TreeNode first, TreeNode sec)
+    // Approach #2
+    // Space : O(log(n) + log(m));
+    // Runtime : O(n + (n/p)*m)
+    // where n : nodes in t1, p : range of values t2's and t1's nodes can take. m : number of nodes of t2.
+
+    // Of the two approaches, if we are fine with priortizing avg runtime (given above) against the worst-case runtime O(n+m) 
+    // of first one, then we can go with this approach.	
+	
+    public boolean subtree(TreeNode t1, TreeNode t2)
     {
-        if(first == null && sec == null)
+        if(t2 == null)
         {
             return true;
         }
         
-        if(first == null || sec == null)
+        if(t1 == null)
         {
             return false;
         }
         
-        if(first.getData() != sec.getData())
+        if(t1.data == t2.data)
+        {
+            if(match(t1, t2))
+            {
+                return true;
+            }
+        }
+        
+        return subtree(t1.left, t2) || subtree(t1.right, t2);
+    }
+    
+    public boolean match(TreeNode t1, TreeNode t2)
+    {
+        if(t1 == null && t2 == null)
+        {
+            return true;
+        }
+        
+        if(t1 == null || t2 == null) // can't put this kind of clause in method above as we're trying to match exact nodes in this method. 
         {
             return false;
         }
         
-        return matchTree(first.left, sec.left) && matchTree(first.right, sec.right);
+        if(t1.data != t2.data)
+        {
+            return false;
+        }
+        
+        return match(t1.left, t2.left) && match(t1.right, t2.right);
     }
     
     public static void main(String[] args)
