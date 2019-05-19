@@ -2,117 +2,99 @@ import java.util.*;
 import java.lang.*;
 
 class TreeNode{
-    int d;
+    int data;
     TreeNode left;
     TreeNode right;
-    
-    TreeNode(int d)
-    {
-        this.d = d;
-    }
-    
 }
 
 public class PathsWithSum{
     
-    public int countPathsWithSum(TreeNode root, int targetSum)
+    public int findPathsWithSum(TreeNode root, int sum)
     {
-        /*
         if(root == null)
         {
             return 0;
         }
         
-        int pathsFromRoot = countPathsWithSumFromNode(root, targetSum, 0);
-        
-        int pathsFromLeft = countPathsWithSum(root.left, targetSum);
-        int pathsFromRight = countPathsWithSum(root.right, targetSum);
-        
-        return pathsFromRoot + pathsFromLeft + pathsFromRight;
-        */
-        
-        // Using hash table
-         return countPathsWithSumHashT(root, targetSum, new HashMap<Integer, Integer>(), 0);
-         
+        int result = countPathsWithSum(root, sum, 0);
+        result += findPathsWithSum(root.left, sum);
+        result += findPathsWithSum(root.right, sum);
+        return result;
     }
     
-    public int countPathsWithSumFromNode(TreeNode node, int targetSum, int currentSum)
+    public int countPathsWithSum(TreeNode node, int targetSum, int currentSum)
     {
         if(node == null)
         {
             return 0;
         }
         
-        currentSum += node.d;
-        
         int totalPaths = 0;
         
-        if(targetSum == currentSum)
+        currentSum += node.data;
+        
+        if(currentSum == targetSum)
         {
             totalPaths++;
         }
         
-        totalPaths += countPathsWithSumFromNode(node.left, targetSum, currentSum);
-        totalPaths += countPathsWithSumFromNode(node.right, targetSum, currentSum);
+        totalPaths += countPathsWithSum(node.left, targetSum, currentSum);
+        totalPaths += countPathsWithSum(node.right, targetSum, currentSum);
         
         return totalPaths;
     }
-
     
-    public int countPathsWithSumHashT(TreeNode node, int targetSum, HashMap<Integer, Integer> pathCount, int runningSum)
+    // Approach # 2 : Using Hash maps
+    
+    public int countPathsHashMap(TreeNode root, int targetSum)
     {
-       if(node == null)
-       {
-           return 0;
-       }
-       
-       runningSum += node.d;
-       
-       int sum = runningSum - targetSum; // can't do targetSum - runningSum here bcoz the only way runningSum will increase is by going down.
-       
-       int paths = pathCount.getOrDefault(sum, 0);
-       
-       if(runningSum == targetSum)
-       {
-           paths++;
-       }
-       
-       incrementHashTable(pathCount, runningSum, 1);
-       paths += countPathsWithSumHashT(node.left, targetSum, pathCount, runningSum);
-       paths += countPathsWithSumHashT(node.right, targetSum, pathCount, runningSum);
-       incrementHashTable(pathCount, runningSum, -1);
-       
-       return paths;
+        return countPathsHashMap(root, 0, targetSum, new HashMap<Integer, Integer>());
     }
     
-    public void incrementHashTable(HashMap<Integer, Integer> pathCount, int runningSum, int delta)
+    public int countPathsHashMap(TreeNode node, int runningSum, int targetSum, HashMap<Integer, Integer> ht)
     {
-        int newCount = pathCount.getOrDefault(runningSum,0) + delta;
-        
-        if(newCount == 0)
+        if(node == null)
         {
-            pathCount.remove(runningSum);
+            return 0;
+        }
+        
+        runningSum += node.data;
+        int sum = runningSum - targetSum;
+        
+        // look if we have a path from another node to this node such that 
+        // the difference of their running sums matches the targetSum
+        int totalPaths = ht.getOrDefault(sum,0); 
+        
+        if(runningSum == targetSum) // if the node itself has a running sum that matches the target
+        {
+            totalPaths++;
+        }
+        
+        incrementHashTable(ht, runningSum, 1);
+        totalPaths += countPathsHashMap(node.left, runningSum, targetSum, ht);
+        totalPaths += countPathsHashMap(node.right, runningSum, targetSum, ht);
+        incrementHashTable(ht, runningSum, -1);
+        
+        return totalPaths;
+    }
+    
+    public void incrementHashTable(HashMap<Integer, Integer> ht, int runningSum, int delta)
+    {
+         // put only if there is a non-negative "value" against the key runningSum 
+         
+        int key = ht.getOrDefault(runningSum, 0) + delta;
+        if(key == 0)
+        {
+            ht.remove(runningSum);
         }
         else
         {
-            pathCount.put(runningSum, newCount);
+            ht.put(runningSum, key);
         }
     }
     
     public static void main(String[] args)
     {
-        TreeNode root = new TreeNode(100);
-        root.left = new TreeNode(-12);
-        root.right = new TreeNode(-22);
         
-        root.left.left = new TreeNode(5);
-        root.left.right = new TreeNode(15);
-        
-        root.right.left = new TreeNode(3);
-        root.right.right = new TreeNode(18);
-        
-        PathsWithSum pws = new PathsWithSum();
-        System.out.println("count " +  pws.countPathsWithSum(root, 3));
     }
-    
 }
