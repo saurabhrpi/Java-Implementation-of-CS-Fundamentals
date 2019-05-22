@@ -17,7 +17,10 @@ public class MissingInt{
         while(in.hasNextInt())
         {
             int n = in.nextInt();
-            bitfield[n/8] |= 1 << (n%8);  // we're going to use n%8 to find that unique bit of an integer and set it to 1.
+            
+            // we're going to use n%8 to find that unique bit of an integer 
+            // and set it to 1, starting from the LSB (rightmost one).
+            bitfield[n/8] |= 1 << (n%8);  
         }
     
         // we AND every bit of an index with 1, one by one and check if it's zero.
