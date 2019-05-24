@@ -16,7 +16,9 @@ public class MissingInt{
         
         long numberOfInts = (long)(Integer.MAX_VALUE) + 1; 
         
-        byte[] bitfield = new byte[(int)(numberOfInts/8)]; // array of type byte can take size of type int
+        // array of type byte can take size of type int
+        // One byte here represents one byte in memory.
+        byte[] bitfield = new byte[(int)(numberOfInts/8)]; 
         String fileName =   " ";
         Scanner in = new Scanner(new FileReader(fileName));
         while(in.hasNextInt())
