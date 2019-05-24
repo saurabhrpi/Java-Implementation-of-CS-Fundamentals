@@ -10,7 +10,10 @@ public class MissingInt{
     
     public void findOpenNumber() throws FileNotFoundException
     {
-        long numberOfInts = (long)(Integer.MAX_VALUE) + 1; // MAX_VALUE is negative that's why cast to long.
+        // (MAX_VALUE + 1) is negative if stored as an int 
+        // that's why cast to long.
+        long numberOfInts = (long)(Integer.MAX_VALUE) + 1; 
+        
         byte[] bitfield = new byte[(int)(numberOfInts/8)]; // array of type byte can take size of type int
         String fileName =   " ";
         Scanner in = new Scanner(new FileReader(fileName));
