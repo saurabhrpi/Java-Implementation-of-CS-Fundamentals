@@ -12,7 +12,8 @@ public class MissingInt{
     {
         // (MAX_VALUE + 1) is negative if stored as an int 
         // that's why cast to long.
-        // 1 is added so that we don't fall short of the required 4 billion integers by 1.
+        // 1 is added since MAX_VALUE is 2^32 - 1.
+        // and so that we don't fall short of the required 4 billion integers by 1.
         
         long numberOfInts = (long)(Integer.MAX_VALUE) + 1; 
         
@@ -43,6 +44,19 @@ public class MissingInt{
                 }
             }
         }
+    }
+    
+    // Follow up : For 10 MB of memory and 1 billion unique integers
+    
+    int findMissingNumber(String fileName) throws FileNotFoundException{
+        
+        // All 2 billion integers will need to be represented even though the given count is 1 billion.  
+        
+        // rangeSize will be equal to the number of integers an index can represent.
+        // Every bit will uniquely represent an integer.
+        int rangeSize = (1 << 20); // 2^17 bytes
+        
+        int[] blocks = getCountPerBlock(fileName, rangeSize);
     }
     
     public static void main(String[] args)
