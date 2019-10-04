@@ -3,8 +3,8 @@ import java.lang.*;
 
 public class MyClass {
     public static void main(String args[]) {
-      
-      System.out.println("Sum of x+y = " + z);
+        MyClass m = new MyClass();
+        System.out.println("res " + m.insert(5,173,4,2));
     }
     
     public int insert(int m, int n, int j, int i)
