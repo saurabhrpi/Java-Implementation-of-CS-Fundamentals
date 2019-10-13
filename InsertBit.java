@@ -1,33 +1,27 @@
 import java.util.*;
 import java.lang.*;
 
-public class MyClass {
-    public static void main(String args[]) {
-        MyClass m = new MyClass();
-        System.out.println("res " + m.insert(5,173,4,2));
+public class Insertion{
+    
+    public static void main(String[] args)
+    {
+        Insertion i = new Insertion();
+        System.out.println(i.insert(9, 8, 2, 4));
     }
     
-    public int insert(int m, int n, int j, int i)
+    public int insert(int m, int n, int i, int j)
     {
-        int updB = 1 << (j + 1);
-        //int updB = 0;
-        int offB = 0;
+        int mask = ~0; // not same as 1
         
-        for(int k = 0; k < n - j; k++)
-        {
-            if(k >= i && k < j + 1)
-            {
-                continue;
-            }
-            offB = offB | (1 << k);
-            updB |= offB;
-            System.out.println("updB " + updB);
-        }
+        int lMask = (mask << (j+1)); //jth position is 0
+        int rMask = (1 << i) - 1; // 0s from positions : i thru 0
         
-        //System.out.println("updB " + updB);
+        int merged = lMask | rMask;
         
-        m = m & updB;
-        m = m | n;
-        return m;
+        int n_cleared = n & merged;
+        
+        int res = n_cleared | (m << i);
+        
+        return res;
     }
 }
