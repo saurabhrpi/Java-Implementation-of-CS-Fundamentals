@@ -64,3 +64,5 @@ public class FlipBit{
         System.out.println(f.flip(86)); //1010110
     }
 }
+
+// O(b) : Runtime & memory where b is the number of bits in the number
