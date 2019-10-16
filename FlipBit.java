@@ -28,21 +28,39 @@ public class FlipBit{
         int LSeq = 0;
         int RSeq = 0;
         int maxSeq = 1; // assuming the min value sent as num is 1
+        int thisSeq = 0;
         for(int i=0; i < sequences.size(); i += 2)
         {
-            int zeroSeq = 0;
-            if()
+            int zeroSeq = sequences.get(i);
+            if(zeroSeq == 1)
+            {
+                LSeq = i - 1 >= 0 ? sequences.get(i - 1) : 0;
+                RSeq = i + 1 < sequences.size() ? sequences.get(i + 1) : 0;
+                thisSeq = LSeq + RSeq + 1;
+            }
+            else if(zeroSeq != 1)
+            {
+                LSeq = i - 1 >= 0 ? sequences.get(i - 1) : 0;
+                RSeq = i + 1 < sequences.size() ? sequences.get(i + 1) : 0;
+                thisSeq = Math.max(LSeq, RSeq) + 1;
+            }
+            /*
+            book considers case when zeroSeq == 0. Why?
+            */
+            maxSeq = Math.max(maxSeq, thisSeq);
         }
+        return maxSeq;
     }
     
     public int flip(int num)
     {
         ArrayList<Integer> sequences = new ArrayList<Integer>();
         generateAlternatingSequences(num, sequences);
-        
+        return findLongestSequence(sequences);
     }
     
     public static void main(String args[]) {
-      
+        FlipBit f = new FlipBit();
+        System.out.println(f.flip(86)); //1010110
     }
 }
