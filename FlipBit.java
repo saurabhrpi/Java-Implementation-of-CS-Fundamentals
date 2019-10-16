@@ -4,6 +4,16 @@ import java.lang.*;
 
 public class FlipBit{
     
+    // O(b) : Both runtime as well as memory where b is the number of bits in the number
+    public int flip(int num)
+    {
+        if(num == -1) 
+            return Integer.BYTES * 8;
+        ArrayList<Integer> sequences = new ArrayList<Integer>();
+        generateAlternatingSequences(num, sequences);
+        return findLongestSequence(sequences);
+    }
+    
     public void generateAlternatingSequences(int num, ArrayList<Integer> sequences)
     {
         int counter = 0;
@@ -52,11 +62,31 @@ public class FlipBit{
         return maxSeq;
     }
     
-    public int flip(int num)
+    // same runtime as above but constant memory
+    public int flipOptimized(int num)
     {
-        ArrayList<Integer> sequences = new ArrayList<Integer>();
-        generateAlternatingSequences(num, sequences);
-        return findLongestSequence(sequences);
+        if(num == -1)
+            return Integer.BYTES * 8;
+        
+        int currentLength = 0;
+        int prevLength = 0;
+        int maxLength = 1;
+        
+        while(num != 0)
+        {
+            if((num & 1) == 1)
+            {
+                currentLength++;
+            }
+            else if((num & 1) == 0)
+            {
+                prevLength = (num & 2) == 0 ? 0 : currentLength;
+                currentLength = 0;
+            }
+            maxLength = Math.max(currentLength + prevLength + 1, maxLength);
+            num >>>= 1;
+        }
+        return maxLength;
     }
     
     public static void main(String args[]) {
@@ -65,4 +95,4 @@ public class FlipBit{
     }
 }
 
-// O(b) : Runtime & memory where b is the number of bits in the number
+
