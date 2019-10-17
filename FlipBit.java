@@ -80,7 +80,7 @@ public class FlipBit{
             }
             else if((num & 1) == 0)
             {
-                prevLength = (num & 2) == 0 ? 0 : currentLength;
+                prevLength = (num & 2) == 0 ? 0 : currentLength; // if the next one is zero too, then no point in tracking currentLength.
                 currentLength = 0;
             }
             maxLength = Math.max(currentLength + prevLength + 1, maxLength);
