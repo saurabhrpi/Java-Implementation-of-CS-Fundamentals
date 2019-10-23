@@ -19,15 +19,16 @@ public class MissingInt{
         
         // array of type byte can take size of type int
         // One byte here represents one byte in memory.
-        byte[] bitfield = new byte[(int)(numberOfInts/8)]; 
+        byte[] bitfield = new byte[(int)(numberOfInts/8)]; // an integer will map to a unique bit. Around half of the array will be empty.
         String fileName =   " ";
         Scanner in = new Scanner(new FileReader(fileName));
         while(in.hasNextInt())
         {
-            int n = in.nextInt();
+            int n = in.nextInt();            
             
-            // we're going to use n%8 to find that unique bit of an integer 
-            // and set it to 1, starting from the LSB (rightmost one).
+            // all nums that result in same quotient on division by 8 will map to the same byte (or index).
+            // LHS will decide a number's index while RHS will decide their precise bit pos (or offset) in that byte.
+            // dupes will be manipulated twice, resulting in 1 again.            
             bitfield[n/8] |= 1 << (n%8);  
         }
     
