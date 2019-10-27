@@ -38,6 +38,31 @@ class Coordinate implements Cloneable{
 
 public class SortedMatrix{
     
+   // naive solution
+    
+    boolean findElement(int[][] matrix, int element)
+    {
+        int row = 0;
+        int col = matrix[0].length - 1;
+        while(row < matrix.length && col >= 0)
+        {
+            if(matrix[row][col] == element)
+            {
+                return true;
+            }
+            else if(matrix[row][col] > element)
+            {
+                col--;
+            }
+            else{
+                row++;
+            }
+        }
+        return false;
+    }
+
+   // optimal solution
+    
    public Coordinate findElement(int[][] matrix, int x)
    {
        return findElement(matrix, new Coordinate(0,0), new Coordinate(matrix.length - 1, matrix[0].length - 1), x);
@@ -99,7 +124,7 @@ public class SortedMatrix{
        }
        
        return left;
-   }
+   }    
 
    public static void main(String[] args)
     {
