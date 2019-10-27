@@ -80,7 +80,7 @@ public class SortedMatrix{
            return origin;
        }
        
-       if(!origin.isBefore(dest))
+       if(!origin.isBefore(dest)) // part I can miss
        {
            return null;
        }
@@ -92,18 +92,19 @@ public class SortedMatrix{
        
        while(start.isBefore(end))
        {
-           p.setToAverage(start, end);
-           
-           if(matrix[p.row][p.column] > x)
-           {
-               end.row = p.row - 1;
-               end.column = p.column - 1;
-           }
-           else
-           {
-               start.row = p.row + 1;
-               start.column = p.column + 1;
-           }
+            p.setToAverage(start, end); // binary search : setting to midpoint
+            if(x > matrix[p.row][p.col]) 
+            {
+                // slide down the diagonal
+                start.row = p.row + 1;
+                start.col = p.col + 1;
+            }
+            else
+            {
+                //go up
+                end.row = p.row - 1;
+                end.col = p.col - 1;
+            }
        }
        
        return partitionAndSearch(matrix, start, origin, dest, x);
