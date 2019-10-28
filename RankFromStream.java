@@ -47,7 +47,7 @@ class RankNode{
         {
             if(left == null)
             {
-                return -1;
+                return -1; // makes sure if d doesnt exist, then this traverses up the tree
             }
             else
             {
