@@ -1,35 +1,43 @@
 import java.util.*;
 import java.lang.*;
+import java.io.*;
 
-public class TS{
+
+public class TripleStep{
     
-    public int countWays(int steps)
+    // naive
+    // runtime : 3^n
+    int count(int steps)
     {
-        int[] memo = new int[steps + 1];
-        Arrays.fill(memo,-1);
-        return countWays(steps, memo);
+       if(steps < 0) return 0;
+       if(steps == 0) return 1; // we can exclude this if we decide for steps == 0 ways will be 0 too
+       return count(steps - 3) + count(steps - 2) + count(steps - 1);
     }
     
-    public int countWays(int steps, int[] memo)
+    //optimal
+    
+    int countWays(int steps)
     {
-        if(steps < 0)
+        int[] memo = new int[steps + 1]; // 1 more than length will ensure no arrayindexoutofBounds exception at memo[steps]
+        Arrays.fill(memo, -1);
+        return countWays(memo, steps);
+    }
+    
+    int countWays(int[] memo, int steps)
+    {
+        if(steps < 0) return 0;
+        if(steps == 0) return 1;
+        if(memo[steps] > -1)  // caching 
         {
-            return 0;
+            return memo[steps];
         }
-        
-        if(steps == 0)
-        {
-            return 1;
-        }
-        
-        memo[steps] = countWays(steps - 3, memo) + countWays(steps - 2, memo) + countWays(steps - 1, memo);
-        
+        memo[steps] = countWays(memo, steps - 1) + countWays(memo, steps - 2) + countWays(memo, steps - 3);
         return memo[steps];
     }
     
     public static void main(String[] args)
     {
-        TS ts = new TS();
-        System.out.println(ts.countWays(3));
+
     }
+    
 }
