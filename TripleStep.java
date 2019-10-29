@@ -2,7 +2,7 @@ import java.util.*;
 import java.lang.*;
 import java.io.*;
 
-
+// Will overflow for int n == 37. Long too won't be much useful. 
 public class TripleStep{
     
     // naive
