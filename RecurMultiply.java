@@ -9,7 +9,7 @@ public class RecurMultiply{
     int minProduct(int a, int b)
     {
         int bigger = a < b? b : a;
-        int smaller = a < b? a : b; // make sure operator used is < here, as > would discount the == case.
+        int smaller = a < b? a : b; 
         return minProductHelper(smaller, bigger);
     }
     
