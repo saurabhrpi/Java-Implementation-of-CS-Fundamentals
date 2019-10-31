@@ -15,11 +15,14 @@ public class PowerSet{
         }
         ArrayList<ArrayList<Integer>> sets = getSubsets(set, index + 1);
         int item = set.get(index);
-        ArrayList<ArrayList<Integer>> moresubsets = new ArrayList<ArrayList<Integer>>();
-        for(ArrayList<Integer> subset : sets)
+
+        // can't skip the line below cuz using allsubsets in the loop below will throw concurrentModificationException
+        ArrayList<ArrayList<Integer>> moresubsets = new ArrayList<ArrayList<Integer>>(); 
+                                                                           
+        for(ArrayList<Integer> subset : allsubsets)
         {
             ArrayList<Integer> newsubset = new ArrayList<Integer>();
-            newsubset.addAll(subset);
+            newsubset.addAll(subset); // merge newsubset with subset
             newsubset.add(item);
             moresubsets.add(newsubset);
         }
