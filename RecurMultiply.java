@@ -23,7 +23,7 @@ public class RecurMultiply{
         //System.out.println("Before minProd : smaller " + smaller);
         //System.out.println("Before minProd : s " + s);
         
-        int side1 = minProduct(s, bigger);
+        int side1 = minProductHelper(s, bigger);
         
         //System.out.println("side1 " + side1);
         //System.out.println("After minProd : smaller " + smaller);
