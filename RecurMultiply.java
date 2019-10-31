@@ -48,6 +48,56 @@ public class RecurMultiply{
         return side1 + side2;
     }
     
+    // memoization
+    
+    int multiplyM(int a, int b)
+    {
+        int smaller = a < b ? a : b;
+        int bigger = a > b ? a : b;
+        int[] memo = new int[smaller + 1];
+        return helperM(smaller, bigger, memo);
+    }
+    
+    int helperM(int smaller, int bigger, int[] memo)
+    {
+        if(smaller == 0) return 0;
+        if(smaller == 1) return bigger;
+        if(memo[smaller] > 0) return memo[smaller]; // because of this we have to keep the size of array (smaller + 1).
+        
+        int s = smaller >> 1;
+        int side1 = helperM(s, bigger, memo);
+        int side2 = side1;
+        
+        if(smaller%2 == 1)
+        {
+            side2 = helperM(smaller - s, bigger, memo);
+        }
+        
+        memo[smaller] = side1 + side2;
+        return memo[smaller];
+    }
+    
+    // optimal
+    
+    int multiplyO(int a, int b)
+    {
+        int smaller = a < b ? a : b;
+        int bigger = a < b ? b : a;
+        return helperO(smaller, bigger);
+    }
+    
+    int helperO(int smaller, int bigger)
+    {
+        if(smaller == 0) return 0;
+        if(smaller == 1) return bigger;
+        
+        int s = smaller >> 1;
+        int half = helperO(s, bigger);
+        
+        if(smaller % 2 == 0) return half * 2;
+        else return half * 2 + bigger;
+    }
+    
     public static void main(String[] args)
     {
         RecurMultiply r = new RecurMultiply();
