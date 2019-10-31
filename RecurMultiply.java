@@ -5,6 +5,7 @@ import java.io.*;
 
 public class RecurMultiply{
     
+    // choose which is smaller
     int minProduct(int a, int b)
     {
         int bigger = a < b? b : a;
@@ -17,37 +18,32 @@ public class RecurMultiply{
         if(smaller == 0) return 0;
         if(smaller == 1) return bigger;
         
-        int s = smaller >> 1;
+        int s = smaller >> 1; // same as halving the number of squares
         
-        System.out.println("Before minProd : smaller " + smaller);
-        System.out.println("Before minProd : s " + s);
+        //System.out.println("Before minProd : smaller " + smaller);
+        //System.out.println("Before minProd : s " + s);
         
-        // calling minProduct instead of minProductHelper will ensure whichever is bigger stays untouched.
         int side1 = minProduct(s, bigger);
         
-        System.out.println("side1 " + side1);
-        System.out.println("After minProd : smaller " + smaller);
-        System.out.println("After minProd : s " + s);
+        //System.out.println("side1 " + side1);
+        //System.out.println("After minProd : smaller " + smaller);
+        //System.out.println("After minProd : s " + s);
         
-        // If smaller is even, side 2 will be same as side1, in other words, answer will be bigger * 2.
-        // To further clarify, for smaller == 1 bigger is already = bigger.For smaller == 2 it will double and so on for every even smaller.
-        int side2 = side1;
+        int side2 = side1;  // then double it
         
-        // In case of smaller = odd, we are basically counting from scratch.
-        // smaller - s will return the correct even number which can then be used to find the side2.
-        // In this case side2 will always be > side1. 
-        if(smaller%2 == 1)
+        if (smaller%2 == 1)  // if not even, make the number even by deducting the remainder 
         {
-            System.out.println("smaller - s " + (smaller - s));
+            //System.out.println("smaller - s " + (smaller - s));
+            
+            // Trivia : Number of call stacks generated will be log(smaller - s) + 1. 
+            side2 = minProductHelper(smaller - s, bigger);// no need to call the multiply as we already know which is smaller.
         
-            side2 = minProductHelper(smaller - s, bigger);
-        
-            System.out.println("side2 " + side2);
+            //System.out.println("side2 " + side2);
         }
         
-        System.out.println("end: smaller " + smaller);
-        System.out.println("end : s " + s);
-        System.out.println("returning " + (side1 + side2));
+        //System.out.println("end: smaller " + smaller);
+        //System.out.println("end : s " + s);
+        //System.out.println("returning " + (side1 + side2));
         
         return side1 + side2;
     }
@@ -59,3 +55,4 @@ public class RecurMultiply{
     }
     
 }
+A
