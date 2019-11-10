@@ -1,15 +1,16 @@
 import java.util.*;
 import java.lang.*;
+import java.io.*;
 
 public class MergeSort{
     
     public void mergeSort(int[] array)
     {
-        int[] helper = new int[array.length];
-        mergeSort(array, helper, 0, array.length - 1);
+        int [] helper = new int[array.length];
+        mergeSort(array, helper, 0 , array.length - 1);
     }
     
-    public void mergeSort(int[] array, int[] helper, int low, int high)
+    void mergeSort(int[] array, int[] helper, int low, int high)
     {
         if(low < high)
         {
@@ -22,60 +23,45 @@ public class MergeSort{
     
     public void merge(int[] array, int[] helper, int low, int middle, int high)
     {
-        // Creating the helper from already sorted arrays
+        // no need for low < high check as it's already done above
         for(int i = low; i <= high; i++)
         {
             helper[i] = array[i];
         }
         
-        int helperL = low;
-        int helperR = middle + 1;
+        int helperLeft = low;
+        int helperRight = middle + 1;
         int current = low;
         
-        while(helperL <= middle && helperR <= high)
+        while(helperLeft <= middle && helperRight <= high)
         {
-            if(helper[helperL] <= helper[helperR])
+            if(helper[helperLeft] <= helper[helperRight])
             {
-                array[current] = helper[helperL];
-                helperL++;
+                array[current] = helper[helperLeft];
+                helperLeft++;
             }
             else
             {
-                array[current] = helper[helperR];
-                helperR++;
+                array[current] = helper[helperRight];
+                helperRight++;
             }
             current++;
         }
         
-        int remaining = middle - helperL;
-        
-        for(int i = 0; i <= remaining; i++) // make sure i <= because helperL 's position itself should be copied too.
+        // right side not required since we are replacing digits in array starting from left.
+        int remaining = middle - helperLeft;
+        for(int i=0; i <= remaining; i++)
         {
-            array[current + i] = helper[helperL + i];
+            array[current + i] = helper[helperLeft + i];
         }
-        
-        // no need to copy right as we want that to be greater in value hence where they are right now in the actual array.
     }
     
     public static void main(String[] args)
     {
-        int[] array = {
-            90,
-            10,
-            8,
-            22,
-            18,
-            27,
-            17
-        };
-        
-        MergeSort ms = new MergeSort();
-        
-        ms.mergeSort(array);
-        
-        for(int i=0; i < array.length; i++)
-        {
-            System.out.println(array[i]);
-        }
+        MergeSort ss = new MergeSort();
+        int[] n = {12, 8, 90, 1, 16, 28, 3};
+        ss.mergeSort(n);
+        for(int i = 0; i < n.length; i++)
+            System.out.println(n[i]);
     }
-}
+}   
