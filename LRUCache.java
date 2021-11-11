@@ -1,120 +1,131 @@
-import java.util.*;
-import java.lang.*;
-
-class DLinkedNode{
-    int key;
-    int value;
-    DLinkedNode pre;
-    DLinkedNode post;
+class Node
+{
+    int key,val;
+    Node prev, next;
+    
+    Node()
+    {
+        
+    }
+    
+    Node(int key, int val)
+    {
+        this.key = key;
+        this.val = val;
+    }
 }
 
-public class LRUCache{
-    HashMap<Integer, DLinkedNode> cache;
-    int capacity;
-    int count;
-    DLinkedNode head = null;
-    DLinkedNode tail = null;
+class DoubleLL{
+    Node head, tail;
     
-    LRUCache(int capacity)
+    DoubleLL()
     {
-        this.capacity = capacity;
-        cache = new HashMap<Integer, DLinkedNode>();
-        count = 0;
-        
-        head = new DLinkedNode();
-        tail = new DLinkedNode();
-        
-        tail.post = null;
-        head.pre = null;
-        
-        head.post = tail;
-        tail.pre = head;
+        head = new Node();
+        tail = new Node();
     }
     
-    private void addNode(DLinkedNode node)
+    public void moveToHead(Node n)
     {
-        node.post = head.post;
-        node.pre = head;
-        
-        head.post.pre = node; 
-        head.post = node;
-        
-        count++;
+        remove(n);
+        addToHead(n);
     }
     
-    private void removeNode(DLinkedNode node)
+    public void addToHead(Node n)
     {
-        try
+        if(head.next != null)
         {
-            node.pre.post = node.post;
-            node.post.pre = node.pre;
-            
-            node.pre = null;
-            node.post = null;
-            
-            --count;
+            head.next.prev = n;
+            n.prev = head;
+            n.next = head.next;   
+        }        
+        else
+        {
+            tail.prev = n;
+            n.next = tail;
+            n.prev = head;
         }
-        catch(NullPointerException e)
-        {
-            System.out.println("No removeable node found ");
-        }
+        head.next = n;
     }
     
-    public int get(int key)
+    public void remove(Node n)
     {
-        DLinkedNode node = cache.get(key);
-        
-        if(node == null)
-        {
-            return -1;
-        }
-        
-        //move to head
-        removeNode(node);
-        addNode(node);
-        
-        return node.value;
+        Node nex = n.next;
+        Node pre = n.prev;
+        nex.prev = pre;
+        pre.next = nex;        
     }
     
-    public void set(int key, int value)
+    public void removeTail()
+    {        
+        Node pre = tail.prev;
+        pre.prev.next = tail;
+        tail.prev = pre.prev;
+        pre.next = null;
+        pre.prev = null;
+    }
+    
+    public void printLL()
     {
-        DLinkedNode node = cache.get(key);
-        
-        if(node == null)
+        Node temp = head;
+        int i = 0;
+        System.out.println("**printing LL**");
+        while(temp != null)
         {
-            node = new DLinkedNode();
-            node.key = key;
-            node.value = value;
-            
-            cache.put(key, node);
-            addNode(node);
-            
-            if(count > capacity)
+            System.out.println("value at " + i + "th index is " + temp.val);
+            temp = temp.next;
+            i++;
+        }
+        System.out.println("**LL printed**");
+    }
+}
+
+class LRUCache {
+    
+    HashMap<Integer,Node> cache = new HashMap<Integer,Node>();
+    DoubleLL order = new DoubleLL();    
+    int capacity, size;    
+    public LRUCache(int capacity) {
+        this.capacity = capacity;        
+    }
+    
+    public int get(int key) {                
+        if(cache.containsKey(key))
+        {
+          order.moveToHead(cache.get(key));
+          return cache.get(key).val;   
+        }       
+        return -1;
+    }
+    
+    public void put(int key, int value) {
+        if(!cache.containsKey(key))
+        {
+            if(size == capacity)
             {
-                cache.remove(tail.pre.key);
-                removeNode(tail.pre);
-            }
+                //System.out.println("tail.key " + order.tail.prev.key);
+                cache.remove(order.tail.prev.key);
+                order.removeTail(); 
+                size--;
+            }           
+            Node n = new Node(key, value);
+            order.addToHead(n);
+            cache.put(key, n);
+            size++;
         }
         else
         {
-            node.key = key;
-            node.value = value;
-        }
-    }
-    
-    public static void main(String[] args)
-    {
-        LRUCache lcache = new LRUCache( 2 /* capacity */ );
-        
-        lcache.set(1, 1);
-        lcache.set(2, 2);
-        
-        System.out.println("lcache.get(1) " + lcache.get(1));       // returns 1
-        lcache.set(3, 3);    // evicts key 2
-        System.out.println("lcache.get(2) " +lcache.get(2));       // returns -1 (not found)
-        lcache.set(4, 4);    // evicts key 1
-        System.out.println("lcache.get(1) " +lcache.get(1));       // returns -1 (not found)
-        System.out.println("lcache.get(3) " +lcache.get(3));       // returns 3
-        System.out.println("lcache.get(4) " +lcache.get(4));       // returns 4
+            Node n = cache.get(key);
+            n.val = value;
+            cache.put(key, n);  
+            order.moveToHead(n);
+        }        
+       // order.printLL();
     }
 }
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
