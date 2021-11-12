@@ -11,6 +11,7 @@
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         if(l1 == null || l2 == null) return null;        
+        /*
         int len1 = calculateLengths(l1);
         int len2 = calculateLengths(l2);
         if(len1 < len2)
@@ -21,14 +22,25 @@ class Solution {
         {
             l2 = padZeros(l2, len1 - len2);
         }        
-        
+        */
         ListNode res = new ListNode(-1);
         ListNode tracker = res;
-        int carry = 0;
-        while(l1 != null)
+        int carry = 0;        
+        while(l1 != null || l2 != null)
         {             
           ListNode temp = new ListNode();
-          int sum = l1.val + l2.val + carry;
+          int sum = 0;
+          if(l1 != null)
+          {
+              sum = l1.val;
+              l1 = l1.next;
+          }              
+          if(l2 != null)
+          {
+              sum += l2.val;     
+              l2 = l2.next;
+          }              
+          sum += carry; 
           if(sum > 9)
           {
             sum = sum % 10;
@@ -37,7 +49,7 @@ class Solution {
           else
           {
             carry = 0;   
-          }              
+          }          
           temp.val = sum;
           if(res.val == -1)
               res.val = temp.val;
@@ -45,9 +57,7 @@ class Solution {
           {
               tracker.next = temp;
               tracker = temp;   
-          }
-          l1 = l1.next;
-          l2 = l2.next;
+          }         
         }
         if(carry == 1)
         {
