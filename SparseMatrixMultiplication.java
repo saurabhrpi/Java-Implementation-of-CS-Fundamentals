@@ -1,9 +1,14 @@
 class Solution {
     public int[][] multiply(int[][] mat1, int[][] mat2) {
       // matrix multiplication rule:
-      // take 1st row of the 1st matrix, transpose it, put it next to the 1st column of the next matrix //and multiply every element of 1st row (1st matrix) with corresponding element of the 2nd matrix 's //1st column followed by summing them up.This will give you the resulting matrix's 1,1 element. Then //transponsed 1st row of 1st matrix with 2nd column of 2nd matrix similarly and this will give you 1,2 //element of the resulting matrix. And so on.
+      // take 1st row of the 1st matrix, transpose it, put it next to the 1st column of the next matrix 
+      //and multiply every element of 1st row (1st matrix) with corresponding element of the 2nd matrix 's 
+      //1st column followed by summing them up.This will give you the resulting matrix's 1,1 element. Then 
+      //transponsed 1st row of 1st matrix with 2nd column of 2nd matrix similarly and this will give you 1,2 
+      //element of the resulting matrix. And so on.
         
       // To implement using compress matrix method to improve space complexity.  
+      // https://leetcode.com/problems/sparse-matrix-multiplication/discuss/419538/What-the-interviewer-is-expecting-when-this-problem-is-asked-in-an-interview.../609663
     }
     
     //my impl
