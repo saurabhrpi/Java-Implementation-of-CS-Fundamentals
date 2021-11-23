@@ -1,35 +1,36 @@
-import java.util.*;
-import java.lang.*;
-
-public class TrapRainWater{
+class Solution {
     
-    public int trap(int[] inp)
-    {
-        int leftMax = 0, rightMax = 0;
-        int start = 0, end = inp.length - 1;
-        int max = 0;
-        
-        while(start <= end)
+    // Easiest to understand and most efficient.
+    // Only downside is a little extra code.
+    // For slightly more efficient code and the best solution, refer:
+    // https://leetcode.com/problems/trapping-rain-water/discuss/17357/Sharing-my-simple-c++-code:-O(n)-time-O(1)-space
+    
+    public int trap(int[] height) {
+        if(height.length < 3) return 0;
+        int tallest = 0;
+        for(int i=1; i < height.length; i++)
         {
-            if(leftMax < rightMax)
-            {
-                leftMax = Math.max(inp[start], leftMax);
-                max += leftMax - inp[start];
-                start++;
-            }
-            else
-            {
-                rightMax = Math.max(inp[end], rightMax);
-                max += rightMax - inp[end];
-                end--;
-            }
+            if(height[i] > height[tallest])
+                tallest = i;
         }
-        return max;
-    }
-
-    public static void main(String[] args)
-    {
-        int[] inp = {0,1,0,2,1,0,1,3,2,1,2,1};
-        System.out.println((new TrapRainWater()).trap(inp));
+        
+        int water = 0, tall = 0;
+        for(int i = 0; i < tallest; i++)
+        {
+            if(height[i] > tall)
+                tall = height[i];
+            else
+                water += tall - height[i];
+        }
+        
+        tall = 0;
+        for(int i = height.length - 1; i > tallest; i--)
+        {
+            if(height[i] > tall)
+                tall = height[i];
+            else
+                water += tall - height[i];
+        }
+        return water;
     }
 }
