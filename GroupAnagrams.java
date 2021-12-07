@@ -2,6 +2,8 @@ class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
         // My practice of given solution. Runs in N*k where N is the length of strs and k is the avg
         // char length of each element of strs.
+        // One of the biggest concept of this approach is to be able to use values of char[] to store int while using char to determine an index and then
+        // convert char[] into a string.
         if(strs.length == 0)
         {
             String[] s = {""};            
