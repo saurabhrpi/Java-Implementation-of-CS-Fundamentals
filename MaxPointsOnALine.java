@@ -4,7 +4,7 @@ class Solution {
         if(points.length <= 2)
             return points.length;
         Double m = null;                
-        Map<Double, Integer> slopeAndLines = new HashMap<>(); //Maps slope to number of points on it
+        Map<Double, Integer> slopeAndLines = new HashMap<>(); //Maps slope to number of points on it. Is Reset for each point.
         int max = 0; // tracks the slope with max points for a point
         int result = 0;// tracks final answer
         for(int i = 0; i < points.length - 1; i++)
