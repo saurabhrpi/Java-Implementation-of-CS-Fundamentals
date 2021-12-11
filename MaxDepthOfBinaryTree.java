@@ -27,6 +27,6 @@ class Solution {
         height++;
         int lHeight = maxDepth(root.left, height);
         int rHeight = maxDepth(root.right, height);
-        return Math.max(height, Math.max(lHeight, rHeight));
+        return Math.max(height, Math.max(lHeight, rHeight)); // since i m returning 0 when there is no node, hence Math.max includes height arg as well.
     }
 }
