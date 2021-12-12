@@ -1,3 +1,90 @@
+// Latest code
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        // **** Given Sol. Super concise.
+        // Intuition : At every node/level, return null if nothing found. 
+        // Else if one node found return and pass it to the parent. If the parent's other child returns it the other node, we've found our ancestor. 
+        // Else, we keep passing the first node towards the top till we reach a point where we eventually find a parent whose other child gives it the other node. 
+        // Use this test case to better understand : [5,4,16,2, null, 10,28,1,3,8,14,null,null,null,null,null, null, 6,9, 21,15,12,18,19,29,null,null,null,null]. 
+        // Nodes are :28, 12.       
+        if(root == null || root == p || root == q)
+        {            
+            return root;
+        }            
+        TreeNode left = lowestCommonAncestor(root.left, p , q);
+        TreeNode right = lowestCommonAncestor(root.right, p , q);
+        TreeNode res = right == null?left : (left == null? right : root); 
+        
+        return res;
+    }
+}    
+        // *** My Impl. Faster than 100%. But unnecessary use of HashMap.
+        /*
+        public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(p == null)
+            return q;
+        if(q == null)
+            return p;
+        if(p.left == q || p.right == q)
+            return p;
+        if(p == q.right || p == q.left)
+            return q;        
+        List<TreeNode> path1 = new ArrayList<>();
+        findPath(root, p, path1);        
+        List<TreeNode> path2 = new ArrayList<>();
+        findPath(root, q, path2);        
+        int i = path1.size() - 1;
+        int j = path2.size() - 1;
+        TreeNode val = null; // final answer                       
+        for(; i >= 0; i--)
+        {
+            if(j >= 0)
+            {
+                if(path1.get(i).val != path2.get(j).val)
+                {
+                    val = path1.get(i + 1);   
+                    return val;
+                }                    
+                j--;
+            }            
+            else
+                break;
+        }        
+        val = (j > i?path2.get(j + 1) : path1.get(i + 1));
+        return val;
+        
+    } 
+    public boolean findPath(TreeNode root, TreeNode key, List<TreeNode> path)
+    {
+        if(root == null)
+            return false;
+        if(root == key)
+        {            
+            path.add(root);   
+            return true;
+        }            
+        if(findPath(root.left, key, path) || findPath(root.right, key, path))
+        {
+            path.add(root);
+            return true;
+        }        
+        return false;
+    }
+    */
+
+
+
+/*// 3 yeas old code below
 import java.util.*;
 import java.lang.*;
 
@@ -194,3 +281,4 @@ public class FirstCommonAncester{
         System.out.println(fc.findAncesterHelp(root3.left, root6.right, n).getData());
     }
 }
+*/
