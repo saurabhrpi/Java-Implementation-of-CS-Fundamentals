@@ -1,174 +1,133 @@
-import java.util.*;
-import java.lang.*;
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node parent;
+};
+*/
 
-
-class TreeNode{
-    private int data;
-    TreeNode left;
-    TreeNode right;
-    TreeNode parent;
-    
-    TreeNode(int data)
-    {
-        this.data = data;
-    }
-    
-    public int getData()
-    {
-        return data;
-    }
-    
-    public void setData(int data)
-    {
-        this.data = data;
-    }
-    
-}
-
-
-
-public class FirstCommonAncester{
-    
-    public int returnLevel(TreeNode n)
-    {
-        if(n == null)
+// LeetCode problem #1650
+class Solution {
+    // O(N). Fast and concise.
+    public Node lowestCommonAncestor(Node p, Node q) {
+        Node a = p, b = q;
+        while(a != b)
         {
-            return -1;
+            a = (a == null? q : a.parent);
+            b = (b == null? p : b.parent);
         }
-        
-        int count = 0; 
-        while(n != null) 
+        return a;
+    }
+    /*
+    // O(N). Faster than 94%.    
+    public Node lowestCommonAncestor(Node p, Node q) {                             
+        int pd = findInParents(p,q);
+        int qd = findInParents(q,p);
+        if(pd == -1)
+            return q;
+        else if(qd == -1)
+            return p;        
+        Node closer = (pd < qd?p : q);
+        Node farther = (pd < qd?q : p);
+        int moveUpBy = Math.abs(pd - qd);
+        while(moveUpBy > 0)
         {
+            farther = farther.parent;
+            moveUpBy--;
+        }            
+        while(closer.parent != null)
+        {
+            closer = closer.parent;
+            farther = farther.parent;            
+            if(closer == farther)
+                return closer;
+        }        
+        return closer;
+    }
+    
+    public int findInParents(Node start, Node key)
+    {
+        Node temp = start;
+        int count = 0;
+        while(temp != null)
+        {
+            if(temp == key)
+              return -1;  
             count++;
-            n = n.parent;
+            temp = temp.parent;
         }
         return count;
     }
-    
-    public TreeNode findCommonAncester(TreeNode first, TreeNode sec)
-    {
-        if(first == null || sec == null)
+    */
+    /* // O(N). 69% faster
+    public Node lowestCommonAncestor(Node p, Node q) {                     
+        
+        int pd = findInParents(p,q);
+        int qd = findInParents(q,p);
+        if(pd == -1)
+            return q;
+        else if(qd == -1)
+            return p;        
+        Node closer = (pd < qd?p : q);
+        Node farther = (pd < qd?q : p);
+        while(closer.parent != null)
         {
-            return null;
-        }
-        
-        int l1 = returnLevel(first);
-        int l2 = returnLevel(sec);
-        
-        
-        int diff = l1 - l2;
-        if(diff > 0)
-        {
-            while (diff != 0)
-            {
-                first = first.parent;
-                diff--;
-            }
-        }
-        else if(diff < 0)
-        {
-            while (diff != 0)
-            {
-                sec = sec.parent;
-                diff++;
-            }
-        }
-        
-        TreeNode temp = null, temp2 = null;
-        
-        while(first != null && sec != null)
-        {
-            if(first == sec)
-            {
-                return first;
-            }
-            
-            temp = first;
-            temp2 = sec;
-            first = first.parent;
-            sec = sec.parent;
-        }
-        
-        System.out.println("temp " + temp.getData());
-        System.out.println("temp2 " + temp2.getData());
-        
-        return temp == temp2 ? temp : null;
+            closer = closer.parent;
+            if(findInParents(farther,closer) == -1)
+                return closer;
+        }        
+        return closer;
     }
     
-   
-   
-    public static void main(String[] args)
+    public int findInParents(Node start, Node key)
     {
-        TreeNode root = new TreeNode(1000);
-        root.left = new TreeNode(148);
-        root.right = new TreeNode(1780);
-        root.left.parent = root;
-        root.right.parent = root;
-        
-        
-        TreeNode root2 = root.left;
-        root2.left = new TreeNode(100);
-        root2.right = new TreeNode(200);
-        root2.left.parent = root2;
-        root2.right.parent = root2;
-        
-        TreeNode root3 = root.right;
-        root3.left = new TreeNode(1100);
-        root3.right = new TreeNode(2000);
-        root3.left.parent = root3;
-        root3.right.parent = root3;
-        
-        TreeNode root4 = root2.right;
-        root4.left = new TreeNode(150);
-        root4.left.parent = root4;
-        
-        TreeNode root5 = root4.left;
-        root5.right = new TreeNode(190);
-        root5.right.parent = root5;
-        
-        TreeNode root6 = root3.left;
-        root6.left = new TreeNode(1050);
-        root6.left.parent = root6;
-        
-        TreeNode root7 = root6.left;
-        root7.right = new TreeNode(1075);
-        root7.right.parent = root7;
-        
-        root6.right = new TreeNode(1200);
-        root6.right.parent = root6;
-        
-        TreeNode root8 = root7.right;
-        root8.right = new TreeNode(1080);
-        root8.right.parent = root8;
-        
-        TreeNode root9 = root8.right;
-        root9.right = new TreeNode(1078);
-        root9.right.parent = root9;
-        
-        TreeNode root10 = root5.right;
-        root10.left = new TreeNode(160);
-        root10.left.parent = root10;
-        
-        TreeNode root11 = root10.left;
-        root11.left = new TreeNode(155);
-        root11.left.parent = root11;
-        
-        TreeNode root12 = root11.left;
-        root12.left = new TreeNode(156);
-        root12.left.parent = root12;
-        
-        TreeNode root13 = root10.left;
-        root13.right = new TreeNode(149);
-        root13.right.parent = root13;
-        
-        TreeNode root14 = root13.right;
-        root14.left = new TreeNode(165);
-        root14.left.parent = root14;
-        
-        FirstCommonAncester fc = new FirstCommonAncester();
-        
-        TreeNode t = fc.findCommonAncester(root9.right, root14.left);
-        
-        System.out.println(t == null? null : t.getData());
+        Node temp = start;
+        int count = 0;
+        while(temp != null)
+        {
+            if(temp == key)
+              return -1;  
+            count++;
+            temp = temp.parent;
+        }
+        return count;
     }
+    */
+    /*
+    // *** O(N) *** 50% faster.
+    public Node lowestCommonAncestor(Node p, Node q) {     
+        List<Node> pathP = new ArrayList<>();
+        Node temp = p;
+        while(temp != null)
+        {
+            pathP.add(temp);
+            temp = temp.parent;
+        }
+        temp = q;
+        List<Node> pathQ = new ArrayList<>();
+        while(temp != null)
+        {
+            pathQ.add(temp);
+            temp = temp.parent;
+        }
+        //Node anc = q;
+        int i = pathP.size() - 1, j = pathQ.size() - 1;
+        while(i >= 0  && j >= 0)
+        {
+            if(pathP.get(i).val != pathQ.get(j).val)
+            {                
+                return pathP.get(i + 1);
+            }         
+            i--; j--;
+        }
+        return (pathP.size() > pathQ.size()?pathP.get(i + 1):pathQ.get(j + 1));
+    }
+    // // Above algorithm can also be implemented as :
+    //Set<Node> set = new HashSet<Node>();
+    //while(p!=null && set.add(p)) p = p.parent;
+    //while(q != null && !set.contains(q)) q = q.parent;
+    //return q;
+    */
 }
