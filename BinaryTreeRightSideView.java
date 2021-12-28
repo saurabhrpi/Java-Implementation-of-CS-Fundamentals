@@ -14,7 +14,7 @@
  * }
  */
 class Solution {
-    // Best Solution. Recursive BFS. 100% faster.
+    // Best Solution. Recursive DFS. 100% faster.
     public List<Integer> rightSideView(TreeNode root) {        
         List<Integer> result = new LinkedList<>();
         helper(root, result, 0);
