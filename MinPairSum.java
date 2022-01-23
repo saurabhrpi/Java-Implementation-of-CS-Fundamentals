@@ -1,4 +1,6 @@
 // Leetcode problem #1877
+// Slightly better solution at : https://leetcode.com/problems/minimize-maximum-pair-sum-in-array/discuss/1380693/simple-java-O(n)-solution-runtime-7ms-beats-100
+
 class Solution {
     
     public int minPairSum(int[] nums) {
