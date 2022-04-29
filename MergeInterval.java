@@ -1,6 +1,6 @@
 class Solution {
     public int[][] merge(int[][] intervals) {
-        Map<Integer,List<Integer>> startToInd = new HashMap<>();
+        Map<Integer,List<Integer>> startToInd = new HashMap<>();// Tracking starts of elements using its index
         int[] starts = new int[intervals.length]; // to hold the first element of all tuples for sorting.
         
         // store first element's index as element may change positions after sorting.
@@ -34,12 +34,14 @@ class Solution {
             }
             i--;
         }
-        int ignore = 0;        
+        int ignore = 0;// count of the intervals in original array to be ignored for the final result.   
+        
         for(int i = 0; i < newIntervals.length; i++)
         {           
             if(i < newIntervals.length - 1)
             {   
                 int nextStart = newIntervals[i + 1][0];                            
+                // merge the two consecutive intervals.
                 if(newIntervals[i][0] <= nextStart && nextStart <= newIntervals[i][1])
                 {
                     if(newIntervals[i + 1][1] < newIntervals[i][1])
@@ -47,13 +49,9 @@ class Solution {
                     newIntervals[i + 1][0] = newIntervals[i][0];
                     newIntervals[i][0] = -1;
                     newIntervals[i][1] = -1;   
+                    ignore++;
                 }                
-            }
-            if(newIntervals[i][0] == -1 && newIntervals[i][1] == -1)
-            {
-                ignore++;
-                continue;
-            }
+            }            
         }
         int[][] result = new int[newIntervals.length - ignore][2];
         int j = 0;
