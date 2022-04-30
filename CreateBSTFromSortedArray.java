@@ -18,7 +18,8 @@ class Solution {
         return createBST(nums, 0, nums.length - 1);
     }
     
-    // At every level we only care about creating the node for middle of the range passed
+    // At every level we only care about creating the node for middle of the range passed.
+    // This also takes care of height balancing.
     public TreeNode createBST(int[] nums, int left, int right)
     {
         // when we dont have a child node
