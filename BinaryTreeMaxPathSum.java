@@ -14,44 +14,22 @@
  * }
  */
 class Solution {
-    Integer biggestFixedPathVal = Integer.MIN_VALUE;
+    int maxValue;
     public int maxPathSum(TreeNode root) {        
-        int max = helper(root);        
-        return Math.max(max,biggestFixedPathVal);      
+        maxValue = Integer.MIN_VALUE;
+        maxPathDown(root);
+        return maxValue;
     }    
     
-    public Integer helper(TreeNode root)
-    {
-        if(root == null)
-            return null;        
-        Integer lSum = helper(root.left); 
-        Integer rSum = helper(root.right); 
-        int val = root.val;
-        int max = val;
-        if(lSum != null && rSum != null)
-        {
-           max = Math.max(val, Math.max(val + lSum, val + rSum));                         
-           if(lSum > max && lSum > biggestFixedPathVal)
-               biggestFixedPathVal = lSum;
-            if(rSum > max && rSum > biggestFixedPathVal)
-                biggestFixedPathVal = rSum;
-           if(val + rSum + lSum > max && val + rSum + lSum > biggestFixedPathVal)
-           {          
-               biggestFixedPathVal = val + rSum + lSum;
-           }               
-        }                                
-        else if(lSum != null )
-        {
-            max = Math.max(val,  val + lSum);
-            if(lSum > max && lSum > biggestFixedPathVal)
-                biggestFixedPathVal = lSum;
-        }            
-        else if(rSum != null )
-        {
-            max = Math.max(val, val + rSum);   
-            if(rSum > max && rSum > biggestFixedPathVal)
-                biggestFixedPathVal = rSum;
-        }     
-        return max;
+    // clean and concise
+    private int maxPathDown(TreeNode node) {
+        if (node == null) return 0;
+        int left = Math.max(0, maxPathDown(node.left));
+        int right = Math.max(0, maxPathDown(node.right));
+        maxValue = Math.max(maxValue, left + right + node.val);
+        System.out.println("maxvalue set to " + maxValue);
+        System.out.println("returning " + (Math.max(left, right) + node.val));
+        // root can only be summed with one of the children
+        return Math.max(left, right) + node.val; 
     }
 }
