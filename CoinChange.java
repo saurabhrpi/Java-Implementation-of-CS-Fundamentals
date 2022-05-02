@@ -37,7 +37,7 @@ class Solution {
             System.out.println("Passing (amount - coin) as new amount = " + (amount - coin));
             int res = coinChange(coins, amount - coin, count);
             System.out.println("res returned = " + res + " for amount passed = " + (amount - coin) + ", actual amount = " + amount + " and coin = " + coin);
-            if(res >= 0 && res < min)
+            if(res >= 0 && (res + 1) < min)
                 min = 1 + res; // 1 here is the coin we deducted when we passed (amount - coin) to coinChange().
             System.out.println("min is now " + min);
         }
