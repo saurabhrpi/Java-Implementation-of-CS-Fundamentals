@@ -10,20 +10,19 @@ class Solution {
     }   
     
         /* Call stack with values outside () representing amount, inside () rep. coin while inside [] represent values returned.
-                        11
-                    (1)/
-                      10
-                  (1)/
-                   ..
-               (1)/
-                 2. min is 2. After calling for coin = 2, it becomes 1.
-          (1) /[1]   \(2),[0]    \ (5),[-1]       
-             /         0          -3
-            1         
-  (1)/[1] |(2),[0] \(-5),[0]        
-    0    -1          -4 
-        */
-    
+                                11
+                            (1)/
+                              10
+                          (1)/
+                           ..
+                       (1)/
+                         2. min is 2. After calling for coin = 2, it becomes 1.
+                  (1) /[1]   \(2),[0]    \ (5),[-1]       
+                     /         0          -3
+                    1         
+          (1)/[0] |(2),[-1] \(-5),[-1]        
+            0    -1          -4 
+        */    
     public int coinChange(int[] coins, int amount, int[] count)
     {        
         if(amount < 0) return -1;
